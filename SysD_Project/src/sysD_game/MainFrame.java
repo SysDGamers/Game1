@@ -11,6 +11,7 @@ public class MainFrame implements KeyListener, Runnable{
 	int FRAME_WIDTH = frameInfo.MainFrameWidth;
 	int FRAME_HEIGHT = frameInfo.MainFrameHeight;
 	MainPanel p1;
+	BackGroundPanel bgp;
 	Thread mainThread;
 	// Flag for pressed keys
 	boolean left = false;
@@ -22,14 +23,17 @@ public class MainFrame implements KeyListener, Runnable{
 		JFrame frame = new JFrame();
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		frame.setTitle("Game Test");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		bgp = new BackGroundPanel();
+		bgp.drawObstacles();	
+		
 		p1 = new MainPanel();
-		// Defeasance layout manager
-		p1.setLayout(null);
 		p1.drawCharacters();
+		p1.setBounds(230, 230, 40, 40);
+		//bgp.add(p1);
 		
 		Container content = frame.getContentPane();
-		content.add(p1);
+		content.add(bgp);
 		
 		frame.addKeyListener(this);
 		// Calls for the main Thread
@@ -48,7 +52,7 @@ public class MainFrame implements KeyListener, Runnable{
 	// Main Thread
 	public void run() {
 		while (true) {
-			this.p1.chara.moveCharacter();
+			this.bgp.moveObstacles();
 			
 			try {
 				Thread.sleep(10);
@@ -75,21 +79,21 @@ public class MainFrame implements KeyListener, Runnable{
 		}
 		
 		if (left == true && up == true) {
-			p1.chara.goLeftUp();
+			bgp.goLeftUp();
 		} else if (left == true && down == true) {
-			p1.chara.goLeftDown();
+			bgp.goLeftDown();
 		} else if (right == true && up == true) {
-			p1.chara.goRightUp();
+			bgp.goRightUp();
 		} else if (right == true && down == true) {
-			p1.chara.goRightDown();
+			bgp.goRightDown();
 		} else if (left == true) {
-			p1.chara.goLeft();
+			bgp.goLeft();
 		} else if (right == true) {
-			p1.chara.goRight();
+			bgp.goRight();
 		} else if (up == true) {
-			p1.chara.goUp();
+			bgp.goUp();
 		} else if (down == true) {
-			p1.chara.goDown();
+			bgp.goDown();
 		}
 	}
 	

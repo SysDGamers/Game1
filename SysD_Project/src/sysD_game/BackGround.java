@@ -1,12 +1,5 @@
 package sysD_game;
 
-import java.awt.Dimension;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class BackGround extends JLabel{
@@ -18,7 +11,11 @@ public class BackGround extends JLabel{
 	int delta_x = 10;
 	int delta_y = 10;
 	
-	public void moveObstacle() {
+	public void load() {
+
+	}
+	
+	public void move() {
 		this.setBounds(x, y, pic_width, pic_height);
 	}
 	

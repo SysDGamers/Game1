@@ -11,8 +11,8 @@ import javax.swing.JLabel;
 
 public class Character extends JLabel{
 	
-	int x = 230;
-	int y = 230;
+	int x = 0;
+	int y = 0;
 	int pic_width = 40;
 	int pic_height = 40;
 	int delta_x = 10;
@@ -27,7 +27,7 @@ public class Character extends JLabel{
 			e.printStackTrace();
 		}
 		this.setIcon(new ImageIcon(image));
-		this.setPreferredSize(new Dimension(100, 100));
+		this.setPreferredSize(new Dimension(40, 40));
 		this.setBounds(x, y, pic_width, pic_height);
 	}
 	
