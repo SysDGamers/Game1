@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class Character extends JLabel{
-	
+	//Git test
 	int x = 10;
 	int y = 10;
 	int pic_width = 100;
