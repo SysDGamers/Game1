@@ -68,7 +68,6 @@ public class BackGroundPanel extends JPanel{
 		int y = yAxis;
 		for (int i = 0; i < 50; i++) {
 			for (int ii = 0; ii < 50; ii++) {
-				System.out.println(hitDistinguisher[i][ii]);
 				if (hitDistinguisher[i][ii] == 1) {
 					allMap[i][ii] = new Obstacle(x,y);
 				} else {
