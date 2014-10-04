@@ -12,7 +12,7 @@ public class BackGroundPanel extends JPanel{
 		this.setOpaque(true);
 	}
 		
-	public void drawCharacter() {
+	public void drawObstacles() {
 		
 	}
 	

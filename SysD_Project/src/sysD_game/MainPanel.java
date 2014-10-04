@@ -9,11 +9,10 @@ public class MainPanel extends JPanel{
 	public Character chara = new Character();
 	
 	public MainPanel() {
-		this.setBackground(Color.black);
 		this.setOpaque(true);
 	}
 		
-	public void drawCharacter() {
+	public void drawCharacters() {
 		chara.loadCharacter();
 		this.add(chara);
 	}

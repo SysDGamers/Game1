@@ -25,12 +25,13 @@ public class MainFrame implements KeyListener, Runnable{
 		p1 = new MainPanel();
 		// Defeasance layout manager
 		p1.setLayout(null);
-		p1.drawCharacter();
+		p1.drawCharacters();
 		
 		Container content = frame.getContentPane();
 		content.add(p1);
 		
 		frame.addKeyListener(this);
+		// Calls for the main Thread
 		startMovin();
 		
 		// For Mac this must be stated after adding panels to the frame
@@ -39,11 +40,11 @@ public class MainFrame implements KeyListener, Runnable{
 	
 
 	private void startMovin() {
-		//p1.letsGetMovin();
 		mainThread = new Thread(this);
 		mainThread.start();
 	}
 	
+	// Main Thread
 	public void run() {
 		while (true) {
 			this.p1.chara.moveCharacter();
