@@ -6,10 +6,11 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
-public class MainFrame implements KeyListener{
+public class MainFrame implements KeyListener, Runnable{
 	int FRAME_WIDTH = 500;
 	int FRAME_HEIGHT = 500;
 	MainPanel p1;
+	Thread mainThread;
 	// Flag for pressed keys
 	boolean left = false;
 	boolean right = false;
@@ -28,9 +29,9 @@ public class MainFrame implements KeyListener{
 		
 		Container content = frame.getContentPane();
 		content.add(p1);
-
-		p1.letsGetMovin();
+		
 		frame.addKeyListener(this);
+		startMovin();
 		
 		// For Mac this must be stated after adding panels to the frame
 		frame.setVisible(true);
@@ -38,7 +39,21 @@ public class MainFrame implements KeyListener{
 	
 
 	private void startMovin() {
-		p1.letsGetMovin();
+		//p1.letsGetMovin();
+		mainThread = new Thread(this);
+		mainThread.start();
+	}
+	
+	public void run() {
+		while (true) {
+			this.p1.chara.moveCharacter();
+			
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void keyPressed(KeyEvent e) {
