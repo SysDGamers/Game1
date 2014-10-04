@@ -8,8 +8,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-public class Obstacle extends BackGround{
-	public void Obstacle(int startX, int startY) {
+public class Empty extends BackGround{
+	public void Empty(int startX, int startY) {
 		x = startX;
 		y = startY;
 	}
@@ -18,7 +18,7 @@ public class Obstacle extends BackGround{
 		// Adding Images
 		BufferedImage image = null;
 		try {
-			image = ImageIO.read(new File("src/obs.png"));
+			image = ImageIO.read(new File("src/empty.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

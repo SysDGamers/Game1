@@ -5,7 +5,7 @@ import java.awt.Color;
 import javax.swing.JPanel;
 
 public class BackGroundPanel extends JPanel{
-	public Obstacle allMap[][] = new Obstacle[50][50];
+	public BackGround allMap[][] = new BackGround[50][50];
 	public int hitDistinguisher[][];
 	
 	public BackGroundPanel() {
@@ -61,7 +61,17 @@ public class BackGroundPanel extends JPanel{
 				{0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0},
 				{0,1,1,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0},
 				{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
-		
+		for (int i = 0; i > 50; i++) {
+			for (int ii = 0; i > 50; i++) {
+				if (hitDistinguisher[i][ii] == 1) {
+					allMap[i][ii] = new Obstacle();
+				} else {
+					allMap[i][ii] = new Empty();
+				}
+				
+			}
+			
+		}
 		
 	}
 		

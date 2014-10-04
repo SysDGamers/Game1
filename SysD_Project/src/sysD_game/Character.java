@@ -11,10 +11,10 @@ import javax.swing.JLabel;
 
 public class Character extends JLabel{
 	
-	int x = 10;
-	int y = 10;
-	int pic_width = 100;
-	int pic_height = 100;
+	int x = 230;
+	int y = 230;
+	int pic_width = 40;
+	int pic_height = 40;
 	int delta_x = 10;
 	int delta_y = 10;
 	
@@ -22,7 +22,7 @@ public class Character extends JLabel{
 		// Adding Images
 		BufferedImage image = null;
 		try {
-			image = ImageIO.read(new File("src/pram3.png"));
+			image = ImageIO.read(new File("src/pram1.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
