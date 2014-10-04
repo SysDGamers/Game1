@@ -7,8 +7,9 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 
 public class MainFrame implements KeyListener, Runnable{
-	int FRAME_WIDTH = 500;
-	int FRAME_HEIGHT = 500;
+	FrameInfo frameInfo = new FrameInfo();
+	int FRAME_WIDTH = frameInfo.MainFrameWidth;
+	int FRAME_HEIGHT = frameInfo.MainFrameHeight;
 	MainPanel p1;
 	Thread mainThread;
 	// Flag for pressed keys
