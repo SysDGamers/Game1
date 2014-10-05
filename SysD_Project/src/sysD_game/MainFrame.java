@@ -25,14 +25,14 @@ public class MainFrame implements KeyListener, Runnable{
 		frame.setTitle("Game Test");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		bgp = new BackGroundPanel();
-		bgp.drawObstacles();	
+		bgp.drawObstacles();
 		
 		p1 = new MainPanel();
 		p1.drawCharacters();
 		p1.setBounds(230, 230, 40, 40);
-		//bgp.add(p1);
 		
 		Container content = frame.getContentPane();
+		content.add(p1);
 		content.add(bgp);
 		
 		frame.addKeyListener(this);
@@ -53,6 +53,7 @@ public class MainFrame implements KeyListener, Runnable{
 	public void run() {
 		while (true) {
 			this.bgp.moveObstacles();
+			this.p1.drawCharacters();
 			
 			try {
 				Thread.sleep(10);
