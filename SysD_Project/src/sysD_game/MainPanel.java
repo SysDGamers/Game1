@@ -18,72 +18,72 @@ import javax.swing.JPanel;
  *  
  */
 public class MainPanel extends JPanel implements Runnable, KeyListener {
-    // ƒpƒlƒ‹ƒTƒCƒY
+    // ãƒ‘ãƒãƒ«ã‚µã‚¤ã‚º
     public static final int WIDTH = 640;
     public static final int HEIGHT = 480;
 
-    // ƒ}ƒbƒv
+    // ãƒãƒƒãƒ—
     private Map map;
 
-    // ƒvƒŒƒCƒ„[
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
     private Player player;
 
-    // ƒL[‚Ìó‘Ôi‰Ÿ‚³‚ê‚Ä‚¢‚é‚©A‰Ÿ‚³‚ê‚Ä‚È‚¢‚©j
+    // ã‚­ãƒ¼ã®çŠ¶æ…‹ï¼ˆæŠ¼ã•ã‚Œã¦ã„ã‚‹ã‹ã€æŠ¼ã•ã‚Œã¦ãªã„ã‹ï¼‰
     private boolean leftPressed;
     private boolean rightPressed;
     private boolean upPressed;
 
-    // ƒQ[ƒ€ƒ‹[ƒv—pƒXƒŒƒbƒh
+    // ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ç”¨ã‚¹ãƒ¬ãƒƒãƒ‰
     private Thread gameLoop;
 
     public MainPanel() {
-        // ƒpƒlƒ‹‚Ì„§ƒTƒCƒY‚ğİ’èApack()‚·‚é‚Æ‚«‚É•K—v
+        // ãƒ‘ãƒãƒ«ã®æ¨å¥¨ã‚µã‚¤ã‚ºã‚’è¨­å®šã€pack()ã™ã‚‹ã¨ãã«å¿…è¦
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        // ƒpƒlƒ‹‚ªƒL[“ü—Í‚ğó‚¯•t‚¯‚é‚æ‚¤‚É‚·‚é
+        // ãƒ‘ãƒãƒ«ãŒã‚­ãƒ¼å…¥åŠ›ã‚’å—ã‘ä»˜ã‘ã‚‹ã‚ˆã†ã«ã™ã‚‹
         setFocusable(true);
 
-        // ƒ}ƒbƒv‚ğì¬
+        // ãƒãƒƒãƒ—ã‚’ä½œæˆ
         map = new Map("map01.dat");
 
-        // ƒvƒŒƒCƒ„[‚ğì¬
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ä½œæˆ
         player = new Player(192, 32, map);
 
-        // ƒL[ƒCƒxƒ“ƒgƒŠƒXƒi[‚ğ“o˜^
+        // ã‚­ãƒ¼ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼ã‚’ç™»éŒ²
         addKeyListener(this);
 
-        // ƒQ[ƒ€ƒ‹[ƒvŠJn
+        // ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—é–‹å§‹
         gameLoop = new Thread(this);
         gameLoop.start();
     }
 
     /**
-     * ƒQ[ƒ€ƒ‹[ƒv
+     * ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—
      */
     public void run() {
         while (true) {
             if (leftPressed) {
-                // ¶ƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚ê‚Î¶Œü‚«‚É‰Á‘¬
+                // å·¦ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ã‚Œã°å·¦å‘ãã«åŠ é€Ÿ
                 player.accelerateLeft();
             } else if (rightPressed) {
-                // ‰EƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚ê‚Î‰EŒü‚«‚É‰Á‘¬
+                // å³ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ã‚Œã°å³å‘ãã«åŠ é€Ÿ
                 player.accelerateRight();
             } else {
-                // ‰½‚à‰Ÿ‚³‚ê‚Ä‚È‚¢‚Æ‚«‚Í’â~
+                // ä½•ã‚‚æŠ¼ã•ã‚Œã¦ãªã„ã¨ãã¯åœæ­¢
                 player.stop();
             }
 
             if (upPressed) {
-                // ƒWƒƒƒ“ƒv‚·‚é
+                // ã‚¸ãƒ£ãƒ³ãƒ—ã™ã‚‹
                 player.jump();
             }
 
-            // ƒvƒŒƒCƒ„[‚Ìó‘Ô‚ğXV
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹ã‚’æ›´æ–°
             player.update();
 
-            // Ä•`‰æ
+            // å†æç”»
             repaint();
 
-            // ‹x~
+            // ä¼‘æ­¢
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e) {
@@ -93,40 +93,40 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
     }
 
     /**
-     * •`‰æˆ—
+     * æç”»å‡¦ç†
      * 
-     * @param •`‰æƒIƒuƒWƒFƒNƒg
+     * @param æç”»ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
      */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // ”wŒi‚ğ•‚Å“h‚è‚Â‚Ô‚·
+        // èƒŒæ™¯ã‚’é»’ã§å¡—ã‚Šã¤ã¶ã™
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        // X•ûŒü‚ÌƒIƒtƒZƒbƒg‚ğŒvZ
+        // Xæ–¹å‘ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—
         int offsetX = MainPanel.WIDTH / 2 - (int)player.getX();
-        // ƒ}ƒbƒv‚Ì’[‚Å‚ÍƒXƒNƒ[ƒ‹‚µ‚È‚¢‚æ‚¤‚É‚·‚é
+        // ãƒãƒƒãƒ—ã®ç«¯ã§ã¯ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã—ãªã„ã‚ˆã†ã«ã™ã‚‹
         offsetX = Math.min(offsetX, 0);
         offsetX = Math.max(offsetX, MainPanel.WIDTH - map.getWidth());
 
-        // Y•ûŒü‚ÌƒIƒtƒZƒbƒg‚ğŒvZ
+        // Yæ–¹å‘ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—
         int offsetY = MainPanel.HEIGHT / 2 - (int)player.getY();
-        // ƒ}ƒbƒv‚Ì’[‚Å‚ÍƒXƒNƒ[ƒ‹‚µ‚È‚¢‚æ‚¤‚É‚·‚é
+        // ãƒãƒƒãƒ—ã®ç«¯ã§ã¯ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã—ãªã„ã‚ˆã†ã«ã™ã‚‹
         offsetY = Math.min(offsetY, 0);
         offsetY = Math.max(offsetY, MainPanel.HEIGHT - map.getHeight());
 
-        // ƒ}ƒbƒv‚ğ•`‰æ
+        // ãƒãƒƒãƒ—ã‚’æç”»
         map.draw(g, offsetX, offsetY);
 
-        // ƒvƒŒƒCƒ„[‚ğ•`‰æ
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’æç”»
         player.draw(g, offsetX, offsetY);
     }
 
     /**
-     * ƒL[‚ª‰Ÿ‚³‚ê‚½‚çƒL[‚Ìó‘Ô‚ğu‰Ÿ‚³‚ê‚½v‚É•Ï‚¦‚é
+     * ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã‚­ãƒ¼ã®çŠ¶æ…‹ã‚’ã€ŒæŠ¼ã•ã‚ŒãŸã€ã«å¤‰ãˆã‚‹
      * 
-     * @param e ƒL[ƒCƒxƒ“ƒg
+     * @param e ã‚­ãƒ¼ã‚¤ãƒ™ãƒ³ãƒˆ
      */
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -143,9 +143,9 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
     }
 
     /**
-     * ƒL[‚ª—£‚³‚ê‚½‚çƒL[‚Ìó‘Ô‚ğu—£‚³‚ê‚½v‚É•Ï‚¦‚é
+     * ã‚­ãƒ¼ãŒé›¢ã•ã‚ŒãŸã‚‰ã‚­ãƒ¼ã®çŠ¶æ…‹ã‚’ã€Œé›¢ã•ã‚ŒãŸã€ã«å¤‰ãˆã‚‹
      * 
-     * @param e ƒL[ƒCƒxƒ“ƒg
+     * @param e ã‚­ãƒ¼ã‚¤ãƒ™ãƒ³ãƒˆ
      */
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();

@@ -15,17 +15,17 @@ import javax.swing.JFrame;
  */
 public class Main extends JFrame {
     public Main() {
-        // ƒ^ƒCƒgƒ‹‚ğİ’è
-        setTitle("ƒ}ƒbƒv‚Ì“Ç‚İ‚İ");
-        // ƒTƒCƒY•ÏX•s‰Â
+        // ã‚¿ã‚¤ãƒˆãƒ«ã‚’è¨­å®š
+        setTitle("ãƒãƒƒãƒ—ã®èª­ã¿è¾¼ã¿");
+        // ã‚µã‚¤ã‚ºå¤‰æ›´ä¸å¯
         setResizable(false);
 
-        // ƒƒCƒ“ƒpƒlƒ‹‚ğì¬‚µ‚ÄƒtƒŒ[ƒ€‚É’Ç‰Á
+        // ãƒ¡ã‚¤ãƒ³ãƒ‘ãƒãƒ«ã‚’ä½œæˆã—ã¦ãƒ•ãƒ¬ãƒ¼ãƒ ã«è¿½åŠ 
         MainPanel panel = new MainPanel();
         Container contentPane = getContentPane();
         contentPane.add(panel);
 
-        // ƒpƒlƒ‹ƒTƒCƒY‚É‡‚í‚¹‚ÄƒtƒŒ[ƒ€ƒTƒCƒY‚ğ©“®İ’è
+        // ãƒ‘ãƒãƒ«ã‚µã‚¤ã‚ºã«åˆã‚ã›ã¦ãƒ•ãƒ¬ãƒ¼ãƒ ã‚µã‚¤ã‚ºã‚’è‡ªå‹•è¨­å®š
         pack();
     }
 
