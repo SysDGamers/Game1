@@ -66,6 +66,12 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 	 */
 	public void run() {
 		while (true) {
+			if(escape){
+				inventory.show();
+			} else if (!escape){
+				inventory.hide();
+			}
+
 			if (leftPressed) {
 				// 左キーが押されていれば左向きに加速
 				player.accelerateLeft();
@@ -82,11 +88,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 				player.jump();
 			}
 			//
-			if(escape){
-				inventory.show();
-			}else if(!escape){
-				inventory.hide();
-			}
+
 
 			// プレイヤーの状態を更新
 			player.update();
@@ -102,8 +104,6 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 			}
 		}
 	}
-
-
 	/**
 	 * 描画処理
 	 *
@@ -155,7 +155,11 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 			upPressed = true;
 		}
 		if (key == KeyEvent.VK_I){
-			escape = true;
+			if(escape){
+			escape = false;
+			}else if(!escape){
+				escape = true;
+			}
 		}
 		if (key == KeyEvent.VK_ESCAPE){
 			escape = false;
