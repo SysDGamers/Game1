@@ -194,7 +194,7 @@ public class Player {
      */
     private void loadImage() {
         ImageIcon icon = new ImageIcon(getClass().getResource(
-                "image/player_01.gif"));
+                "image/char_01.gif"));
         image = icon.getImage();
     }
     
