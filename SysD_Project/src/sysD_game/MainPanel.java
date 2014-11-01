@@ -32,8 +32,8 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 	// テキスト
 	private Text text;
 	// プレイヤー
-	private Character player;
-
+	private Player player;
+	private Enemy enemy;
 	// キーの状態（押されているか、押されてないか）
 	private boolean leftPressed;
 	private boolean rightPressed;
@@ -52,7 +52,8 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 		map = new Map("map01.dat");
 
 		// プレイヤーを作成
-		player = new Character(192, 32, map);
+		player = new Player(192, 32, map);
+		enemy = new Enemy(400, 32, map);
 
 		// キーイベントリスナーを登録
 		addKeyListener(this);
@@ -95,7 +96,8 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 
 			// プレイヤーの状態を更新
 			player.update();
-
+			enemy.update();
+			
 			// 再描画
 			repaint();
 
@@ -136,7 +138,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 
 		// プレイヤーを描画
 		player.draw(g, offsetX, offsetY);
-
+		enemy.draw(g, offsetX, offsetY);
 		inventory.draw(g);
 		text.draw(g);
 		

@@ -24,30 +24,23 @@ public class Character {
     private static final int SPEED = 6;
     // ジャンプ力
     private static final int JUMP_SPEED = 12;
-
     // 方向
     private static final int RIGHT = 0;
     private static final int LEFT = 1;
-
     // 位置
     private double x;
     private double y;
-
     // 速度
     private double vx;
     private double vy;
-    
     // 着地しているか
     private boolean onGround;
-
     // 向いている方向
     private int dir;
     // アニメーション用カウンタ
     private int count;
-
     // プレイヤー画像
     private Image image;
-
     // マップへの参照
     private Map map;
 
@@ -58,6 +51,11 @@ public class Character {
         this.x = x;
         this.y = y;
         this.map = map;
+        
+        init();
+    }
+    
+    public void init(){
         vx = 0;
         vy = 0;
         onGround = false;
@@ -202,7 +200,7 @@ public class Character {
     }
     
     // アニメーション用スレッド
-    private class AnimationThread extends Thread {
+    public class AnimationThread extends Thread {
         public void run() {
             while (true) {
                 // countを切り替える
