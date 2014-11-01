@@ -29,6 +29,8 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 	//ウインドウ
 	private Inventory inventory;
 	private static Rectangle WIND_RECT = new Rectangle(100, 450, 600,100);
+	// テキスト
+	private Text text;
 	// プレイヤー
 	private Character player;
 
@@ -56,6 +58,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 		addKeyListener(this);
 		inventory = new Inventory(WIND_RECT);
 
+		text = new Text();
 		// ゲームループ開始
 		gameLoop = new Thread(this);
 		gameLoop.start();
@@ -135,6 +138,8 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 		player.draw(g, offsetX, offsetY);
 
 		inventory.draw(g);
+		text.draw(g);
+		
 	}
 
 	/**
