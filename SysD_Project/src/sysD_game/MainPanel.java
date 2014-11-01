@@ -30,7 +30,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 	private Inventory inventory;
 	private static Rectangle WIND_RECT = new Rectangle(100, 450, 600,100);
 	// プレイヤー
-	private Player player;
+	private Character player;
 
 	// キーの状態（押されているか、押されてないか）
 	private boolean leftPressed;
@@ -50,7 +50,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 		map = new Map("map01.dat");
 
 		// プレイヤーを作成
-		player = new Player(192, 32, map);
+		player = new Character(192, 32, map);
 
 		// キーイベントリスナーを登録
 		addKeyListener(this);

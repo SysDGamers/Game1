@@ -146,7 +146,7 @@ public class Map {
      * @param newY Y座標
      * @return 衝突するブロックの座標
      */
-    public Point getTileCollision(Player player, double newX, double newY) {
+    public Point getTileCollision(Character player, double newX, double newY) {
         // 小数点以下切り上げ
         // 浮動小数点の関係で切り上げしないと衝突してないと判定される場合がある
         newX = Math.ceil(newX);
@@ -159,8 +159,8 @@ public class Map {
         
         int fromTileX = pixelsToTiles(fromX);
         int fromTileY = pixelsToTiles(fromY);
-        int toTileX = pixelsToTiles(toX + Player.WIDTH - 1);
-        int toTileY = pixelsToTiles(toY + Player.HEIGHT - 1);
+        int toTileX = pixelsToTiles(toX + Character.WIDTH - 1);
+        int toTileY = pixelsToTiles(toY + Character.HEIGHT - 1);
 
         // 衝突しているか調べる
         for (int x = fromTileX; x <= toTileX; x++) {
