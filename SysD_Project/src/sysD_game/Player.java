@@ -9,4 +9,8 @@ import javax.swing.ImageIcon;
 
 public class Player extends Character{
 
+	public Player() {
+
+	}
+
 }

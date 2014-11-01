@@ -58,7 +58,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 		addKeyListener(this);
 		inventory = new Inventory(WIND_RECT);
 
-		text = new Text();
+		text = new Text(WIND_RECT);		//テキストはいずれキャラに埋めるかも
 		// ゲームループ開始
 		gameLoop = new Thread(this);
 		gameLoop.start();
