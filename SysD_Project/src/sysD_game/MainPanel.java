@@ -145,13 +145,13 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 
-		if (key == KeyEvent.VK_LEFT) {
+		if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
 			leftPressed = true;
 		}
-		if (key == KeyEvent.VK_RIGHT) {
+		if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
 			rightPressed = true;
 		}
-		if (key == KeyEvent.VK_UP) {
+		if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
 			upPressed = true;
 		}
 		if (key == KeyEvent.VK_I){
@@ -175,13 +175,13 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 
-		if (key == KeyEvent.VK_LEFT) {
+		if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
 			leftPressed = false;
 		}
-		if (key == KeyEvent.VK_RIGHT) {
+		if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
 			rightPressed = false;
 		}
-		if (key == KeyEvent.VK_UP) {
+		if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
 			upPressed = false;
 		}
 
