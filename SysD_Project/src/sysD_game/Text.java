@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import javax.swing.JTextArea;
+
 public class Text {
 
 	private static final int EDGE_WIDTH = 2;
@@ -30,6 +32,8 @@ public class Text {
 
 		g.setColor(Color.BLACK);
 		g.fillRect(innerRect.x, innerRect.y, innerRect.width, innerRect.height);
+		
+
 		
 		Font f=new Font("TimesRoman",Font.ITALIC,20);
 		g.setFont(f);

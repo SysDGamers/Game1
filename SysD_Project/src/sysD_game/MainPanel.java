@@ -25,7 +25,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 	private Inventory inventory;
 	private static Rectangle WIND_RECT = new Rectangle(100, 450, 600,100);
 	// テキスト
-	private Text text;
+	private TextPopUp textpop;
 	// プレイヤー
 	private Player player;
 	private Enemy enemy;
@@ -34,6 +34,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 	private boolean rightPressed;
 	private boolean upPressed;
 	private boolean escape;
+	private boolean quote;
 	// マウスの状態
 	public boolean mousepressed;
 	public Point point;
@@ -45,6 +46,8 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		// パネルがキー入力を受け付けるようにする
 		setFocusable(true);
+		
+		setLayout(null);
 
 		// マップを作成
 		map = new Map("map01.dat");
@@ -57,7 +60,8 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		addKeyListener(this);
 		addMouseListener(this);
 		inventory = new Inventory(WIND_RECT);
-		text = new Text(WIND_RECT);		//テキストはいずれキャラに埋めるかも
+		textpop = new TextPopUp(WIND_RECT);
+		this.add(textpop);
 		// ゲームループ開始
 		gameLoop = new Thread(this);
 		gameLoop.start();
@@ -72,6 +76,11 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 				inventory.show();
 			} else if (!escape){
 				inventory.hide();
+			}
+			if (quote) {
+				textpop.show();
+			} else {
+				textpop.hide();
 			}
 
 			if (leftPressed) {
@@ -146,8 +155,6 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		player.draw(g, offsetX, offsetY);
 		enemy.draw(g, offsetX, offsetY);
 		inventory.draw(g);
-		text.draw(g);
-		
 	}
 
 	/**
@@ -169,7 +176,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		}
 		if (key == KeyEvent.VK_I){
 			if(escape){
-			escape = false;
+				escape = false;
 			}else if(!escape){
 				escape = true;
 			}
@@ -177,7 +184,17 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		if (key == KeyEvent.VK_ESCAPE){
 			escape = false;
 		}
-
+		if (key == KeyEvent.VK_Q) {
+			if (quote) {
+				quote = false;
+			} else {
+				quote = true;
+			}
+		}
+		if (key == KeyEvent.VK_0) {
+			textpop.changeText("へ　へ\nの　の\n　も　\n　へ");
+		}
+		
 	}
 
 	/**
@@ -211,7 +228,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 
 	public void mousePressed(MouseEvent e){
 		mousepressed = true;
-		point = e.getPoint();		
+		point = e.getPoint();
 	}
 
 	public void mouseReleased(MouseEvent e){
