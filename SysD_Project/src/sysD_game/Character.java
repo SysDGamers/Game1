@@ -6,15 +6,6 @@ import java.awt.Point;
 
 import javax.swing.ImageIcon;
 
-/*
- * Created on 2005/06/06
- *
- */
-
-/**
- * @author mori
- *  
- */
 public class Character {
 	// 幅
     public static final int WIDTH = 32;

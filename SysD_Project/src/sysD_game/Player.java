@@ -8,7 +8,6 @@ import javax.swing.ImageIcon;
 
 import sysD_game.Character.AnimationThread;
 
-
 public class Player extends Character{
     // スピード
     private static final int SPEED = 6;
@@ -204,5 +203,16 @@ public class Player extends Character{
                 }
             }
         }
+    }
+    
+    public void digObject(double x, double y, Map map){
+    	int tile_x = map.pixelsToTiles(x - MainPanel.offsetX);
+    	int tile_y = map.pixelsToTiles(y - MainPanel.offsetY);
+    	map.map[tile_y][tile_x] = 0;
+		/*確認用
+		 * System.out.println("X座標:" + x);
+		System.out.println("Y座標:" + y);
+		System.out.println("X座標:" + tile_x);
+		System.out.println("Y座標:" + tile_y);*/
     }
 }

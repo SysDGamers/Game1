@@ -4,15 +4,6 @@ import java.awt.Container;
 
 import javax.swing.JFrame;
 
-/*
- * Created on 2005/06/06
- *
- */
-
-/**
- * @author mori
- *
- */
 public class Main extends JFrame {
     public Main() {
         // タイトルを設定

@@ -8,15 +8,6 @@ import java.io.InputStreamReader;
 
 import javax.swing.ImageIcon;
 
-/*
- * Created on 2005/06/16
- *
- */
-
-/**
- * @author mori
- *  
- */
 public class Map {
     // タイルサイズ
     public static final int TILE_SIZE = 32;
@@ -45,7 +36,7 @@ public class Map {
     public static final int BLOCK_10_Y = 0; 
     
     // マップ
-    private int[][] map;
+    public int[][] map;
 
     // 行数
     private int row;

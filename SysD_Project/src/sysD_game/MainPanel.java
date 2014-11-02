@@ -3,29 +3,24 @@ package sysD_game;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-/*
- * Created on 2005/06/06
- *
- */
-
-/**
- * @author mori
- *
- */
-public class MainPanel extends JPanel implements Runnable, KeyListener {
+public class MainPanel extends JPanel implements Runnable, KeyListener, MouseListener {
 	// パネルサイズ
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
 
 	// マップ
 	private Map map;
-
+	public static int offsetX;
+	public static int offsetY;
 	//ウインドウ
 	private Inventory inventory;
 	private static Rectangle WIND_RECT = new Rectangle(100, 450, 600,100);
@@ -39,6 +34,9 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 	private boolean rightPressed;
 	private boolean upPressed;
 	private boolean escape;
+	// マウスの状態
+	public boolean mousepressed;
+	public Point point;
 	// ゲームループ用スレッド
 	private Thread gameLoop;
 
@@ -57,8 +55,8 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 
 		// キーイベントリスナーを登録
 		addKeyListener(this);
+		addMouseListener(this);
 		inventory = new Inventory(WIND_RECT);
-
 		text = new Text(WIND_RECT);		//テキストはいずれキャラに埋めるかも
 		// ゲームループ開始
 		gameLoop = new Thread(this);
@@ -91,6 +89,14 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 				// ジャンプする
 				player.jump();
 			}
+			
+			if (mousepressed == true){
+				double buf_x, buf_y;
+				buf_x = point.x;
+				buf_y = point.y;
+				player.digObject(buf_x, buf_y, map);
+				mousepressed = false;
+			}
 			//
 
 
@@ -122,13 +128,13 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		// X方向のオフセットを計算
-		int offsetX = MainPanel.WIDTH / 2 - (int)player.getX();
+		offsetX = MainPanel.WIDTH / 2 - (int)player.getX();
 		// マップの端ではスクロールしないようにする
 		offsetX = Math.min(offsetX, 0);
 		offsetX = Math.max(offsetX, MainPanel.WIDTH - map.getWidth());
 
 		// Y方向のオフセットを計算
-		int offsetY = MainPanel.HEIGHT / 2 - (int)player.getY();
+		offsetY = MainPanel.HEIGHT / 2 - (int)player.getY();
 		// マップの端ではスクロールしないようにする
 		offsetY = Math.min(offsetY, 0);
 		offsetY = Math.max(offsetY, MainPanel.HEIGHT - map.getHeight());
@@ -195,5 +201,23 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 	}
 
 	public void keyTyped(KeyEvent e) {
+	}
+	
+	public void mouseEntered(MouseEvent e){
+	}
+
+	public void mouseExited(MouseEvent e){
+	}
+
+	public void mousePressed(MouseEvent e){
+		mousepressed = true;
+		point = e.getPoint();		
+	}
+
+	public void mouseReleased(MouseEvent e){
+		mousepressed = false;
+	}
+
+	public void mouseClicked(MouseEvent e){
 	}
 }
