@@ -6,9 +6,11 @@ import java.awt.Point;
 
 import javax.swing.ImageIcon;
 
-import sysD_game.Character.AnimationThread;
-
-public class Player extends Character{
+public class Item {
+	// 幅
+    public static final int WIDTH = 32;
+    // 高さ
+    public static final int HEIGHT = 32;
     // スピード
     private static final int SPEED = 6;
     // ジャンプ力
@@ -30,24 +32,28 @@ public class Player extends Character{
     private int count;
     // プレイヤー画像
     private Image image;
-    // マップへの参照
     private Map map;
+    
+    public int item_alive = 0;
 
-	public Player(double x, double y, Map map) {
+    public Item() {
+    }
+    
+    public Item(double x, double y, Map map, int block_no) {
         this.x = x;
         this.y = y;
         this.map = map;
         
         init();
-	}
-	
+    }
+    
     public void init(){
-        vx = 0;
-        vy = 0;
+        vx = 5;
+        vy = 5;
         onGround = false;
         dir = RIGHT;
         count = 0;
-        
+        item_alive = 1;
         // イメージをロードする
         loadImage();
         
@@ -55,6 +61,7 @@ public class Player extends Character{
         AnimationThread thread = new AnimationThread();
         thread.start();
     }
+
     /**
      * 停止する
      */
@@ -101,7 +108,7 @@ public class Player extends Character{
         double newX = x + vx;
         // 移動先座標で衝突するタイルの位置を取得
         // x方向だけ考えるのでy座標は変化しないと仮定
-        Point tile = map.getTileCollision(this, newX, y);
+        Point tile = map.getTileCollision2(this, newX, y);
         if (tile == null) {
             // 衝突するタイルがなければ移動
             x = newX;
@@ -122,7 +129,7 @@ public class Player extends Character{
         double newY = y + vy;
         // 移動先座標で衝突するタイルの位置を取得
         // y方向だけ考えるのでx座標は変化しないと仮定
-        tile = map.getTileCollision(this, x, newY);
+        tile = map.getTileCollision2(this, x, newY);
         if (tile == null) {
             // 衝突するタイルがなければ移動
             y = newY;
@@ -155,7 +162,7 @@ public class Player extends Character{
      */
     public void draw(Graphics g, int offsetX, int offsetY) {
         g.drawImage(image,
-                (int) x + offsetX, (int) y + offsetY, 
+                (int) x + offsetX + WIDTH/2, (int) y + offsetY + HEIGHT/2, 
                 (int) x + offsetX + WIDTH, (int) y + offsetY + HEIGHT,
                 count * WIDTH, dir * HEIGHT,
                 count * WIDTH + WIDTH, dir * HEIGHT + HEIGHT,
@@ -203,19 +210,5 @@ public class Player extends Character{
                 }
             }
         }
-    }
-    
-    public int digObject(double x, double y, Map map){
-    	int tile_x = map.pixelsToTiles(x - MainPanel.offsetX);
-    	int tile_y = map.pixelsToTiles(y - MainPanel.offsetY);
-    	int block_no = 0;
-    	block_no = map.map[tile_y][tile_x];
-    	map.map[tile_y][tile_x] = 0;
-		/*確認用
-		 * System.out.println("X座標:" + x);
-		System.out.println("Y座標:" + y);
-		System.out.println("X座標:" + tile_x);
-		System.out.println("Y座標:" + tile_y);*/
-    	return block_no;
     }
 }
