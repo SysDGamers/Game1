@@ -12,7 +12,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-public class MainPanel extends JPanel implements Runnable, KeyListener, MouseListener {
+public class MainPanel extends JPanel implements Runnable {
 	// パネルサイズ
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
@@ -59,9 +59,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		player = new Player(192, 32, map);
 		enemy = new Enemy(400, 32, map);
 		item = new Item[50];
-		// キーイベントリスナーを登録
-		addKeyListener(this);
-		addMouseListener(this);
+
 		inventory = new Inventory(WIND_RECT);
 		textpop = new TextPopUp(WIND_RECT);
 		this.add(textpop);
@@ -177,12 +175,12 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		}
 		inventory.draw(g);
 	}
-
-	/**
+/*
+	*//**
 	 * キーが押されたらキーの状態を「押された」に変える
 	 *
 	 * @param e キーイベント
-	 */
+	 *//*
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 
@@ -218,11 +216,11 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		
 	}
 
-	/**
+	*//**
 	 * キーが離されたらキーの状態を「離された」に変える
 	 *
 	 * @param e キーイベント
-	 */
+	 *//*
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 
@@ -257,5 +255,5 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 	}
 
 	public void mouseClicked(MouseEvent e){
-	}
+	}*/
 }
