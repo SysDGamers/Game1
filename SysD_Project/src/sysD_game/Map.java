@@ -173,6 +173,42 @@ public class Map {
         return null;
     }
     
+    public Point getTileCollision2(Item player, double newX, double newY) {
+        // 小数点以下切り上げ
+        // 浮動小数点の関係で切り上げしないと衝突してないと判定される場合がある
+        newX = Math.ceil(newX);
+        newY = Math.ceil(newY);
+        
+        double fromX = Math.min(player.getX(), newX);
+        double fromY = Math.min(player.getY(), newY);
+        double toX = Math.max(player.getX(), newX);
+        double toY = Math.max(player.getY(), newY);
+        
+        int fromTileX = pixelsToTiles(fromX);
+        int fromTileY = pixelsToTiles(fromY);
+        int toTileX = pixelsToTiles(toX + Character.WIDTH - 1);
+        int toTileY = pixelsToTiles(toY + Character.HEIGHT - 1);
+
+        // 衝突しているか調べる
+        for (int x = fromTileX; x <= toTileX; x++) {
+            for (int y = fromTileY; y <= toTileY; y++) {
+                // 画面外は衝突
+                if (x < 0 || x >= col) {
+                    return new Point(x, y);
+                }
+                if (y < 0 || y >= row) {
+                    return new Point(x, y);
+                }
+                // ブロックがあったら衝突
+                if (map[y][x] == 1 || map[y][x] == 2 || map[y][x] == 3 || map[y][x] == 4 || map[y][x] == 5 || map[y][x] == 6 || map[y][x] == 7 || map[y][x] == 8 || map[y][x] == 9 || map[y][x] == 10) {
+                    return new Point(x, y);
+                }
+            }
+        }
+        
+        return null;
+    }
+    
     /**
      * ピクセル単位をタイル単位に変更する
      * @param pixels ピクセル単位

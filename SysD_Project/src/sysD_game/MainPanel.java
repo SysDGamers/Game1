@@ -29,6 +29,9 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 	// プレイヤー
 	private Player player;
 	private Enemy enemy;
+	// オブジェクト
+	private Item[] item;
+	public int item_count = 0;
 	// キーの状態（押されているか、押されてないか）
 	private boolean leftPressed;
 	private boolean rightPressed;
@@ -55,7 +58,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		// プレイヤーを作成
 		player = new Player(192, 32, map);
 		enemy = new Enemy(400, 32, map);
-
+		item = new Item[50];
 		// キーイベントリスナーを登録
 		addKeyListener(this);
 		addMouseListener(this);
@@ -101,9 +104,14 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 			
 			if (mousepressed == true){
 				double buf_x, buf_y;
+				int block_no;
 				buf_x = point.x;
 				buf_y = point.y;
-				player.digObject(buf_x, buf_y, map);
+				block_no = player.digObject(buf_x, buf_y, map);
+				if (block_no > 0){
+					item[item_count] = new Item(buf_x, buf_y, map, block_no);
+					item_count++;
+				}
 				mousepressed = false;
 			}
 			//
@@ -112,7 +120,13 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 			// プレイヤーの状態を更新
 			player.update();
 			enemy.update();
-			
+			if(item_count != 0){
+				for(int i = 0; i < item_count; i++){
+					if(item[i].item_alive == 1){
+						item[i].update();
+					}
+				}
+			}
 			// 再描画
 			repaint();
 
@@ -154,6 +168,13 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		// プレイヤーを描画
 		player.draw(g, offsetX, offsetY);
 		enemy.draw(g, offsetX, offsetY);
+		if(item_count != 0){
+			for(int i = 0; i < item_count; i++){
+				if(item[i].item_alive == 1){
+					item[i].draw(g, offsetX, offsetY);
+				}
+			}
+		}
 		inventory.draw(g);
 	}
 
