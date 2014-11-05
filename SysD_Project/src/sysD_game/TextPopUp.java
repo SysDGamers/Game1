@@ -46,6 +46,7 @@ public class TextPopUp extends JPanel{
 		text.setFont(new Font("Arial", Font.BOLD, 16));
 		text.setLineWrap(true);
 		text.setWrapStyleWord(true);
+		text.setEditable(false);
 		text.setText("THE IDOLM@STER");
 		text.setForeground(Color.WHITE);
 		text.setBackground(Color.BLACK);
