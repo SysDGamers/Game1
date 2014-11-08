@@ -17,8 +17,8 @@ public class Player extends Character{
     private static final int RIGHT = 0;
     private static final int LEFT = 1;
     // 位置
-    private double x;
-    private double y;
+    public double x;
+    public double y;
     // 速度
     private double vx;
     private double vy;

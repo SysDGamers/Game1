@@ -34,6 +34,8 @@ public class Enemy extends Character{
     private Image image;
     // マップへの参照
     private Map map;
+    
+    public int talk = 0;
 
     public Enemy() {
     }
@@ -98,7 +100,7 @@ public class Enemy extends Character{
     /**
      * プレイヤーの状態を更新する
      */
-    public void update() {
+    public void update(Player player) {
         // 重力で下向きに加速度がかかる
         vy += Map.GRAVITY;
 
@@ -150,6 +152,7 @@ public class Enemy extends Character{
                 vy = 0;
             }
         }
+        getCollision(player);
     }
 
     /**
@@ -209,5 +212,13 @@ public class Enemy extends Character{
                 }
             }
         }
+    }
+    
+    public void getCollision(Player player){
+    	if ((player.x-this.x)*(player.x-this.x) + (player.y-this.y)*(player.y-this.y) <= 400){
+    		talk = 1;
+    	}else {
+    		talk = 0;
+    	}
     }
 }

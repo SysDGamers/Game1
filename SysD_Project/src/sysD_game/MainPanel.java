@@ -16,6 +16,8 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 	// パネルサイズ
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
+	// アイテム最大表示数
+	public static final int ITEM_MAX = 30;
 
 	// マップ
 	private Map map;
@@ -26,12 +28,14 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 	private static Rectangle WIND_RECT = new Rectangle(100, 450, 600,100);
 	// テキスト
 	private TextPopUp textpop;
+	private Text text;
 	// プレイヤー
 	private Player player;
 	private Enemy enemy;
 	// オブジェクト
 	private Item[] item;
 	public int item_count = 0;
+	public int item_draw_count = 0;
 	// キーの状態（押されているか、押されてないか）
 	private boolean leftPressed;
 	private boolean rightPressed;
@@ -58,13 +62,14 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		// プレイヤーを作成
 		player = new Player(192, 32, map);
 		enemy = new Enemy(400, 32, map);
-		item = new Item[50];
+		item = new Item[ITEM_MAX];
 		// キーイベントリスナーを登録
 		addKeyListener(this);
 		addMouseListener(this);
 		inventory = new Inventory(WIND_RECT);
-		textpop = new TextPopUp(WIND_RECT);
-		this.add(textpop);
+		text = new Text(WIND_RECT);
+		//textpop = new TextPopUp(WIND_RECT);
+		//this.add(textpop);
 		// ゲームループ開始
 		gameLoop = new Thread(this);
 		gameLoop.start();
@@ -80,11 +85,11 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 			} else if (!escape){
 				inventory.hide();
 			}
-			if (quote) {
+			/*if (quote) {
 				textpop.show();
 			} else {
 				textpop.hide();
-			}
+			}*/
 
 			if (leftPressed) {
 				// 左キーが押されていれば左向きに加速
@@ -109,8 +114,14 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 				buf_y = point.y;
 				block_no = player.digObject(buf_x, buf_y, map);
 				if (block_no > 0){
-					item[item_count] = new Item(buf_x, buf_y, map, block_no);
+					item[item_count] = new Item(buf_x - offsetX, buf_y - offsetY, map, block_no);
 					item_count++;
+					if (item_draw_count < ITEM_MAX){
+						item_draw_count++;
+					}
+				}
+				if (item_count >= ITEM_MAX){
+					item_count = 0;
 				}
 				mousepressed = false;
 			}
@@ -119,7 +130,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 
 			// プレイヤーの状態を更新
 			player.update();
-			enemy.update();
+			enemy.update(player);
 			if(item_count != 0){
 				for(int i = 0; i < item_count; i++){
 					if(item[i].item_alive == 1){
@@ -168,12 +179,15 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		// プレイヤーを描画
 		player.draw(g, offsetX, offsetY);
 		enemy.draw(g, offsetX, offsetY);
-		if(item_count != 0){
-			for(int i = 0; i < item_count; i++){
+		if(item_draw_count != 0){
+			for(int i = 0; i < item_draw_count; i++){
 				if(item[i].item_alive == 1){
 					item[i].draw(g, offsetX, offsetY);
 				}
 			}
+		}
+		if (enemy.talk == 1){
+			text.draw(g);
 		}
 		inventory.draw(g);
 	}
@@ -192,7 +206,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
 			rightPressed = true;
 		}
-		if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
+		if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W || key == KeyEvent.VK_SPACE) {
 			upPressed = true;
 		}
 		if (key == KeyEvent.VK_I){
@@ -213,7 +227,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 			}
 		}
 		if (key == KeyEvent.VK_0) {
-			textpop.changeText("へ　へ\nの　の\n　も　\n　へ");
+			//textpop.changeText("へ　へ\nの　の\n　も　\n　へ");
 		}
 		
 	}
@@ -232,7 +246,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
 			rightPressed = false;
 		}
-		if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
+		if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W || key == KeyEvent.VK_SPACE) {
 			upPressed = false;
 		}
 

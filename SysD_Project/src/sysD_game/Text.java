@@ -3,7 +3,9 @@ package sysD_game;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 
 import javax.swing.JTextArea;
 
@@ -25,6 +27,9 @@ public class Text {
 	}
 
 	public void draw(Graphics g) {
+		Graphics2D g2 = (Graphics2D)g;
+
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		if (isVisible == false) return;
 
 		g.setColor(Color.WHITE);
@@ -33,12 +38,12 @@ public class Text {
 		g.setColor(Color.BLACK);
 		g.fillRect(innerRect.x, innerRect.y, innerRect.width, innerRect.height);
 		
-
-		
 		Font f=new Font("TimesRoman",Font.ITALIC,20);
 		g.setFont(f);
 		g.setColor(Color.white);
-		g.drawString("アイドルマスター", innerRect.x + 20, innerRect.y + 30);
+		g.drawString("問おう 貴方が私のマスターか", innerRect.x + 15, innerRect.y + 25);
+		g.drawString("やっと気づいた。シロウは、私の鞘だったのですね", innerRect.x + 15, innerRect.y + 55);
+		g.drawString("判らぬか、下郎。そのような物より、私はシロウが欲しいと言ったのだ", innerRect.x + 15, innerRect.y + 85);
 	}
 
 	public void show(){
