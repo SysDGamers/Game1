@@ -36,15 +36,17 @@ public class Enemy extends Character{
     private Map map;
     
     public int talk = 0;
+    
+    private String chara_data;
 
     public Enemy() {
     }
     
-    public Enemy(double x, double y, Map map) {
+    public Enemy(double x, double y, Map map, String chara_data) {
         this.x = x;
         this.y = y;
         this.map = map;
-        
+        this.chara_data = chara_data;
         init();
     }
     
@@ -189,7 +191,7 @@ public class Enemy extends Character{
      */
     private void loadImage() {
         ImageIcon icon = new ImageIcon(getClass().getResource(
-                "image/char_02.gif"));
+                "image/" + chara_data + ".gif"));
         image = icon.getImage();
     }
     
