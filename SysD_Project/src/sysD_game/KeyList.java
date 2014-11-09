@@ -21,6 +21,8 @@ public enum KeyList {
     Srelease("released S", KeyStroke.getKeyStroke(KeyEvent.VK_S, 0, true)),
     D("D", KeyStroke.getKeyStroke(KeyEvent.VK_D, 0)),
     Drelease("released D", KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true)),
+    Q("Q", KeyStroke.getKeyStroke(KeyEvent.VK_Q, 0)),
+    Qrelease("released Q", KeyStroke.getKeyStroke(KeyEvent.VK_Q, 0, true)),
 	;
 	
 	private String text;

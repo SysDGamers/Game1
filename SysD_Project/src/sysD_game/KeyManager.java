@@ -48,6 +48,7 @@ final class KeyManager {
 	}
 	
 	private class KeyBinding extends AbstractAction {
+		private KeyState keyState = KeyState.getInstance();
 		public KeyBinding(String text) {
 			super(text);
 			putValue(ACTION_COMMAND_KEY, text);
@@ -57,6 +58,34 @@ final class KeyManager {
 		public void actionPerformed(ActionEvent e) {
 			String action = e.getActionCommand();
 			System.out.println(action);
+			
+			if (action == "W") {
+				keyState.W = true;
+			}
+			if (action == "released W") {
+				keyState.W = false;
+			}
+			if (action == "A") {
+				keyState.A = true;
+			}
+			if (action == "released A") {
+				keyState.A = false;
+			}
+			if (action == "D") {
+				keyState.D = true;
+			}
+			if (action == "released D") {
+				keyState.D = false;
+			}
+			if (action == "Q") {
+				keyState.Q = true;
+			}
+			if (action == "released Q") {
+				keyState.Q = false;
+			}
+			
+			
+			
 		}
 	}
 	

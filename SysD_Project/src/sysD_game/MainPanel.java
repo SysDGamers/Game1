@@ -30,11 +30,9 @@ public class MainPanel extends JPanel implements Runnable {
 	private Item[] item;
 	public int item_count = 0;
 	// キーの状態（押されているか、押されてないか）
-	private boolean leftPressed;
-	private boolean rightPressed;
-	private boolean upPressed;
-	private boolean escape;
-	private boolean quote;
+	final KeyState keyState = KeyState.getInstance();
+	// テキスト表示の状態
+	private boolean quote = false;
 	// マウスの状態
 	public boolean mousepressed;
 	public Point point;
@@ -70,10 +68,16 @@ public class MainPanel extends JPanel implements Runnable {
 	 */
 	public void run() {
 		while (true) {
-			if(escape){
+			if(keyState.ESC){
 				inventory.show();
-			} else if (!escape){
+			} else if (!keyState.ESC){
 				inventory.hide();
+			}
+			if (keyState.Q) {
+				if (quote)
+					quote = false;
+				else
+					quote = true;
 			}
 			if (quote) {
 				textpop.show();
@@ -81,10 +85,10 @@ public class MainPanel extends JPanel implements Runnable {
 				textpop.hide();
 			}
 
-			if (leftPressed) {
+			if (keyState.A) {
 				// 左キーが押されていれば左向きに加速
 				player.accelerateLeft();
-			} else if (rightPressed) {
+			} else if (keyState.D) {
 				// 右キーが押されていれば右向きに加速
 				player.accelerateRight();
 			} else {
@@ -92,7 +96,7 @@ public class MainPanel extends JPanel implements Runnable {
 				player.stop();
 			}
 
-			if (upPressed) {
+			if (keyState.W) {
 				// ジャンプする
 				player.jump();
 			}
