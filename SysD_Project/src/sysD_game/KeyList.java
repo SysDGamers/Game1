@@ -14,9 +14,13 @@ public enum KeyList {
     LEFT("Left", KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0)),
     RIGHT("Right", KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0)),
     W("W", KeyStroke.getKeyStroke(KeyEvent.VK_W, 0)),
+    Wrelease("released W", KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, true)),
     A("A", KeyStroke.getKeyStroke(KeyEvent.VK_A, 0)),
+    Arelease("released A", KeyStroke.getKeyStroke(KeyEvent.VK_A, 0, true)),
     S("S", KeyStroke.getKeyStroke(KeyEvent.VK_S, 0)),
-    D("D", KeyStroke.getKeyStroke(KeyEvent.VK_D, 0))
+    Srelease("released S", KeyStroke.getKeyStroke(KeyEvent.VK_S, 0, true)),
+    D("D", KeyStroke.getKeyStroke(KeyEvent.VK_D, 0)),
+    Drelease("released D", KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true)),
 	;
 	
 	private String text;
@@ -34,6 +38,7 @@ public enum KeyList {
 	public KeyStroke getKeyStroke() {
 		return keyStroke;
 	}
+	
 	
 	@Override
 	public String toString() {
