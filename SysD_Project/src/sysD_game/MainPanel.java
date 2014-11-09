@@ -5,12 +5,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 public class MainPanel extends JPanel implements Runnable {
 	// パネルサイズ
@@ -175,6 +172,8 @@ public class MainPanel extends JPanel implements Runnable {
 		}
 		inventory.draw(g);
 	}
+	
+	
 /*
 	*//**
 	 * キーが押されたらキーの状態を「押された」に変える
