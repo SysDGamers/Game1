@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.KeyStroke;
 
+// List of keys that could be recognized
 public enum KeyList {
 	ESCAPE("Escape", KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0)),
     CTRLC("Control-C", KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK)),

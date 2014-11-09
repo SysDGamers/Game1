@@ -6,12 +6,12 @@ import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
-import javax.swing.JWindow;
+import javax.swing.JFrame;
 
 final class KeyManager {
 	private KeyManager() {};
 	private boolean isFirst = true;
-	private JWindow jWindow;
+	private JFrame frame;
 	
 	// Avoid multi-instatiation
 	private static class KeyManagerHolder {
@@ -23,20 +23,28 @@ final class KeyManager {
 
 	// When initiatiated, must be called once.
 	// JWindow could be frame, panel ...etc
-	public void putContainer(JWindow jWindow) {
+	public void putContainer(JFrame frame) {
 		if (!isFirst)
 			return;
 		
 		isFirst = false;
-		this.jWindow = jWindow;
+		this.frame = frame;
 		init();
 	}
 	
 	private void init() {
-		ActionMap actionMap = jWindow.getRootPane().getActionMap();
-		InputMap inputMap = jWindow.getRootPane().getInputMap(JComponent.
+		ActionMap actionMap = frame.getRootPane().getActionMap();
+		InputMap inputMap = frame.getRootPane().getInputMap(JComponent.
 				WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 		
+		for (KeyList key : KeyList.values()) {
+			actionMap.put(key.getText(), new KeyBinding(key.getText()));
+			inputMap.put(key.getKeyStroke(), key.getText());
+		}
+		frame.getRootPane().setActionMap(actionMap);
+		frame.getRootPane().setInputMap(JComponent.
+				WHEN_ANCESTOR_OF_FOCUSED_COMPONENT, inputMap);
+		frame.setVisible(true);
 	}
 	
 	private class KeyBinding extends AbstractAction {
@@ -45,10 +53,10 @@ final class KeyManager {
 			putValue(ACTION_COMMAND_KEY, text);
 		}
 		
-		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String action = e.getActionCommand();
+			System.out.println(action);
 		}
 	}
 	
