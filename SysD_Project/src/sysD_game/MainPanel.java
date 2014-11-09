@@ -5,11 +5,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
-import javax.swing.KeyStroke;
 
-public class MainPanel extends JPanel implements Runnable {
+public class MainPanel extends JPanel implements Runnable, MouseListener{
 	// パネルサイズ
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
@@ -58,6 +59,9 @@ public class MainPanel extends JPanel implements Runnable {
 		inventory = new Inventory(WIND_RECT);
 		textpop = new TextPopUp(WIND_RECT);
 		this.add(textpop);
+		
+		addMouseListener((MouseListener) this);
+		
 		// ゲームループ開始
 		gameLoop = new Thread(this);
 		gameLoop.start();
@@ -240,7 +244,7 @@ public class MainPanel extends JPanel implements Runnable {
 	}
 
 	public void keyTyped(KeyEvent e) {
-	}
+	}*/
 	
 	public void mouseEntered(MouseEvent e){
 	}
@@ -258,5 +262,5 @@ public class MainPanel extends JPanel implements Runnable {
 	}
 
 	public void mouseClicked(MouseEvent e){
-	}*/
+	}
 }
