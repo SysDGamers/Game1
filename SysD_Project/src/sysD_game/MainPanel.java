@@ -5,14 +5,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-public class MainPanel extends JPanel implements Runnable, KeyListener, MouseListener {
+public class MainPanel extends JPanel implements Runnable, MouseListener{
 	// パネルサイズ
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
@@ -40,11 +38,9 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 	public int item_count = 0;
 	public int item_draw_count = 0;
 	// キーの状態（押されているか、押されてないか）
-	private boolean leftPressed;
-	private boolean rightPressed;
-	private boolean upPressed;
-	private boolean escape;
-	private boolean quote;
+	final KeyState keyState = KeyState.getInstance();
+	// テキスト表示の状態
+	private boolean quote = false;
 	// マウスの状態
 	public boolean mousepressed;
 	public Point point;
@@ -69,12 +65,13 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		item = new Item[ITEM_MAX];
 		icon = new Icon();
 		// キーイベントリスナーを登録
-		addKeyListener(this);
 		addMouseListener(this);
 		inventory = new Inventory(WIND_RECT);
-		text = new Text(WIND_RECT);
-		//textpop = new TextPopUp(WIND_RECT);
-		//this.add(textpop);
+		textpop = new TextPopUp(WIND_RECT);
+		this.add(textpop);
+		
+		addMouseListener((MouseListener) this);
+		
 		// ゲームループ開始
 		gameLoop = new Thread(this);
 		gameLoop.start();
@@ -85,21 +82,27 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 	 */
 	public void run() {
 		while (true) {
-			if(escape){
+			if(keyState.ESC){
 				inventory.show();
-			} else if (!escape){
+			} else if (!keyState.ESC){
 				inventory.hide();
 			}
-			/*if (quote) {
+			if (keyState.Q) {
+				if (quote)
+					quote = false;
+				else
+					quote = true;
+			}
+			if (quote) {
 				textpop.show();
 			} else {
 				textpop.hide();
-			}*/
+			}
 
-			if (leftPressed) {
+			if (keyState.A) {
 				// 左キーが押されていれば左向きに加速
 				player.accelerateLeft();
-			} else if (rightPressed) {
+			} else if (keyState.D) {
 				// 右キーが押されていれば右向きに加速
 				player.accelerateRight();
 			} else {
@@ -107,7 +110,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 				player.stop();
 			}
 
-			if (upPressed) {
+			if (keyState.W) {
 				// ジャンプする
 				player.jump();
 			}
@@ -200,69 +203,9 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		inventory.draw(g);
 		icon.draw(g, offsetX, offsetY);
 	}
+	
+	
 
-	/**
-	 * キーが押されたらキーの状態を「押された」に変える
-	 *
-	 * @param e キーイベント
-	 */
-	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();
-
-		if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
-			leftPressed = true;
-		}
-		if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
-			rightPressed = true;
-		}
-		if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W || key == KeyEvent.VK_SPACE) {
-			upPressed = true;
-		}
-		if (key == KeyEvent.VK_I){
-			if(escape){
-				escape = false;
-			}else if(!escape){
-				escape = true;
-			}
-		}
-		if (key == KeyEvent.VK_ESCAPE){
-			escape = false;
-		}
-		if (key == KeyEvent.VK_Q) {
-			if (quote) {
-				quote = false;
-			} else {
-				quote = true;
-			}
-		}
-		if (key == KeyEvent.VK_0) {
-			//textpop.changeText("へ　へ\nの　の\n　も　\n　へ");
-		}
-		
-	}
-
-	/**
-	 * キーが離されたらキーの状態を「離された」に変える
-	 *
-	 * @param e キーイベント
-	 */
-	public void keyReleased(KeyEvent e) {
-		int key = e.getKeyCode();
-
-		if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
-			leftPressed = false;
-		}
-		if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
-			rightPressed = false;
-		}
-		if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W || key == KeyEvent.VK_SPACE) {
-			upPressed = false;
-		}
-
-	}
-
-	public void keyTyped(KeyEvent e) {
-	}
 	
 	public void mouseEntered(MouseEvent e){
 	}
