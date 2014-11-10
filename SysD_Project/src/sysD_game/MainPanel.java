@@ -49,12 +49,12 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		// パネルがキー入力を受け付けるようにする
 		setFocusable(true);
-		
+
 		setLayout(null);
 
 		// マップを作成
-		map = new Map("map01.dat");
-
+		//map = new Map("map01.txt");
+		map = new Map("test.txt");
 		// プレイヤーを作成
 		player = new Player(192, 32, map);
 		enemy = new Enemy(400, 32, map);
@@ -101,7 +101,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 				// ジャンプする
 				player.jump();
 			}
-			
+
 			if (mousepressed == true){
 				double buf_x, buf_y;
 				int block_no;
@@ -215,7 +215,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		if (key == KeyEvent.VK_0) {
 			textpop.changeText("へ　へ\nの　の\n　も　\n　へ");
 		}
-		
+
 	}
 
 	/**
@@ -240,7 +240,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 
 	public void keyTyped(KeyEvent e) {
 	}
-	
+
 	public void mouseEntered(MouseEvent e){
 	}
 
