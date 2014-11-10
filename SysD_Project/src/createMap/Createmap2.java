@@ -17,7 +17,7 @@ public class Createmap2 {
 		for(int i=0;i < height; i++){
 			for(int j=0;j < width; j++){
 				if(i==0){//天井
-					map[i][j] = 1;
+					map[0][j] = 1;
 				}else if(i==height-1){//地面
 					map[i][j] = 1;
 				}else if(i<=7){
