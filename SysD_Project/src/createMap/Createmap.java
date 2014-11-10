@@ -24,7 +24,7 @@ public class Createmap {
 				pw.println(width);
 				for(int i=0;i < height; i++){
 					for(int j=0;j < width; j ++){
-						if(i==0){//天井
+						if(i>= 0 && i <= 10){//天井
 							pw.print(1);
 							if(j == width-1) pw.println(1);
 						} else if(i == height-1){//地面
