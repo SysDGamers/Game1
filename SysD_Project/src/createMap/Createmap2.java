@@ -20,9 +20,9 @@ public class Createmap2 {
 					map[i][j] = 1;
 				}else if(i==height-1){//地面
 					map[i][j] = 1;
-				}else if(i<=7){
-					map[i][j] = 0;//陸上
-				}else{
+				}else if(i<=7){//陸上
+					map[i][j] = 0;
+				}else{//その他
 					Random rnd = new Random();
 					int ran = rnd.nextInt(2);
 					switch(map[i-1][j]){
