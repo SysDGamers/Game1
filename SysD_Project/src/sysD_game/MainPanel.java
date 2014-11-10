@@ -5,17 +5,17 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-public class MainPanel extends JPanel implements Runnable, KeyListener, MouseListener {
+public class MainPanel extends JPanel implements Runnable, MouseListener{
 	// パネルサイズ
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
+	// アイテム最大表示数
+	public static final int ITEM_MAX = 30;
 
 	// マップ
 	private Map map;
@@ -26,18 +26,21 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 	private static Rectangle WIND_RECT = new Rectangle(100, 450, 600,100);
 	// テキスト
 	private TextPopUp textpop;
+	private Text text;
+	// アイコン
+	private Icon icon;
 	// プレイヤー
 	private Player player;
 	private Enemy enemy;
+	private Enemy enemy2;
 	// オブジェクト
 	private Item[] item;
 	public int item_count = 0;
+	public int item_draw_count = 0;
 	// キーの状態（押されているか、押されてないか）
-	private boolean leftPressed;
-	private boolean rightPressed;
-	private boolean upPressed;
-	private boolean escape;
-	private boolean quote;
+	final KeyState keyState = KeyState.getInstance();
+	// テキスト表示の状態
+	private boolean quote = false;
 	// マウスの状態
 	public boolean mousepressed;
 	public Point point;
@@ -57,14 +60,18 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		map = new Map("test.txt");
 		// プレイヤーを作成
 		player = new Player(192, 32, map);
-		enemy = new Enemy(400, 32, map);
-		item = new Item[50];
+		enemy = new Enemy(400, 32, map, "char_02");
+		enemy2 = new Enemy(140, 32, map, "char_03");
+		item = new Item[ITEM_MAX];
+		icon = new Icon();
 		// キーイベントリスナーを登録
-		addKeyListener(this);
 		addMouseListener(this);
 		inventory = new Inventory(WIND_RECT);
 		textpop = new TextPopUp(WIND_RECT);
 		this.add(textpop);
+		
+		addMouseListener((MouseListener) this);
+		
 		// ゲームループ開始
 		gameLoop = new Thread(this);
 		gameLoop.start();
@@ -75,10 +82,16 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 	 */
 	public void run() {
 		while (true) {
-			if(escape){
+			if(keyState.ESC){
 				inventory.show();
-			} else if (!escape){
+			} else if (!keyState.ESC){
 				inventory.hide();
+			}
+			if (keyState.Q) {
+				if (quote)
+					quote = false;
+				else
+					quote = true;
 			}
 			if (quote) {
 				textpop.show();
@@ -86,10 +99,10 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 				textpop.hide();
 			}
 
-			if (leftPressed) {
+			if (keyState.A) {
 				// 左キーが押されていれば左向きに加速
 				player.accelerateLeft();
-			} else if (rightPressed) {
+			} else if (keyState.D) {
 				// 右キーが押されていれば右向きに加速
 				player.accelerateRight();
 			} else {
@@ -97,7 +110,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 				player.stop();
 			}
 
-			if (upPressed) {
+			if (keyState.W) {
 				// ジャンプする
 				player.jump();
 			}
@@ -109,8 +122,14 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 				buf_y = point.y;
 				block_no = player.digObject(buf_x, buf_y, map);
 				if (block_no > 0){
-					item[item_count] = new Item(buf_x, buf_y, map, block_no);
+					item[item_count] = new Item(buf_x - offsetX, buf_y - offsetY, map, block_no);
 					item_count++;
+					if (item_draw_count < ITEM_MAX){
+						item_draw_count++;
+					}
+				}
+				if (item_count >= ITEM_MAX){
+					item_count = 0;
 				}
 				mousepressed = false;
 			}
@@ -119,7 +138,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 
 			// プレイヤーの状態を更新
 			player.update();
-			enemy.update();
+			enemy.update(player);
 			if(item_count != 0){
 				for(int i = 0; i < item_count; i++){
 					if(item[i].item_alive == 1){
@@ -127,6 +146,8 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 					}
 				}
 			}
+			enemy2.update(player);
+			icon.update(player);
 			// 再描画
 			repaint();
 
@@ -168,78 +189,22 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		// プレイヤーを描画
 		player.draw(g, offsetX, offsetY);
 		enemy.draw(g, offsetX, offsetY);
-		if(item_count != 0){
-			for(int i = 0; i < item_count; i++){
+		enemy2.draw(g, offsetX, offsetY);
+		if(item_draw_count != 0){
+			for(int i = 0; i < item_draw_count; i++){
 				if(item[i].item_alive == 1){
 					item[i].draw(g, offsetX, offsetY);
 				}
 			}
 		}
+		if (enemy.talk == 1){
+			text.draw(g);
+		}
 		inventory.draw(g);
+		icon.draw(g, offsetX, offsetY);
 	}
-
-	/**
-	 * キーが押されたらキーの状態を「押された」に変える
-	 *
-	 * @param e キーイベント
-	 */
-	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();
-
-		if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
-			leftPressed = true;
-		}
-		if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
-			rightPressed = true;
-		}
-		if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
-			upPressed = true;
-		}
-		if (key == KeyEvent.VK_I){
-			if(escape){
-				escape = false;
-			}else if(!escape){
-				escape = true;
-			}
-		}
-		if (key == KeyEvent.VK_ESCAPE){
-			escape = false;
-		}
-		if (key == KeyEvent.VK_Q) {
-			if (quote) {
-				quote = false;
-			} else {
-				quote = true;
-			}
-		}
-		if (key == KeyEvent.VK_0) {
-			textpop.changeText("へ　へ\nの　の\n　も　\n　へ");
-		}
-
-	}
-
-	/**
-	 * キーが離されたらキーの状態を「離された」に変える
-	 *
-	 * @param e キーイベント
-	 */
-	public void keyReleased(KeyEvent e) {
-		int key = e.getKeyCode();
-
-		if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
-			leftPressed = false;
-		}
-		if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
-			rightPressed = false;
-		}
-		if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
-			upPressed = false;
-		}
-
-	}
-
-	public void keyTyped(KeyEvent e) {
-	}
+	
+	
 
 	public void mouseEntered(MouseEvent e){
 	}

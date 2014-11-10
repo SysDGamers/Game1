@@ -17,8 +17,8 @@ public class Player extends Character{
     private static final int RIGHT = 0;
     private static final int LEFT = 1;
     // 位置
-    private double x;
-    private double y;
+    public double x;
+    public double y;
     // 速度
     private double vx;
     private double vy;
@@ -32,6 +32,8 @@ public class Player extends Character{
     private Image image;
     // マップへの参照
     private Map map;
+    // HP
+    public int hp = 100;
 
 	public Player(double x, double y, Map map) {
         this.x = x;
