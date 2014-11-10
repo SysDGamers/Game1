@@ -14,6 +14,8 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 	// パネルサイズ
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
+	// アイテム最大表示数
+	public static final int ITEM_MAX = 30;
 
 	// マップ
 	private Map map;
@@ -24,12 +26,15 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 	private static Rectangle WIND_RECT = new Rectangle(100, 450, 600,100);
 	// テキスト
 	private TextPopUp textpop;
+	private Text text;
 	// プレイヤー
 	private Player player;
 	private Enemy enemy;
+	private Enemy enemy2;
 	// オブジェクト
 	private Item[] item;
 	public int item_count = 0;
+	public int item_draw_count = 0;
 	// キーの状態（押されているか、押されてないか）
 	final KeyState keyState = KeyState.getInstance();
 	// テキスト表示の状態
@@ -56,6 +61,11 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 		enemy = new Enemy(400, 32, map);
 		item = new Item[50];
 
+		enemy = new Enemy(400, 32, map, "char_02");
+		enemy2 = new Enemy(140, 32, map, "char_03");
+		item = new Item[ITEM_MAX];
+		// キーイベントリスナーを登録
+		addMouseListener(this);
 		inventory = new Inventory(WIND_RECT);
 		textpop = new TextPopUp(WIND_RECT);
 		this.add(textpop);
@@ -83,11 +93,11 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 				else
 					quote = true;
 			}
-			if (quote) {
+			/*if (quote) {
 				textpop.show();
 			} else {
 				textpop.hide();
-			}
+			}*/
 
 			if (keyState.A) {
 				// 左キーが押されていれば左向きに加速
@@ -112,8 +122,14 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 				buf_y = point.y;
 				block_no = player.digObject(buf_x, buf_y, map);
 				if (block_no > 0){
-					item[item_count] = new Item(buf_x, buf_y, map, block_no);
+					item[item_count] = new Item(buf_x - offsetX, buf_y - offsetY, map, block_no);
 					item_count++;
+					if (item_draw_count < ITEM_MAX){
+						item_draw_count++;
+					}
+				}
+				if (item_count >= ITEM_MAX){
+					item_count = 0;
 				}
 				mousepressed = false;
 			}
@@ -122,7 +138,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 
 			// プレイヤーの状態を更新
 			player.update();
-			enemy.update();
+			enemy.update(player);
 			if(item_count != 0){
 				for(int i = 0; i < item_count; i++){
 					if(item[i].item_alive == 1){
@@ -130,6 +146,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 					}
 				}
 			}
+			enemy2.update(player);
 			// 再描画
 			repaint();
 
@@ -171,80 +188,22 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 		// プレイヤーを描画
 		player.draw(g, offsetX, offsetY);
 		enemy.draw(g, offsetX, offsetY);
-		if(item_count != 0){
-			for(int i = 0; i < item_count; i++){
+		enemy2.draw(g, offsetX, offsetY);
+		if(item_draw_count != 0){
+			for(int i = 0; i < item_draw_count; i++){
 				if(item[i].item_alive == 1){
 					item[i].draw(g, offsetX, offsetY);
 				}
 			}
 		}
+		if (enemy.talk == 1){
+			text.draw(g);
+		}
 		inventory.draw(g);
 	}
 	
 	
-/*
-	*//**
-	 * キーが押されたらキーの状態を「押された」に変える
-	 *
-	 * @param e キーイベント
-	 *//*
-	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();
 
-		if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
-			leftPressed = true;
-		}
-		if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
-			rightPressed = true;
-		}
-		if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
-			upPressed = true;
-		}
-		if (key == KeyEvent.VK_I){
-			if(escape){
-				escape = false;
-			}else if(!escape){
-				escape = true;
-			}
-		}
-		if (key == KeyEvent.VK_ESCAPE){
-			escape = false;
-		}
-		if (key == KeyEvent.VK_Q) {
-			if (quote) {
-				quote = false;
-			} else {
-				quote = true;
-			}
-		}
-		if (key == KeyEvent.VK_0) {
-			textpop.changeText("へ　へ\nの　の\n　も　\n　へ");
-		}
-		
-	}
-
-	*//**
-	 * キーが離されたらキーの状態を「離された」に変える
-	 *
-	 * @param e キーイベント
-	 *//*
-	public void keyReleased(KeyEvent e) {
-		int key = e.getKeyCode();
-
-		if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
-			leftPressed = false;
-		}
-		if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
-			rightPressed = false;
-		}
-		if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
-			upPressed = false;
-		}
-
-	}
-
-	public void keyTyped(KeyEvent e) {
-	}*/
 	
 	public void mouseEntered(MouseEvent e){
 	}
