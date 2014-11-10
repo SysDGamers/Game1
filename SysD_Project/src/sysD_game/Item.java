@@ -48,8 +48,8 @@ public class Item {
     }
     
     public void init(){
-        vx = 5;
-        vy = 5;
+        vx = 0;
+        vy = 0;
         onGround = false;
         dir = RIGHT;
         count = 0;
@@ -162,7 +162,7 @@ public class Item {
      */
     public void draw(Graphics g, int offsetX, int offsetY) {
         g.drawImage(image,
-                (int) x + offsetX + WIDTH/2, (int) y + offsetY + HEIGHT/2, 
+                (int) x + offsetX, (int) y + offsetY, 
                 (int) x + offsetX + WIDTH, (int) y + offsetY + HEIGHT,
                 count * WIDTH, dir * HEIGHT,
                 count * WIDTH + WIDTH, dir * HEIGHT + HEIGHT,
@@ -187,7 +187,7 @@ public class Item {
      */
     private void loadImage() {
         ImageIcon icon = new ImageIcon(getClass().getResource(
-                "image/char_01.gif"));
+                "image/enemy_01.gif"));
         image = icon.getImage();
     }
     
