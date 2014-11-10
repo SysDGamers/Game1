@@ -64,6 +64,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 		enemy2 = new Enemy(140, 32, map, "char_03");
 		item = new Item[ITEM_MAX];
 		icon = new Icon();
+		text = new Text(WIND_RECT);
 		// キーイベントリスナーを登録
 		addMouseListener(this);
 		inventory = new Inventory(WIND_RECT);
@@ -133,9 +134,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 				}
 				mousepressed = false;
 			}
-			//
-
-
+			
 			// プレイヤーの状態を更新
 			player.update();
 			enemy.update(player);
