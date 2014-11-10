@@ -140,8 +140,8 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 			// プレイヤーの状態を更新
 			player.update();
 			enemy.update(player);
-			if(item_count != 0){
-				for(int i = 0; i < item_count; i++){
+			if(item_draw_count != 0){
+				for(int i = 0; i < item_draw_count; i++){
 					if(item[i].item_alive == 1){
 						item[i].update();
 					}
