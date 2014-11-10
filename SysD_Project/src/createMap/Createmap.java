@@ -13,7 +13,7 @@ public class Createmap {
 	public static void main(String args[]){
 
 		int height = 30;
-		int width = 100;
+		int width = 1000;
 		try{
 			File file = new File("src/sysD_game/map/test.txt");
 
@@ -24,22 +24,27 @@ public class Createmap {
 				pw.println(width);
 				for(int i=0;i < height; i++){
 					for(int j=0;j < width; j ++){
-						if(i==0){
+						if(i==0){//天井
 							pw.print(1);
 							if(j == width-1) pw.println(1);
-						} else if(i == height-1){
+						} else if(i == height-1){//地面
 							pw.print(1);
 							if(j == width-1) pw.println(1);
-						} else{
-							pw.print(0);
-
-							if(j== width-1
-									) pw.println(0);
+						} else{//他の場所
+							double d = Math.random();
+							if(j== width-1){
+								pw.println(0);
+							}else{
+								if(d<0.5) pw.print(0);
+								else if(d<0.6)pw.print(1);
+								else if(d<0.7)pw.print(2);
+								else if(d<0.8)pw.print(3);
+								else if(d<0.9)pw.print(4);
+								else pw.print(5);
+							}
 						}
-
 					}
 				}
-
 
 				pw.close();
 			}else{
