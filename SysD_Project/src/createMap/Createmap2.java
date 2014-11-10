@@ -44,9 +44,8 @@ public class Createmap2 {
 					case 5:
 						map[i][j] = ran + 5;
 						break;
-					default:
-						map[i][j] = 0;
-						break;
+					case 6:
+						map[i][j] = ran + 5;
 					}
 				}
 			}
