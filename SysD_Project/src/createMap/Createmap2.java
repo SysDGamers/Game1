@@ -25,7 +25,7 @@ public class Createmap2 {
 				}else{
 					Random rnd = new Random();
 					int ran = rnd.nextInt(2);
-					switch(j-1){
+					switch(i-1){
 					case 0:
 						map[i][j] = ran;
 						break;
