@@ -49,6 +49,7 @@ public class Createmap2 {
 						break;
 					default:
 						map[i][j] = ran;
+						break;
 					}
 				}
 			}
