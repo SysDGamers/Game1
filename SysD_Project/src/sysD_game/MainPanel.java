@@ -58,9 +58,6 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 
 		// プレイヤーを作成
 		player = new Player(192, 32, map);
-		enemy = new Enemy(400, 32, map);
-		item = new Item[50];
-
 		enemy = new Enemy(400, 32, map, "char_02");
 		enemy2 = new Enemy(140, 32, map, "char_03");
 		item = new Item[ITEM_MAX];
@@ -93,11 +90,11 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 				else
 					quote = true;
 			}
-			/*if (quote) {
+			if (quote) {
 				textpop.show();
 			} else {
 				textpop.hide();
-			}*/
+			}
 
 			if (keyState.A) {
 				// 左キーが押されていれば左向きに加速
