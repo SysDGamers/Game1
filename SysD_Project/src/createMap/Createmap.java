@@ -38,11 +38,11 @@ public class Createmap {
 							if(j== width-1){
 								pw.println(0);
 							}else{
-								if(d<0.8) pw.print(0);
-								else if(d<0.85)pw.print(1);
-								else if(d<0.90)pw.print(2);
-								else if(d<0.95)pw.print(3);
-								else if(d<0.98)pw.print(4);
+								if(d<0.5) pw.print(0);
+								else if(d<0.6)pw.print(1);
+								else if(d<0.7)pw.print(2);
+								else if(d<0.8)pw.print(3);
+								else if(d<0.9)pw.print(4);
 								else pw.print(5);
 							}
 						}
