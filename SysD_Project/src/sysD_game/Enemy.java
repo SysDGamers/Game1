@@ -219,6 +219,7 @@ public class Enemy extends Character{
     public void getCollision(Player player){
     	if ((player.x-this.x)*(player.x-this.x) + (player.y-this.y)*(player.y-this.y) <= 400){
     		talk = 1;
+    		player.hp -= 5;
     	}else {
     		talk = 0;
     	}

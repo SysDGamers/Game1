@@ -29,6 +29,8 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 	// テキスト
 	private TextPopUp textpop;
 	private Text text;
+	// アイコン
+	private Icon icon;
 	// プレイヤー
 	private Player player;
 	private Enemy enemy;
@@ -65,6 +67,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 		enemy = new Enemy(400, 32, map, "char_02");
 		enemy2 = new Enemy(140, 32, map, "char_03");
 		item = new Item[ITEM_MAX];
+		icon = new Icon();
 		// キーイベントリスナーを登録
 		addKeyListener(this);
 		addMouseListener(this);
@@ -141,6 +144,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 				}
 			}
 			enemy2.update(player);
+			icon.update(player);
 			// 再描画
 			repaint();
 
@@ -194,6 +198,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener, MouseLis
 			text.draw(g);
 		}
 		inventory.draw(g);
+		icon.draw(g, offsetX, offsetY);
 	}
 
 	/**
