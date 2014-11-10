@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class Createmap {
-
+/*
 	public static void main(String args[]){
 
 		int height = 30;
@@ -67,4 +67,5 @@ public class Createmap {
 
 		return false;
 	}
+	*/
 }
