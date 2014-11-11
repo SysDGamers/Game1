@@ -14,7 +14,6 @@ public class Createmap3 {
 		int height = 30;
 		boolean up_down_flag= true;
 		int map[][] = new int[width][height];
-		Random rnd = new Random();
 
 
 		//境界線
@@ -41,7 +40,6 @@ public class Createmap3 {
 					sum_height += 1;
 				}
 				for(int k=height-sum_height; k<height; k++){
-					int ran = rnd.nextInt(5) + 1;
 					map[j+1][k]=1;
 				}
 				if(sum_height> height/3 * 2){
@@ -49,7 +47,7 @@ public class Createmap3 {
 				}
 			}else if(up_down_flag == false){
 				double d = Math.random();
-				int ran = rnd.nextInt(5) + 1;
+
 				if(d<0.6){
 					sum_height += 0;
 				}else{
@@ -69,7 +67,7 @@ public class Createmap3 {
 			double d_doukutu_x = Math.random() * 200;
 			int doukutu_x = (int) d_doukutu_x;
 			int doukutu_y = height/2;
-			for(int i=0; i < 100; i++){
+			for(int i=0; i < 70; i++){
 				int hole = 3;
 				int hole_x = doukutu_x;
 				int hole_y = doukutu_y;
