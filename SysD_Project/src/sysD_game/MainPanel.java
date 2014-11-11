@@ -17,8 +17,6 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 	// パネルサイズ
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
-	//public static final int WIDTH = 1500;
-	//public static final int HEIGHT = 900;
 
 	// アイテム最大表示数
 	public static final int ITEM_MAX = 30;
