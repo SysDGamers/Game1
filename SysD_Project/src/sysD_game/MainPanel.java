@@ -12,8 +12,11 @@ import javax.swing.JPanel;
 
 public class MainPanel extends JPanel implements Runnable, MouseListener{
 	// パネルサイズ
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 600;
+	//public static final int WIDTH = 800;
+	//public static final int HEIGHT = 600;
+	public static final int WIDTH = 1500;
+	public static final int HEIGHT = 900;
+
 	// アイテム最大表示数
 	public static final int ITEM_MAX = 30;
 
@@ -55,6 +58,8 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 
 		setLayout(null);
 
+		Createmap3 createmap = new Createmap3();
+		createmap.createMap();
 		// マップを作成
 		//map = new Map("map01.txt");
 		map = new Map("test.txt");
@@ -70,9 +75,9 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 		inventory = new Inventory(WIND_RECT);
 		textpop = new TextPopUp(WIND_RECT);
 		this.add(textpop);
-		
+
 		addMouseListener((MouseListener) this);
-		
+
 		// ゲームループ開始
 		gameLoop = new Thread(this);
 		gameLoop.start();
@@ -136,7 +141,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 				}
 				mousepressed = false;
 			}
-			
+
 			// プレイヤーの状態を更新
 			player.update();
 			enemy.update(player);
@@ -204,8 +209,8 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 		inventory.draw(g);
 		icon.draw(g, offsetX, offsetY);
 	}
-	
-	
+
+
 
 	public void mouseEntered(MouseEvent e){
 	}
