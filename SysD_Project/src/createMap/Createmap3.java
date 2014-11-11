@@ -1,4 +1,4 @@
-package sysD_game;
+package createMap;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,11 +9,14 @@ import java.util.Random;
 
 public class Createmap3 {
 
-	public void createMap(){
-		int width = 500;
-		int height = 50;
+	public static void main(String[] args){
+		int width = 300;
+		int height = 30;
 		boolean up_down_flag= true;
 		int map[][] = new int[width][height];
+		Random rnd = new Random();
+
+
 		//境界線
 		for(int i=0;i < height; i++){
 			for(int j=0;j < width; j++){
@@ -32,20 +35,22 @@ public class Createmap3 {
 			}
 			if(up_down_flag==true){
 				double d = Math.random();
-				if(d<0.5){
+				if(d<0.6){
 					sum_height += 0;
 				}else{
 					sum_height += 1;
 				}
 				for(int k=height-sum_height; k<height; k++){
+					int ran = rnd.nextInt(5) + 1;
 					map[j+1][k]=1;
 				}
-				if(sum_height> height/5 * 3){
+				if(sum_height> height/3 * 2){
 					up_down_flag = false;
 				}
 			}else if(up_down_flag == false){
 				double d = Math.random();
-				if(d<0.5){
+				int ran = rnd.nextInt(5) + 1;
+				if(d<0.6){
 					sum_height += 0;
 				}else{
 					sum_height -= 1;
@@ -58,6 +63,33 @@ public class Createmap3 {
 				}
 			}
 
+		}
+		//洞窟作成
+		for(int k = 0; k<3; k++){
+			double d_doukutu_x = Math.random() * 200;
+			int doukutu_x = (int) d_doukutu_x;
+			int doukutu_y = height/2;
+			for(int i=0; i < 100; i++){
+				int hole = 3;
+				int hole_x = doukutu_x;
+				int hole_y = doukutu_y;
+				double d = Math.random();
+
+				for(int j=0; j< hole; j++){
+					map[hole_x][hole_y] = 0;
+					hole_x += 1;
+				}
+				if(d<0.2){
+					doukutu_y += 1;
+				}else if(d <0.55){
+					doukutu_x +=3;
+				}else if(d<0.9){
+					doukutu_x -=3;
+				}else{
+					doukutu_y -= 1;
+				}
+
+			}
 		}
 		for(int i=0; i<height; i++){
 			for(int j=0; j<width; j++){

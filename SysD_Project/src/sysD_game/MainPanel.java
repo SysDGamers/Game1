@@ -10,6 +10,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
+import createMap.Createmap3;
+
 public class MainPanel extends JPanel implements Runnable, MouseListener{
 	// パネルサイズ
 	//public static final int WIDTH = 800;
@@ -58,8 +60,8 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 
 		setLayout(null);
 
-		Createmap3 createmap = new Createmap3();
-		createmap.createMap();
+		//Createmap3 createmap = new Createmap3();
+		//createmap.createMap();
 		// マップを作成
 		//map = new Map("map01.txt");
 		map = new Map("test.txt");
