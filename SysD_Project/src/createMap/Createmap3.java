@@ -10,7 +10,7 @@ import java.util.Random;
 public class Createmap3 {
 
 	public static void main(String[] args){
-		int width = 300;
+		int width = 100;
 		int height = 30;
 		boolean up_down_flag= true;
 		int map[][] = new int[width][height];
@@ -64,10 +64,10 @@ public class Createmap3 {
 		}
 		//洞窟作成
 		for(int k = 0; k<3; k++){
-			double d_doukutu_x = Math.random() * 200;
+			double d_doukutu_x = Math.random() * 70 + 15;
 			int doukutu_x = (int) d_doukutu_x;
 			int doukutu_y = height/2;
-			for(int i=0; i < 70; i++){
+			for(int i=0; i < 30; i++){
 				int hole = 3;
 				int hole_x = doukutu_x;
 				int hole_y = doukutu_y;
@@ -77,11 +77,11 @@ public class Createmap3 {
 					map[hole_x][hole_y] = 0;
 					hole_x += 1;
 				}
-				if(d<0.2){
+				if(d<0.25){
 					doukutu_y += 1;
-				}else if(d <0.55){
+				}else if(d <0.60){
 					doukutu_x +=3;
-				}else if(d<0.9){
+				}else if(d<0.95){
 					doukutu_x -=3;
 				}else{
 					doukutu_y -= 1;
