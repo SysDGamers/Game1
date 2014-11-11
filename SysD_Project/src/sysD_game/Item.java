@@ -73,7 +73,7 @@ public class Item {
      * 左に加速する
      */
     public void accelerateLeft() {
-        vx = -SPEED;
+        vx = -SPEED*0.3;
         dir = LEFT;
     }
 
@@ -81,7 +81,7 @@ public class Item {
      * 右に加速する
      */
     public void accelerateRight() {
-        vx = SPEED;
+        vx = SPEED*0.3;
         dir = RIGHT;
     }
 
@@ -109,7 +109,7 @@ if(d<0.8){
 	accelerateLeft();
 }else if(d<0.90){
 	accelerateRight();
-}else{
+}else if(d<0.93){
 jump();
 }
         // x方向の当たり判定
