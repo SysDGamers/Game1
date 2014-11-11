@@ -10,7 +10,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-public class MainPanel extends JPanel implements Runnable, MouseListener{
+public class MainPanel extends JPanel implements Runnable{
 	// パネルサイズ
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
@@ -40,6 +40,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 	// テキスト表示の状態
 	private boolean quote = false;
 	// マウスの状態
+	final MouseManager mouseManager = MouseManager.getInstance();
 	public boolean mousepressed;
 	public Point point;
 	// ゲームループ用スレッド
@@ -62,13 +63,11 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 		enemy2 = new Enemy(140, 32, map, "char_03");
 		item = new Item[ITEM_MAX];
 		// キーイベントリスナーを登録
-		addMouseListener(this);
+		addMouseListener(mouseManager);
 		inventory = new Inventory(WIND_RECT);
 		textpop = new TextPopUp(WIND_RECT);
 		this.add(textpop);
-		
-		addMouseListener((MouseListener) this);
-		
+				
 		// ゲームループ開始
 		gameLoop = new Thread(this);
 		gameLoop.start();
@@ -112,11 +111,11 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 				player.jump();
 			}
 			
-			if (mousepressed == true){
+			if (mouseManager.mousepressed == true){
 				double buf_x, buf_y;
 				int block_no;
-				buf_x = point.x;
-				buf_y = point.y;
+				buf_x = mouseManager.point.x;
+				buf_y = mouseManager.point.y;
 				block_no = player.digObject(buf_x, buf_y, map);
 				if (block_no > 0){
 					item[item_count] = new Item(buf_x - offsetX, buf_y - offsetY, map, block_no);
@@ -128,7 +127,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 				if (item_count >= ITEM_MAX){
 					item_count = 0;
 				}
-				mousepressed = false;
+				mouseManager.mousepressed = false;
 			}
 			//
 
@@ -201,22 +200,4 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 	
 	
 
-	
-	public void mouseEntered(MouseEvent e){
-	}
-
-	public void mouseExited(MouseEvent e){
-	}
-
-	public void mousePressed(MouseEvent e){
-		mousepressed = true;
-		point = e.getPoint();
-	}
-
-	public void mouseReleased(MouseEvent e){
-		mousepressed = false;
-	}
-
-	public void mouseClicked(MouseEvent e){
-	}
 }
