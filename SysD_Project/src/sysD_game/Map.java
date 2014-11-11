@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 
 public class Map {
     // タイルサイズ
-    public static final int TILE_SIZE = 32;
+    public static final int TILE_SIZE = 20;
     // 重力
     public static final double GRAVITY = 0.6;
     // ブロック
@@ -87,43 +87,43 @@ public class Map {
                 switch (map[i][j]) {
                     case 1 : // ブロック
                     	buf_x = BLOCK_01_X; buf_y = BLOCK_01_Y;
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE, buf_y + TILE_SIZE, null);
                         break;
                     case 2 : // ブロック
                     	buf_x = BLOCK_02_X; buf_y = BLOCK_02_Y;
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE, buf_y + TILE_SIZE, null);
                         break;
                     case 3 : // ブロック
                     	buf_x = BLOCK_03_X; buf_y = BLOCK_03_Y;
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE, buf_y + TILE_SIZE, null);
                         break;
                     case 4 : // ブロック
                     	buf_x = BLOCK_04_X; buf_y = BLOCK_04_Y;
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE, buf_y + TILE_SIZE, null);
                         break;
                     case 5 : // ブロック
                     	buf_x = BLOCK_05_X; buf_y = BLOCK_05_Y;
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE, buf_y + TILE_SIZE, null);
                         break;
                     case 6 : // ブロック
                     	buf_x = BLOCK_06_X; buf_y = BLOCK_06_Y;
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE, buf_y + TILE_SIZE, null);
                         break;
                     case 7 : // ブロック
                     	buf_x = BLOCK_07_X; buf_y = BLOCK_07_Y;
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE, buf_y + TILE_SIZE, null);
                         break;
                     case 8 : // ブロック
                     	buf_x = BLOCK_08_X; buf_y = BLOCK_08_Y;
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE, buf_y + TILE_SIZE, null);
                         break;
                     case 9 : // ブロック
                     	buf_x = BLOCK_09_X; buf_y = BLOCK_09_Y;
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE, buf_y + TILE_SIZE, null);
                         break;
                     case 10 : // ブロック
                     	buf_x = BLOCK_10_X; buf_y = BLOCK_10_Y;
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE, buf_y + TILE_SIZE, null);
                         break;
                 }
             }

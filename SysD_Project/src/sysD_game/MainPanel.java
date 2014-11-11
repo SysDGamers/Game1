@@ -75,8 +75,8 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 		// キーイベントリスナーを登録
 		addMouseListener(this);
 		inventory = new Inventory(WIND_RECT);
-		textpop = new TextPopUp(WIND_RECT);
-		this.add(textpop);
+		//textpop = new TextPopUp(WIND_RECT);
+		//this.add(textpop);
 
 		addMouseListener((MouseListener) this);
 
@@ -102,9 +102,9 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 					quote = true;
 			}
 			if (quote) {
-				textpop.show();
+				//textpop.show();
 			} else {
-				textpop.hide();
+				//textpop.hide();
 			}
 
 			if (keyState.A) {
