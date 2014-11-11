@@ -7,12 +7,13 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
 import createMap.Createmap3;
 
-public class MainPanel extends JPanel implements Runnable, MouseListener{
+public class MainPanel extends JPanel implements Runnable, MouseListener, MouseMotionListener{
 	// パネルサイズ
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
@@ -79,6 +80,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 		//this.add(textpop);
 
 		addMouseListener((MouseListener) this);
+		addMouseMotionListener((MouseMotionListener) this);
 
 		// ゲームループ開始
 		gameLoop = new Thread(this);
@@ -141,7 +143,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 				if (item_count >= ITEM_MAX){
 					item_count = 0;
 				}
-				mousepressed = false;
+				//mousepressed = false;
 			}
 
 			// プレイヤーの状態を更新
@@ -230,5 +232,12 @@ public class MainPanel extends JPanel implements Runnable, MouseListener{
 	}
 
 	public void mouseClicked(MouseEvent e){
+	}
+
+	public void mouseDragged(MouseEvent e){
+		point = e.getPoint();
+	}
+
+	public void mouseMoved(MouseEvent e){
 	}
 }
