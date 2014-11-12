@@ -38,7 +38,7 @@ public class Text {
 		g.setColor(Color.BLACK);
 		g.fillRect(innerRect.x, innerRect.y, innerRect.width, innerRect.height);
 		
-		Font f=new Font("TimesRoman",Font.ITALIC,20);
+		Font f=new Font(null,Font.BOLD,20);
 		g.setFont(f);
 		g.setColor(Color.white);
 		g.drawString("問おう 貴方が私のマスターか", innerRect.x + 15, innerRect.y + 25);
