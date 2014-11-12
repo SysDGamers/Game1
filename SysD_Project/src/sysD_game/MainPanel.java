@@ -165,11 +165,17 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 				for(int i = 0; i < item_draw_count; i++){
 					if(item[i].item_alive == 1){
 						item[i].update();
+						if(item[i].getCollision(player)){
+							player.getItem(item[i]);
+						}
 					}
 				}
 			}
 			enemy2.update(player);
 			icon.update(player);
+			
+			
+			
 			// 再描画
 			repaint();
 
