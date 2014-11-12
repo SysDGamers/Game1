@@ -57,7 +57,6 @@ final class KeyManager {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String action = e.getActionCommand();
-			System.out.println(action);
 			
 			if (action == "W") {
 				keyState.W = true;

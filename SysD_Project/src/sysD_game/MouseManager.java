@@ -39,7 +39,6 @@ public class MouseManager implements MouseListener{
 		point = e.getLocationOnScreen();
 		point.x = point.x - frame.getLocationOnScreen().x;
 		point.y = point.y - frame.getLocationOnScreen().y;
-		System.out.println("poits : " + point.x + " and " + point.y);
 	}
 
 	@Override
