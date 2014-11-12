@@ -103,9 +103,9 @@ public class MainPanel extends JPanel implements Runnable, MouseMotionListener{
 					quote = true;
 			}
 			if (quote) {
-				//textpop.show();
+				textpop.show();
 			} else {
-				//textpop.hide();
+				textpop.hide();
 			}
 
 			if (keyState.A) {
