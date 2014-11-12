@@ -11,14 +11,12 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
-import createMap.Createmap3;
+//import createMap.Createmap3;
 
 public class MainPanel extends JPanel implements Runnable, MouseListener, MouseMotionListener{
 	// パネルサイズ
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
-	//public static final int WIDTH = 1500;
-	//public static final int HEIGHT = 900;
 
 	// アイテム最大表示数
 	public static final int ITEM_MAX = 30;
@@ -31,7 +29,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 	private Inventory inventory;
 	private static Rectangle WIND_RECT = new Rectangle(100, 450, 600,100);
 	// テキスト
-	private TextPopUp textpop;
+	//private TextPopUp textpop;
 	private Text text;
 	// アイコン
 	private Icon icon;
@@ -93,88 +91,27 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 	 */
 	public void run() {
 		while (true) {
-			if(keyState.ESC){
-				inventory.show();
-			} else if (!keyState.ESC){
-				inventory.hide();
-			}
-			if (keyState.Q) {
-				if (quote)
-					quote = false;
-				else
-					quote = true;
-			}
-			if (quote) {
-				//textpop.show();
-			} else {
-				//textpop.hide();
-			}
-
-			if (keyState.A) {
-				// 左キーが押されていれば左向きに加速
-				player.accelerateLeft();
-			} else if (keyState.D) {
-				// 右キーが押されていれば右向きに加速
-				player.accelerateRight();
-			} else {
-				// 何も押されてないときは停止
-				player.stop();
-			}
-
-			if (keyState.W) {
-				// ジャンプする
-				player.jump();
-			}
-
+			// 各キーアクションの設定
+			keyAction(player, inventory);
+			// ブロック掘る+アイテム生成
 			if (mousepressed == true){
-				double buf_x, buf_y;
-				int block_no;
-				buf_x = point.x;
-				buf_y = point.y;
-				int p_x = (int)player.getX();
-				int p_y = (int)player.getY();
-				if ((p_x + offsetX - buf_x)*(p_x + offsetX - buf_x) + (p_y + offsetY - buf_y)*(p_y + offsetY - buf_y) < 10000){
-					int buf_bx = map.pixelsToTiles(buf_x);
-					int buf_by = map.pixelsToTiles(buf_y);
-					block_no = player.digObject(buf_x, buf_y, map);
-					if (block_no > 0){
-				        // ランダムな動き
-						double d = Math.random();
-						if(d<0.5){
-							item_no = 0;
-						}else if(d<1.0){
-							item_no = 1;
-						}
-						item[item_count] = new Item(buf_bx * map.TILE_SIZE - offsetX, buf_by * map.TILE_SIZE - offsetY, map, item_no);
-						item_count++;
-						if (item_draw_count < ITEM_MAX){
-							item_draw_count++;
-						}
-					}
-					if (item_count >= ITEM_MAX){
-						item_count = 0;
-					}
-					//mousepressed = false;
-				}
+				genItem(map, item);
 			}
-
-			// プレイヤーの状態を更新
-			player.update();
+			// プレイヤーの状態を更新...後に書かれてるほど手前に表示される
 			enemy.update(player);
-			if(item_draw_count != 0){
+			enemy2.update(player);
+			if(item_draw_count != 0){	// 何個アイテムあるか
 				for(int i = 0; i < item_draw_count; i++){
-					if(item[i].item_alive == 1){
+					if(item[i].item_alive == 1){	// そのアイテムは取得済みでないか
 						item[i].update();
-						if(item[i].getCollision(player)){
-							player.getItem(item[i]);
+						if(item[i].getCollision(player)){	// プレイヤーとの当たり判定
+							player.getItem(item[i]);	// プレイヤーによるアイテム取得
 						}
 					}
 				}
 			}
-			enemy2.update(player);
+			player.update();
 			icon.update(player);
-			
-			
 			
 			// 再描画
 			repaint();
@@ -232,7 +169,71 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 		icon.draw(g, offsetX, offsetY);
 	}
 
+	public void genItem(Map map, Item[] item){
+		double buf_x, buf_y;
+		int block_no;
+		buf_x = point.x;
+		buf_y = point.y;
+		int p_x = (int)player.getX();
+		int p_y = (int)player.getY();
+		if ((p_x + offsetX - buf_x)*(p_x + offsetX - buf_x) + (p_y + offsetY - buf_y)*(p_y + offsetY - buf_y) < 10000){
+			int buf_bx = Map.pixelsToTiles(buf_x);
+			int buf_by = Map.pixelsToTiles(buf_y);
+			block_no = player.digObject(buf_x, buf_y, map);
+			if (block_no > 0){
+		        // ランダムな動き
+				double d = Math.random();
+				if(d<0.5){
+					item_no = 0;
+				}else if(d<1.0){
+					item_no = 1;
+				}
+				item[item_count] = new Item(buf_bx * Map.TILE_SIZE - offsetX, buf_by * Map.TILE_SIZE - offsetY, map, item_no);
+				item_count++;
+				if (item_draw_count < ITEM_MAX){
+					item_draw_count++;
+				}
+			}
+			if (item_count >= ITEM_MAX){
+				item_count = 0;
+			}
+		}
+	}
+	
+	public void keyAction(Player player, Inventory inventory){
+		if(keyState.ESC){
+			inventory.show();
+		} else if (!keyState.ESC){
+			inventory.hide();
+		}
+		if (keyState.Q) {
+			if (quote)
+				quote = false;
+			else
+				quote = true;
+		}
+		if (quote) {
+			//textpop.show();
+		} else {
+			//textpop.hide();
+		}
 
+		if (keyState.A) {
+			// 左キーが押されていれば左向きに加速
+			player.accelerateLeft();
+		} else if (keyState.D) {
+			// 右キーが押されていれば右向きに加速
+			player.accelerateRight();
+		} else {
+			// 何も押されてないときは停止
+			player.stop();
+		}
+
+		if (keyState.W) {
+			// ジャンプする
+			player.jump();
+		}
+	}
 
 	public void mouseEntered(MouseEvent e){
 	}
