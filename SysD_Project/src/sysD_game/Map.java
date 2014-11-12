@@ -10,31 +10,31 @@ import javax.swing.ImageIcon;
 
 public class Map {
     // タイルサイズ
-    public static final int TILE_SIZE = 32;
+    public static final int TILE_SIZE = 16;
     // 重力
     public static final double GRAVITY = 0.6;
     // ブロック
     public static final int BLOCK_01_X = 0;
     public static final int BLOCK_01_Y = 0;
     public static final int BLOCK_02_X = 32;
-    public static final int BLOCK_02_Y = 0;    
+    public static final int BLOCK_02_Y = 0;
     public static final int BLOCK_03_X = 64;
-    public static final int BLOCK_03_Y = 0;    
+    public static final int BLOCK_03_Y = 0;
     public static final int BLOCK_04_X = 96;
     public static final int BLOCK_04_Y = 0;
     public static final int BLOCK_05_X = 128;
     public static final int BLOCK_05_Y = 0;
     public static final int BLOCK_06_X = 160;
-    public static final int BLOCK_06_Y = 0;    
+    public static final int BLOCK_06_Y = 0;
     public static final int BLOCK_07_X = 192;
-    public static final int BLOCK_07_Y = 0;    
+    public static final int BLOCK_07_Y = 0;
     public static final int BLOCK_08_X = 224;
-    public static final int BLOCK_08_Y = 0; 
+    public static final int BLOCK_08_Y = 0;
     public static final int BLOCK_09_X = 256;
-    public static final int BLOCK_09_Y = 0;    
+    public static final int BLOCK_09_Y = 0;
     public static final int BLOCK_10_X = 288;
-    public static final int BLOCK_10_Y = 0; 
-    
+    public static final int BLOCK_10_Y = 0;
+
     // マップ
     public int[][] map;
 
@@ -46,7 +46,7 @@ public class Map {
     private int width;
     // 高さ
     private int height;
-    
+
     // ブロックの画像
     private Image blockImage;
 
@@ -63,7 +63,7 @@ public class Map {
 
     /**
      * マップを描画する
-     * 
+     *
      * @param g 描画オブジェクト
      * @param offsetX X方向オフセット
      * @param offsetY Y方向オフセット
@@ -86,50 +86,50 @@ public class Map {
                 // mapの値に応じて画像を描く
                 switch (map[i][j]) {
                     case 1 : // ブロック
-                    	buf_x = BLOCK_01_X; buf_y = BLOCK_01_Y; 
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
+                    	buf_x = BLOCK_01_X; buf_y = BLOCK_01_Y;
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE*2, buf_y + TILE_SIZE*2, null);
                         break;
                     case 2 : // ブロック
-                    	buf_x = BLOCK_02_X; buf_y = BLOCK_02_Y; 
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
+                    	buf_x = BLOCK_02_X; buf_y = BLOCK_02_Y;
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE*2, buf_y + TILE_SIZE*2, null);
                         break;
                     case 3 : // ブロック
-                    	buf_x = BLOCK_03_X; buf_y = BLOCK_03_Y; 
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
+                    	buf_x = BLOCK_03_X; buf_y = BLOCK_03_Y;
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE*2, buf_y + TILE_SIZE*2, null);
                         break;
                     case 4 : // ブロック
-                    	buf_x = BLOCK_04_X; buf_y = BLOCK_04_Y; 
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
+                    	buf_x = BLOCK_04_X; buf_y = BLOCK_04_Y;
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE*2, buf_y + TILE_SIZE*2, null);
                         break;
                     case 5 : // ブロック
-                    	buf_x = BLOCK_05_X; buf_y = BLOCK_05_Y; 
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
+                    	buf_x = BLOCK_05_X; buf_y = BLOCK_05_Y;
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE*2, buf_y + TILE_SIZE*2, null);
                         break;
                     case 6 : // ブロック
-                    	buf_x = BLOCK_06_X; buf_y = BLOCK_06_Y; 
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
-                        break; 
+                    	buf_x = BLOCK_06_X; buf_y = BLOCK_06_Y;
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE*2, buf_y + TILE_SIZE*2, null);
+                        break;
                     case 7 : // ブロック
-                    	buf_x = BLOCK_07_X; buf_y = BLOCK_07_Y; 
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
+                    	buf_x = BLOCK_07_X; buf_y = BLOCK_07_Y;
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE*2, buf_y + TILE_SIZE*2, null);
                         break;
                     case 8 : // ブロック
-                    	buf_x = BLOCK_08_X; buf_y = BLOCK_08_Y; 
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
+                    	buf_x = BLOCK_08_X; buf_y = BLOCK_08_Y;
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE*2, buf_y + TILE_SIZE*2, null);
                         break;
                     case 9 : // ブロック
-                    	buf_x = BLOCK_09_X; buf_y = BLOCK_09_Y; 
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
-                        break; 
+                    	buf_x = BLOCK_09_X; buf_y = BLOCK_09_Y;
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE*2, buf_y + TILE_SIZE*2, null);
+                        break;
                     case 10 : // ブロック
-                    	buf_x = BLOCK_10_X; buf_y = BLOCK_10_Y; 
-                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + 32, tilesToPixels(i) + offsetY + 32, buf_x, buf_y, buf_x + 32, buf_y + 32, null);
-                        break; 
+                    	buf_x = BLOCK_10_X; buf_y = BLOCK_10_Y;
+                        g.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, tilesToPixels(j) + offsetX + TILE_SIZE, tilesToPixels(i) + offsetY + TILE_SIZE, buf_x, buf_y, buf_x + TILE_SIZE*2, buf_y + TILE_SIZE*2, null);
+                        break;
                 }
             }
         }
     }
-    
+
     /**
      * (newX, newY)で衝突するブロックの座標を返す
      * @param player プレイヤーへの参照
@@ -142,12 +142,12 @@ public class Map {
         // 浮動小数点の関係で切り上げしないと衝突してないと判定される場合がある
         newX = Math.ceil(newX);
         newY = Math.ceil(newY);
-        
+
         double fromX = Math.min(player.getX(), newX);
         double fromY = Math.min(player.getY(), newY);
         double toX = Math.max(player.getX(), newX);
         double toY = Math.max(player.getY(), newY);
-        
+
         int fromTileX = pixelsToTiles(fromX);
         int fromTileY = pixelsToTiles(fromY);
         int toTileX = pixelsToTiles(toX + Character.WIDTH - 1);
@@ -169,21 +169,21 @@ public class Map {
                 }
             }
         }
-        
+
         return null;
     }
-    
+
     public Point getTileCollision2(Item player, double newX, double newY) {
         // 小数点以下切り上げ
         // 浮動小数点の関係で切り上げしないと衝突してないと判定される場合がある
         newX = Math.ceil(newX);
         newY = Math.ceil(newY);
-        
+
         double fromX = Math.min(player.getX(), newX);
         double fromY = Math.min(player.getY(), newY);
         double toX = Math.max(player.getX(), newX);
         double toY = Math.max(player.getY(), newY);
-        
+
         int fromTileX = pixelsToTiles(fromX);
         int fromTileY = pixelsToTiles(fromY);
         int toTileX = pixelsToTiles(toX + Character.WIDTH - 1);
@@ -205,10 +205,10 @@ public class Map {
                 }
             }
         }
-        
+
         return null;
     }
-    
+
     /**
      * ピクセル単位をタイル単位に変更する
      * @param pixels ピクセル単位
@@ -217,7 +217,7 @@ public class Map {
     public static int pixelsToTiles(double pixels) {
         return (int)Math.floor(pixels / TILE_SIZE);
     }
-    
+
     /**
      * タイル単位をピクセル単位に変更する
      * @param tiles タイル単位
@@ -226,7 +226,7 @@ public class Map {
     public static int tilesToPixels(int tiles) {
         return tiles * TILE_SIZE;
     }
-    
+
     /**
      * イメージをロードする
      */
@@ -234,10 +234,10 @@ public class Map {
         ImageIcon icon = new ImageIcon(getClass().getResource("image/block.gif"));
         blockImage = icon.getImage();
     }
-    
+
     /**
      * マップをロードする
-     * 
+     *
      * @param filename マップファイル
      */
     private void load(String filename) {
@@ -271,7 +271,7 @@ public class Map {
     public int getWidth() {
         return width;
     }
-    
+
     /**
      * @return Returns the height.
      */

@@ -33,30 +33,30 @@ public class Item {
     // プレイヤー画像
     private Image image;
     private Map map;
-    
+
     public int item_alive = 0;
 
     public Item() {
     }
-    
+
     public Item(double x, double y, Map map, int block_no) {
         this.x = x;
         this.y = y;
         this.map = map;
-        
+
         init();
     }
-    
+
     public void init(){
-        vx = 5;
-        vy = 5;
+        vx = 0;
+        vy = 0;
         onGround = false;
         dir = RIGHT;
         count = 0;
         item_alive = 1;
         // イメージをロードする
         loadImage();
-        
+
         // アニメーション用スレッドを開始
         AnimationThread thread = new AnimationThread();
         thread.start();
@@ -73,7 +73,7 @@ public class Item {
      * 左に加速する
      */
     public void accelerateLeft() {
-        vx = -SPEED;
+        vx = -SPEED*0.3;
         dir = LEFT;
     }
 
@@ -81,7 +81,7 @@ public class Item {
      * 右に加速する
      */
     public void accelerateRight() {
-        vx = SPEED;
+        vx = SPEED*0.3;
         dir = RIGHT;
     }
 
@@ -102,7 +102,16 @@ public class Item {
     public void update() {
         // 重力で下向きに加速度がかかる
         vy += Map.GRAVITY;
+double d = Math.random();
+if(d<0.8){
 
+}else if(d<0.85){
+	accelerateLeft();
+}else if(d<0.90){
+	accelerateRight();
+}else if(d<0.93){
+jump();
+}
         // x方向の当たり判定
         // 移動先座標を求める
         double newX = x + vx;
@@ -155,14 +164,14 @@ public class Item {
 
     /**
      * プレイヤーを描画
-     * 
+     *
      * @param g 描画オブジェクト
      * @param offsetX X方向オフセット
      * @param offsetY Y方向オフセット
      */
     public void draw(Graphics g, int offsetX, int offsetY) {
         g.drawImage(image,
-                (int) x + offsetX + WIDTH/2, (int) y + offsetY + HEIGHT/2, 
+                (int) x + offsetX, (int) y + offsetY,
                 (int) x + offsetX + WIDTH, (int) y + offsetY + HEIGHT,
                 count * WIDTH, dir * HEIGHT,
                 count * WIDTH + WIDTH, dir * HEIGHT + HEIGHT,
@@ -181,16 +190,16 @@ public class Item {
     public double getY() {
         return y;
     }
-    
+
     /**
      * イメージをロードする
      */
     private void loadImage() {
         ImageIcon icon = new ImageIcon(getClass().getResource(
-                "image/char_01.gif"));
+                "image/enemy_01.gif"));
         image = icon.getImage();
     }
-    
+
     // アニメーション用スレッド
     public class AnimationThread extends Thread {
         public void run() {

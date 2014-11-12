@@ -32,6 +32,8 @@ public class Player extends Character{
     private Image image;
     // マップへの参照
     private Map map;
+    // HP
+    public int hp = 100;
 
 	public Player(double x, double y, Map map) {
         this.x = x;

@@ -7,13 +7,18 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
+import createMap.Createmap3;
 
-public class MainPanel extends JPanel implements Runnable{
+
+public class MainPanel extends JPanel implements Runnable, MouseMotionListener{
+
 	// パネルサイズ
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
+
 	// アイテム最大表示数
 	public static final int ITEM_MAX = 30;
 
@@ -27,6 +32,8 @@ public class MainPanel extends JPanel implements Runnable{
 	// テキスト
 	private TextPopUp textpop;
 	private Text text;
+	// アイコン
+	private Icon icon;
 	// プレイヤー
 	private Player player;
 	private Enemy enemy;
@@ -51,23 +58,29 @@ public class MainPanel extends JPanel implements Runnable{
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		// パネルがキー入力を受け付けるようにする
 		setFocusable(true);
-		
+
 		setLayout(null);
 
+		//Createmap3 createmap = new Createmap3();
+		//createmap.createMap();
 		// マップを作成
-		map = new Map("map01.dat");
-
+		//map = new Map("map01.txt");
+		map = new Map("test.txt");
 		// プレイヤーを作成
 		player = new Player(192, 32, map);
 		enemy = new Enemy(400, 32, map, "char_02");
 		enemy2 = new Enemy(140, 32, map, "char_03");
 		item = new Item[ITEM_MAX];
+		icon = new Icon();
+		text = new Text(WIND_RECT);
 		// キーイベントリスナーを登録
 		addMouseListener(mouseManager);
 		inventory = new Inventory(WIND_RECT);
+
 		textpop = new TextPopUp(WIND_RECT);
 		this.add(textpop);
-				
+		addMouseMotionListener((MouseMotionListener) this);
+
 		// ゲームループ開始
 		gameLoop = new Thread(this);
 		gameLoop.start();
@@ -90,9 +103,9 @@ public class MainPanel extends JPanel implements Runnable{
 					quote = true;
 			}
 			if (quote) {
-				textpop.show();
+				//textpop.show();
 			} else {
-				textpop.hide();
+				//textpop.hide();
 			}
 
 			if (keyState.A) {
@@ -110,39 +123,44 @@ public class MainPanel extends JPanel implements Runnable{
 				// ジャンプする
 				player.jump();
 			}
-			
 			if (mouseManager.mousepressed == true){
 				double buf_x, buf_y;
 				int block_no;
+				
 				buf_x = mouseManager.point.x;
 				buf_y = mouseManager.point.y;
-				block_no = player.digObject(buf_x, buf_y, map);
-				if (block_no > 0){
-					item[item_count] = new Item(buf_x - offsetX, buf_y - offsetY, map, block_no);
-					item_count++;
-					if (item_draw_count < ITEM_MAX){
-						item_draw_count++;
+				int p_x = (int)player.getX();
+				int p_y = (int)player.getY();
+				if ((p_x + offsetX - buf_x)*(p_x + offsetX - buf_x) + (p_y + offsetY - buf_y)*(p_y + offsetY - buf_y) < 10000){
+					int buf_bx = map.pixelsToTiles(buf_x);
+					int buf_by = map.pixelsToTiles(buf_y);
+					block_no = player.digObject(buf_x, buf_y, map);
+					if (block_no > 0){
+						item[item_count] = new Item(buf_bx * map.TILE_SIZE - offsetX, buf_by * map.TILE_SIZE - offsetY, map, block_no);
+						item_count++;
+						if (item_draw_count < ITEM_MAX){
+							item_draw_count++;
+						}
 					}
+					if (item_count >= ITEM_MAX){
+						item_count = 0;
+					}
+					mouseManager.mousepressed = false;
 				}
-				if (item_count >= ITEM_MAX){
-					item_count = 0;
-				}
-				mouseManager.mousepressed = false;
 			}
-			//
-
 
 			// プレイヤーの状態を更新
 			player.update();
 			enemy.update(player);
-			if(item_count != 0){
-				for(int i = 0; i < item_count; i++){
+			if(item_draw_count != 0){
+				for(int i = 0; i < item_draw_count; i++){
 					if(item[i].item_alive == 1){
 						item[i].update();
 					}
 				}
 			}
 			enemy2.update(player);
+			icon.update(player);
 			// 再描画
 			repaint();
 
@@ -196,8 +214,14 @@ public class MainPanel extends JPanel implements Runnable{
 			text.draw(g);
 		}
 		inventory.draw(g);
+		icon.draw(g, offsetX, offsetY);
 	}
-	
-	
 
+
+	public void mouseDragged(MouseEvent e){
+		point = e.getPoint();
+	}
+
+	public void mouseMoved(MouseEvent e){
+	}
 }
