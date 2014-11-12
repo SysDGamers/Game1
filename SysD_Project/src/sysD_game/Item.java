@@ -6,11 +6,26 @@ import java.awt.Point;
 import javax.swing.ImageIcon;
 
 public class Item {
+	// アイテム定数
+	public static final int BLANK = 0;
+	public static final int BLOCK_01 = 1;
+	public static final int BLOCK_02 = 2;
+	public static final int BLOCK_03 = 3;
+	public static final int BLOCK_04 = 4;
+	public static final int BLOCK_05 = 5;
+	public static final int BLOCK_06 = 6;
+	public static final int BLOCK_07 = 7;
+	public static final int BLOCK_08 = 8;
+	public static final int BLOCK_09 = 9;
+	public static final int BLOCK_10 = 10;
+	public static final int NAN_J_MIN = 11;
+	public static final int GEN_JU_MIN = 12;
+	public static final int BALL = 13;
 	// 幅
     public static final int WIDTH = 32;
     // 高さ
     public static final int HEIGHT = 32;
-    // スピード
+    // スピードA
     private static int SPEED = 6;
     // ジャンプ力
     private static int JUMP_SPEED = 12;

@@ -7,8 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 
-import javax.swing.JTextArea;
-
 public class Text {
 
 	private static final int EDGE_WIDTH = 2;

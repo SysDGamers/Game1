@@ -3,10 +3,7 @@ package sysD_game;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
-
 import javax.swing.ImageIcon;
-
-import sysD_game.Character.AnimationThread;
 
 public class Player extends Character{
     // スピード
@@ -36,7 +33,6 @@ public class Player extends Character{
     public int hp = 100;
     // アイテム
     public static int[] item;
-    private Item item_c;
 
 	public Player(double x, double y, Map map) {
         this.x = x;
@@ -211,8 +207,8 @@ public class Player extends Character{
     }
     
     public int digObject(double x, double y, Map map){
-    	int tile_x = map.pixelsToTiles(x - MainPanel.offsetX);
-    	int tile_y = map.pixelsToTiles(y - MainPanel.offsetY);
+    	int tile_x = Map.pixelsToTiles(x - MainPanel.offsetX);
+    	int tile_y = Map.pixelsToTiles(y - MainPanel.offsetY);
     	int block_no = 0;
     	
     	block_no = map.map[tile_y][tile_x];
