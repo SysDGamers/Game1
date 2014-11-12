@@ -32,7 +32,7 @@ public class Player extends Character{
     // HP
     public int hp = 100;
     // アイテム
-    public static int[] item;
+    public int[] item;
 
 	public Player(double x, double y, Map map) {
         this.x = x;
@@ -48,7 +48,7 @@ public class Player extends Character{
         onGround = false;
         dir = RIGHT;
         count = 0;
-        item = new int[10];
+        item = new int[50];
         // イメージをロードする
         loadImage();
         
@@ -224,6 +224,6 @@ public class Player extends Character{
     public void getItem(Item item_c){
     	item[item_c.item_no] += 1;
     	item_c.item_alive = 0;
-    	System.out.println(item[item_c.item_no]);
+    	//System.out.println(item[item_c.item_no]);
     }
 }

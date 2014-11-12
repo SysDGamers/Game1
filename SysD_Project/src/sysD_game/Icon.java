@@ -1,6 +1,7 @@
 package sysD_game;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -21,6 +22,7 @@ public class Icon {
     // プレイヤー画像
     private Image image_life;
     private Image image_equip;
+    private Image image_equip2;
     private int[] hp_icon;
     private int[] equip_icon;
     
@@ -105,7 +107,7 @@ public class Icon {
     	equip_05b = new Rectangle(equip_05a.x + EDGE_WIDTH, equip_05a.y + EDGE_WIDTH, equip_05a.width - EDGE_WIDTH * 2, equip_05a.height - EDGE_WIDTH *2);
     }
 
-    public void draw(Graphics g, int offsetX, int offsetY) {
+    public void draw(Graphics g, int offsetX, int offsetY, Player player) {
     	for(int i=0; i<10; i++){
     		if(hp_icon[i] == HP_MAX){
     			g.drawImage(image_life, 5 + i*30, 5, 5 + i*30 + WIDTH, 5 + HEIGHT, WIDTH, 1 * HEIGHT, WIDTH + WIDTH, 1 * HEIGHT + HEIGHT, null);
@@ -130,7 +132,15 @@ public class Icon {
 		g.setColor(Color.WHITE);	g.fillRect(equip_05a.x, equip_05a.y, equip_05a.width, equip_05a.height);
 		g.setColor(Color.BLACK);	g.fillRect(equip_05b.x, equip_05b.y, equip_05b.width, equip_05b.height);
     	
-    	g.drawImage(image_equip, 400, 5, 400 + WIDTH, 5 + HEIGHT, WIDTH, 1 * HEIGHT, WIDTH + WIDTH, 1 * HEIGHT + HEIGHT, null);
+    	g.drawImage(image_equip, equip_01a.x, equip_01a.y, equip_01a.x + WIDTH, equip_01a.y + HEIGHT, WIDTH, 1 * HEIGHT, WIDTH + WIDTH, 1 * HEIGHT + HEIGHT, null);
+    	Font f=new Font(null,Font.BOLD,15);
+		g.setFont(f);
+		g.setColor(Color.red);
+		String a = Integer.toString(player.item[Item.BALL]);
+		g.drawString(a, equip_01a.x + 28, equip_01a.y + 32);
+    	g.drawImage(image_equip2, equip_02a.x, equip_02a.y, equip_02a.x + WIDTH, equip_02a.y + HEIGHT, WIDTH, 1 * HEIGHT, WIDTH + WIDTH, 1 * HEIGHT + HEIGHT, null);
+		String a1 = Integer.toString(player.item[Item.NAN_J_MIN]);
+		g.drawString(a1, equip_02a.x + 28, equip_02a.y + 32);
     }
 
     /**
@@ -141,6 +151,8 @@ public class Icon {
         image_life = icon.getImage();
         ImageIcon icon_equip = new ImageIcon(getClass().getResource("image/item_02.gif"));
         image_equip = icon_equip.getImage();
+        ImageIcon icon_equip2 = new ImageIcon(getClass().getResource("image/char_05.gif"));
+        image_equip2 = icon_equip2.getImage();
     }
     
     // アニメーション用スレッド

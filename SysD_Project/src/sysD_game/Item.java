@@ -207,10 +207,10 @@ public class Item {
      * イメージをロードする
      */
     private void loadImage() {
-    	String i_name = "\0";
-    	if(item_no == 0){
+    	String i_name = "";
+    	if(item_no == BALL){
     		i_name = "image/item_02.gif";
-    	}else if(item_no == 1){
+    	}else if(item_no == NAN_J_MIN){
     		i_name = "image/char_05.gif";
     	}
         ImageIcon icon = new ImageIcon(getClass().getResource(i_name));

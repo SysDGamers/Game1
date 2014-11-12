@@ -166,7 +166,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 			text.draw(g);
 		}
 		inventory.draw(g);
-		icon.draw(g, offsetX, offsetY);
+		icon.draw(g, offsetX, offsetY, player);
 	}
 
 	public void genItem(Map map, Item[] item){
