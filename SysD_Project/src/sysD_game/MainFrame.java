@@ -17,6 +17,10 @@ public class MainFrame extends JFrame{
         Container contentPane = getContentPane();
         contentPane.add(panel);
         
+        // Inorder to receive position of the frame on screen
+        MouseManager mouseManager = MouseManager.getInstance();
+        mouseManager.registerFrame(this);
+        
         // パネルサイズに合わせてフレームサイズを自動設定
         pack();
     }

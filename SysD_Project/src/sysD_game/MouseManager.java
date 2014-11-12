@@ -4,10 +4,13 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JFrame;
+
 public class MouseManager implements MouseListener{
 
 	public boolean mousepressed = false;
 	public Point point;
+	public JFrame frame;
 	
 	private MouseManager() {}
 	private static class MouseManagerHolder {
@@ -16,6 +19,10 @@ public class MouseManager implements MouseListener{
 	
 	public static MouseManager getInstance() {
 		return MouseManagerHolder.mouseManager;
+	}
+	
+	public void registerFrame(JFrame frame) {
+		this.frame = frame;
 	}
 	
 	@Override
@@ -29,7 +36,10 @@ public class MouseManager implements MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e){
 		mousepressed = true;
-		point = e.getPoint();
+		point = e.getLocationOnScreen();
+		point.x = point.x - frame.getLocationOnScreen().x;
+		point.y = point.y - frame.getLocationOnScreen().y;
+		System.out.println("poits : " + point.x + " and " + point.y);
 	}
 
 	@Override
@@ -40,5 +50,7 @@ public class MouseManager implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e){
 	}
+	
+
 
 }

@@ -1,8 +1,6 @@
 package sysD_game;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
 
@@ -16,6 +14,7 @@ public class TextPopUp extends JPanel{
 	private Rectangle innerRect;
 	private boolean isVisible = false;
 	private JTextArea text;
+	final MouseManager mouseManager = MouseManager.getInstance();
 	
 	public TextPopUp(Rectangle rect){
 		this.rect = rect;
@@ -51,6 +50,7 @@ public class TextPopUp extends JPanel{
 		text.setForeground(Color.WHITE);
 		text.setBackground(Color.BLACK);
 		text.setBounds(innerRect);
+		text.addMouseListener(mouseManager);
 		this.add(text);
 	}
 
