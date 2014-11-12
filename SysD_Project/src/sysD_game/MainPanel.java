@@ -41,6 +41,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 	private Enemy enemy2;
 	// オブジェクト
 	private Item[] item;
+	private int item_no = 0;
 	public int item_count = 0;
 	public int item_draw_count = 0;
 	// キーの状態（押されているか、押されてないか）
@@ -137,7 +138,8 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 					int buf_by = map.pixelsToTiles(buf_y);
 					block_no = player.digObject(buf_x, buf_y, map);
 					if (block_no > 0){
-						item[item_count] = new Item(buf_bx * map.TILE_SIZE - offsetX, buf_by * map.TILE_SIZE - offsetY, map, block_no);
+						item_no = 1;
+						item[item_count] = new Item(buf_bx * map.TILE_SIZE - offsetX, buf_by * map.TILE_SIZE - offsetY, map, item_no);
 						item_count++;
 						if (item_draw_count < ITEM_MAX){
 							item_draw_count++;

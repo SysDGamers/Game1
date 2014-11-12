@@ -182,7 +182,7 @@ public class Player extends Character{
      */
     private void loadImage() {
         ImageIcon icon = new ImageIcon(getClass().getResource(
-                "image/char_05.gif"));
+                "image/char_04.gif"));
         image = icon.getImage();
     }
     
@@ -211,7 +211,9 @@ public class Player extends Character{
     	int tile_x = map.pixelsToTiles(x - MainPanel.offsetX);
     	int tile_y = map.pixelsToTiles(y - MainPanel.offsetY);
     	int block_no = 0;
+    	
     	block_no = map.map[tile_y][tile_x];
+    	
     	map.map[tile_y][tile_x] = 0;
 		/*確認用
 		 * System.out.println("X座標:" + x);
