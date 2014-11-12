@@ -182,7 +182,7 @@ public class Player extends Character{
      */
     private void loadImage() {
         ImageIcon icon = new ImageIcon(getClass().getResource(
-                "image/char_01.gif"));
+                "image/char_05.gif"));
         image = icon.getImage();
     }
     

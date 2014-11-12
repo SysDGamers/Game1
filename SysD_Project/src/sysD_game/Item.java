@@ -196,7 +196,7 @@ jump();
      */
     private void loadImage() {
         ImageIcon icon = new ImageIcon(getClass().getResource(
-                "image/enemy_01.gif"));
+                "image/item_02.gif"));
         image = icon.getImage();
     }
 
