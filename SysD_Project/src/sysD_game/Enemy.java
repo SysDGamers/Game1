@@ -105,7 +105,16 @@ public class Enemy extends Character{
     public void update(Player player) {
         // 重力で下向きに加速度がかかる
         vy += Map.GRAVITY;
-
+        // ランダムな動き
+		double d = Math.random();
+		if(d<0.8){
+		}else if(d<0.85){
+			accelerateLeft();
+		}else if(d<0.90){
+			accelerateRight();
+		}else if(d<0.93){
+			jump();
+		}
         // x方向の当たり判定
         // 移動先座標を求める
         double newX = x + vx;

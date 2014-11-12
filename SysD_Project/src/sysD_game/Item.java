@@ -3,7 +3,6 @@ package sysD_game;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
-
 import javax.swing.ImageIcon;
 
 public class Item {
@@ -12,9 +11,9 @@ public class Item {
     // 高さ
     public static final int HEIGHT = 32;
     // スピード
-    private static final int SPEED = 6;
+    private static int SPEED = 6;
     // ジャンプ力
-    private static final int JUMP_SPEED = 12;
+    private static int JUMP_SPEED = 12;
     // 方向
     private static final int RIGHT = 0;
     private static final int LEFT = 1;
@@ -100,15 +99,15 @@ public class Item {
     public void update() {
         // 重力で下向きに加速度がかかる
         vy += Map.GRAVITY;
+        // ランダムな動き
 		double d = Math.random();
 		if(d<0.8){
-		
 		}else if(d<0.85){
 			accelerateLeft();
 		}else if(d<0.90){
 			accelerateRight();
 		}else if(d<0.93){
-		jump();
+			jump();
 		}
         // x方向の当たり判定
         // 移動先座標を求める

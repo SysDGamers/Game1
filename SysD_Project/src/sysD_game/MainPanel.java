@@ -138,7 +138,13 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 					int buf_by = map.pixelsToTiles(buf_y);
 					block_no = player.digObject(buf_x, buf_y, map);
 					if (block_no > 0){
-						item_no = 1;
+				        // ランダムな動き
+						double d = Math.random();
+						if(d<0.5){
+							item_no = 0;
+						}else if(d<1.0){
+							item_no = 1;
+						}
 						item[item_count] = new Item(buf_bx * map.TILE_SIZE - offsetX, buf_by * map.TILE_SIZE - offsetY, map, item_no);
 						item_count++;
 						if (item_draw_count < ITEM_MAX){
