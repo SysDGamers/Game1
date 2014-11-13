@@ -3,10 +3,11 @@ package sysD_game;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
 
-public class MouseManager implements MouseListener{
+public class MouseManager implements MouseListener, MouseMotionListener{
 
 	public boolean mousepressed = false;
 	public Point point;
@@ -48,6 +49,17 @@ public class MouseManager implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e){
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		point = e.getLocationOnScreen();
+		point.x = point.x - frame.getLocationOnScreen().x;
+		point.y = point.y - frame.getLocationOnScreen().y;
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
 	}
 	
 

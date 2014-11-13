@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Rectangle;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class TextPopUp extends JPanel{
@@ -13,7 +14,8 @@ public class TextPopUp extends JPanel{
 	private Rectangle rect;
 	private Rectangle innerRect;
 	private boolean isVisible = false;
-	private JTextArea text;
+	private JTextArea textArea;
+	private String str;
 	final MouseManager mouseManager = MouseManager.getInstance();
 	
 	public TextPopUp(Rectangle rect){
@@ -37,25 +39,25 @@ public class TextPopUp extends JPanel{
 			return;
 		}
 		this.setVisible(true);
-		text.setVisible(true);
+		textArea.setVisible(true);
 	}
 	
 	private void drawText () {
-		text = new JTextArea();
-		text.setFont(new Font("Arial", Font.BOLD, 16));
-		text.setLineWrap(true);
-		text.setWrapStyleWord(true);
-		text.setEditable(false);
-		text.setText("THE IDOLM@STER");
-		text.setForeground(Color.WHITE);
-		text.setBackground(Color.BLACK);
-		text.setBounds(innerRect);
-		text.addMouseListener(mouseManager);
-		this.add(text);
+		textArea = new JTextArea();
+		textArea.setFont(new Font("Arial", Font.BOLD, 16));
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		textArea.setEditable(false);
+		textArea.setText(" Clash \n of \n Clans \n Rocks \n Stitch \n is \n sooooooooooooooooo \n cute! \n");
+		textArea.setForeground(Color.WHITE);
+		textArea.setBackground(Color.BLACK);
+		textArea.setBounds(innerRect);
+		textArea.addMouseListener(mouseManager);
+		this.add(textArea);
 	}
 
 	public void changeText (String str) {
-		text.setText(str);
+		textArea.setText(str);
 	}
 	
 	public void show () {

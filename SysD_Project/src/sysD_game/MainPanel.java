@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import createMap.Createmap3;
 
 
-public class MainPanel extends JPanel implements Runnable, MouseMotionListener{
+public class MainPanel extends JPanel implements Runnable{
 
 	// パネルサイズ
 	public static final int WIDTH = 800;
@@ -75,11 +75,11 @@ public class MainPanel extends JPanel implements Runnable, MouseMotionListener{
 		text = new Text(WIND_RECT);
 		// キーイベントリスナーを登録
 		addMouseListener(mouseManager);
+		addMouseMotionListener(mouseManager);
 		inventory = new Inventory(WIND_RECT);
 
 		textpop = new TextPopUp(WIND_RECT);
 		this.add(textpop);
-		addMouseMotionListener((MouseMotionListener) this);
 
 		// ゲームループ開始
 		gameLoop = new Thread(this);
@@ -217,11 +217,4 @@ public class MainPanel extends JPanel implements Runnable, MouseMotionListener{
 		icon.draw(g, offsetX, offsetY);
 	}
 
-
-	public void mouseDragged(MouseEvent e){
-		point = e.getPoint();
-	}
-
-	public void mouseMoved(MouseEvent e){
-	}
 }
