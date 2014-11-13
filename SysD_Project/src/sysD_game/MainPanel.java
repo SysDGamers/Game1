@@ -20,7 +20,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 
 	// アイテム最大表示数
 	public static final int ITEM_MAX = 30;
-
+	public static final int ACTION_MAX = 30;
 	// マップ
 	private Map map;
 	public static int offsetX;
@@ -42,6 +42,11 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 	private int item_no = 0;
 	public int item_count = 0;
 	public int item_draw_count = 0;
+	// アクション
+	private Action[] action;
+	private int action_no = 0;
+	public int action_count = 0;
+	public int action_draw_count = 0;
 	// キーの状態（押されているか、押されてないか）
 	final KeyState keyState = KeyState.getInstance();
 	// テキスト表示の状態
@@ -70,6 +75,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 		enemy = new Enemy(400, 32, map, "char_02");
 		enemy2 = new Enemy(140, 32, map, "char_03");
 		item = new Item[ITEM_MAX];
+		action = new Action[ACTION_MAX];
 		icon = new Icon();
 		text = new Text(WIND_RECT);
 		// キーイベントリスナーを登録
@@ -107,6 +113,13 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 						if(item[i].getCollision(player)){	// プレイヤーとの当たり判定
 							player.getItem(item[i]);	// プレイヤーによるアイテム取得
 						}
+					}
+				}
+			}
+			if(action_draw_count != 0){	// 何個アイテムあるか
+				for(int i = 0; i < action_draw_count; i++){
+					if(action[i].action_alive == 1){	// そのアイテムは取得済みでないか
+						action[i].update();
 					}
 				}
 			}
@@ -162,6 +175,13 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 				}
 			}
 		}
+		if(action_draw_count != 0){
+			for(int i = 0; i < action_draw_count; i++){
+				if(action[i].action_alive == 1){
+					action[i].draw(g, offsetX, offsetY);
+				}
+			}
+		}
 		if (enemy.talk == 1){
 			text.draw(g);
 		}
@@ -198,6 +218,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 				item_count = 0;
 			}
 		}
+
 	}
 	
 	public void keyAction(Player player, Inventory inventory){
@@ -206,7 +227,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 		} else if (!keyState.ESC){
 			inventory.hide();
 		}
-		if (keyState.Q) {
+		/*if (keyState.Q) {
 			if (quote)
 				quote = false;
 			else
@@ -216,7 +237,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 			//textpop.show();
 		} else {
 			//textpop.hide();
-		}
+		}*/
 
 		if (keyState.A) {
 			// 左キーが押されていれば左向きに加速
@@ -232,6 +253,17 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 		if (keyState.W) {
 			// ジャンプする
 			player.jump();
+		}
+		
+		if(keyState.Q){
+			action[action_count] = new Action(player.x, player.y, map, action_no);
+			action_count++;
+			if (action_draw_count < ACTION_MAX){
+				action_draw_count++;
+			}
+			if (action_count >= ACTION_MAX){
+				action_count = 0;
+			}
 		}
 	}
 

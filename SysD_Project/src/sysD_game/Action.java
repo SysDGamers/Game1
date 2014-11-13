@@ -5,7 +5,7 @@ import java.awt.Image;
 import java.awt.Point;
 import javax.swing.ImageIcon;
 
-public class Player extends Character{
+public class Action extends Character{
     // スピード
     private static final int SPEED = 6;
     // ジャンプ力
@@ -32,23 +32,25 @@ public class Player extends Character{
     // HP
     public int hp = 100;
     // アイテム
-    public int[] item;
+    public int item_no = 0;
+    public int action_alive = 0;
 
-	public Player(double x, double y, Map map) {
+	public Action(double x, double y, Map map, int item_no) {
         this.x = x;
         this.y = y;
         this.map = map;
+        this.item_no = item_no;
         
         init();
 	}
 	
     public void init(){
-        vx = 0;
+        vx = 10;
         vy = 0;
         onGround = false;
         dir = RIGHT;
         count = 0;
-        item = new int[50];
+        action_alive = 1;
         // イメージをロードする
         loadImage();
         
@@ -181,7 +183,7 @@ public class Player extends Character{
      */
     private void loadImage() {
         ImageIcon icon = new ImageIcon(getClass().getResource(
-                "image/char_04.gif"));
+                "image/item_02.gif"));
         image = icon.getImage();
     }
     
@@ -206,7 +208,7 @@ public class Player extends Character{
         }
     }
     
-    public int digObject(double x, double y, Map map){
+    public int breakObject(double x, double y, Map map){
     	int tile_x = Map.pixelsToTiles(x - MainPanel.offsetX);
     	int tile_y = Map.pixelsToTiles(y - MainPanel.offsetY);
     	int block_no = 0;
@@ -220,11 +222,6 @@ public class Player extends Character{
 		System.out.println("X座標:" + tile_x);
 		System.out.println("Y座標:" + tile_y);*/
     	return block_no;
-    }
-    public void getItem(Item item_c){
-    	item[item_c.item_no] += 1;
-    	item_c.item_alive = 0;
-    	//System.out.println(item[item_c.item_no]);
     }
     
 }
