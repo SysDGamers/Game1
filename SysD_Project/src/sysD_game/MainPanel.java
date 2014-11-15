@@ -104,8 +104,10 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 				genItem(map, item);
 			}
 			// プレイヤーの状態を更新...後に書かれてるほど手前に表示される
-			enemy.update(player);
-			enemy2.update(player);
+			enemy.update();
+			enemy2.update();
+			enemy.getCollision(player);
+			enemy2.getCollision(player);
 			if(item_draw_count != 0){	// 何個アイテムあるか
 				for(int i = 0; i < item_draw_count; i++){
 					if(item[i].item_alive == 1){	// そのアイテムは取得済みでないか

@@ -19,11 +19,11 @@ public class Character {
     private static final int RIGHT = 0;
     private static final int LEFT = 1;
     // 位置
-    private double x;
-    private double y;
+    protected double x;
+    protected double y;
     // 速度
-    private double vx;
-    private double vy;
+    protected double vx;
+    protected double vy;
     // 着地しているか
     private boolean onGround;
     // 向いている方向
@@ -31,9 +31,9 @@ public class Character {
     // アニメーション用カウンタ
     private int count;
     // プレイヤー画像
-    private Image image;
+    protected Image image;
     // マップへの参照
-    private Map map;
+    protected Map map;
 
     public Character() {
     }
@@ -42,19 +42,11 @@ public class Character {
         this.x = x;
         this.y = y;
         this.map = map;
-        
-        init();
-    }
-    
-    public void init(){
-        vx = 0;
-        vy = 0;
+        this.vx = 0;
+        this.vy = 0;
         onGround = false;
         dir = RIGHT;
         count = 0;
-        
-        // イメージをロードする
-        loadImage();
         
         // アニメーション用スレッドを開始
         AnimationThread thread = new AnimationThread();
