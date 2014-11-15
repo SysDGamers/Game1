@@ -201,7 +201,7 @@ public class MainPanel extends JPanel implements Runnable{
 		buf_y = mouseManager.point.getY();
 		int p_x = (int)player.getX();
 		int p_y = (int)player.getY();
-		if ((p_x + offsetX - buf_x)*(p_x + offsetX - buf_x) + (p_y + offsetY - buf_y)*(p_y + offsetY - buf_y) < 10000){
+		if ((p_x + offsetX - buf_x)*(p_x + offsetX - buf_x) + (p_y + offsetY - buf_y)*(p_y + offsetY - buf_y) < 1000000){
 			int buf_bx = Map.pixelsToTiles(buf_x);
 			int buf_by = Map.pixelsToTiles(buf_y);
 			block_no = player.digObject(buf_x, buf_y, map);
@@ -232,17 +232,21 @@ public class MainPanel extends JPanel implements Runnable{
 		} else if (!keyState.ESC){
 			inventory.hide();
 		}
-		/*if (keyState.Q) {
+		if (keyState.Q) {
 			if (quote)
 				quote = false;
 			else
 				quote = true;
 		}
 		if (quote) {
-			//textpop.show();
+			textpop.show();
+			if (keyState.ENTER) {
+				textpop.getNextText();
+			}
 		} else {
-			//textpop.hide();
-		}*/
+			textpop.hide();
+			this.requestFocus(true);
+		}
 
 		if (keyState.A) {
 			// 左キーが押されていれば左向きに加速
@@ -260,7 +264,7 @@ public class MainPanel extends JPanel implements Runnable{
 			player.jump();
 		}
 		
-		if(keyState.Q){
+		if(keyState.F){
 			action[action_count] = new Action(player.x, player.y, map, action_no);
 			action_count++;
 			if (action_draw_count < ACTION_MAX){
