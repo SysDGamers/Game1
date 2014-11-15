@@ -7,6 +7,7 @@ final class KeyState {
 	public boolean D;
 	public boolean ESC;
 	public boolean Q;
+	public boolean F;
 	
 	private KeyState() {}
 	private static class KeyStateHolder {
