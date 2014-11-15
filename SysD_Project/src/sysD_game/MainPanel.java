@@ -145,7 +145,6 @@ public class MainPanel extends JPanel implements Runnable{
 					if (item_count >= ITEM_MAX){
 						item_count = 0;
 					}
-					mouseManager.mousepressed = false;
 				}
 			}
 
