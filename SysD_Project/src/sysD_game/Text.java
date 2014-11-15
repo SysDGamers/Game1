@@ -13,10 +13,11 @@ public class Text {
 	private Rectangle rect;
 	private Rectangle innerRect;
 	private boolean isVisible = true;
+	private int img_no;
 
-	public Text(Rectangle rect){
+	public Text(Rectangle rect, int char_no){
 		this.rect = rect;
-
+		img_no = char_no;
 		innerRect = new Rectangle(
 				rect.x + EDGE_WIDTH,
 				rect.y + EDGE_WIDTH,
@@ -39,9 +40,19 @@ public class Text {
 		Font f=new Font(null,Font.BOLD,20);
 		g.setFont(f);
 		g.setColor(Color.white);
-		g.drawString("問おう 貴方が私のマスターか", innerRect.x + 15, innerRect.y + 25);
-		g.drawString("やっと気づいた。シロウは、私の鞘だったのですね", innerRect.x + 15, innerRect.y + 55);
-		g.drawString("判らぬか、下郎。そのような物より、私はシロウが欲しいと言ったのだ", innerRect.x + 15, innerRect.y + 85);
+    	switch(img_no){
+    	case 0:
+    		g.drawString("問おう 貴方が私のマスターか", innerRect.x + 15, innerRect.y + 25);
+    		g.drawString("やっと気づいた。シロウは、私の鞘だったのですね", innerRect.x + 15, innerRect.y + 55);
+    		g.drawString("判らぬか、下郎。そのような物より、私はシロウが欲しいと言ったのだ", innerRect.x + 15, innerRect.y + 85);
+    		break;
+    	case 1:
+    		g.drawString("私はこれから何が起きるかわかってるし、覚悟もできてる。十年前からね", innerRect.x + 15, innerRect.y + 25);
+    		g.drawString("世界なんてとっくに私の物じゃない。", innerRect.x + 15, innerRect.y + 55);
+    		g.drawString("心の贅肉ね", innerRect.x + 15, innerRect.y + 85);
+	        break;
+    }
+
 	}
 
 	public void show(){

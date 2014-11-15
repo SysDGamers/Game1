@@ -21,6 +21,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 	// アイテム最大表示数
 	public static final int ITEM_MAX = 30;
 	public static final int ACTION_MAX = 30;
+	public static final int STAND_MAX = 4;
 	// マップ
 	private Map map;
 	public static int offsetX;
@@ -30,7 +31,8 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 	private static Rectangle WIND_RECT = new Rectangle(100, 450, 600,100);
 	// テキスト
 	//private TextPopUp textpop;
-	private Text text;
+	private Text text1;
+	private Text text2;
 	// アイコン
 	private Icon icon;
 	// プレイヤー
@@ -57,7 +59,8 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 	// ゲームループ用スレッド
 	private Thread gameLoop;
 	// 立ち絵
-	private Stand stand;
+	private Stand stand1;
+	private Stand stand2;
 
 	public MainPanel() {
 		// パネルの推奨サイズを設定、pack()するときに必要
@@ -79,8 +82,10 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 		item = new Item[ITEM_MAX];
 		action = new Action[ACTION_MAX];
 		icon = new Icon();
-		text = new Text(WIND_RECT);
-		stand = new Stand();
+		text1 = new Text(WIND_RECT, Stand.SABER);
+		text2 = new Text(WIND_RECT, Stand.LIN);
+		stand1 = new Stand(Stand.SABER);
+		stand2 = new Stand(Stand.LIN);
 		// キーイベントリスナーを登録
 		addMouseListener(this);
 		inventory = new Inventory(WIND_RECT);
@@ -188,8 +193,12 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 			}
 		}
 		if (enemy.talk == 1){
-			stand.draw(g, offsetX, offsetY);
-			text.draw(g);
+			stand1.draw(g, offsetX, offsetY);
+			text1.draw(g);
+		}
+		if (enemy2.talk == 1){
+			stand2.draw(g, offsetX, offsetY);
+			text2.draw(g);
 		}
 		inventory.draw(g);
 		icon.draw(g, offsetX, offsetY, player);
