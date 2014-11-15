@@ -232,17 +232,20 @@ public class MainPanel extends JPanel implements Runnable{
 		} else if (!keyState.ESC){
 			inventory.hide();
 		}
-		/*if (keyState.Q) {
+		if (keyState.Q) {
 			if (quote)
 				quote = false;
 			else
 				quote = true;
 		}
 		if (quote) {
-			//textpop.show();
+			textpop.show();
+			if (keyState.ENTER) {
+				textpop.getNextText();
+			}
 		} else {
-			//textpop.hide();
-		}*/
+			textpop.hide();
+		}
 
 		if (keyState.A) {
 			// 左キーが押されていれば左向きに加速
@@ -260,7 +263,7 @@ public class MainPanel extends JPanel implements Runnable{
 			player.jump();
 		}
 		
-		if(keyState.Q){
+		if(keyState.F){
 			action[action_count] = new Action(player.x, player.y, map, action_no);
 			action_count++;
 			if (action_draw_count < ACTION_MAX){
