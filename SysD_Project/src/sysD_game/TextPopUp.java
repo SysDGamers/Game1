@@ -103,13 +103,14 @@ public class TextPopUp extends JPanel{
 				wordCount++;
 			}
 		}
+		this.lastLine = row - 1;
 		strs[row] = this.LAST_PHRASE;
-		
 	}
 	
 	private void getFirstText() {
 		lineStart = 0;
-		lineEnd = this.MAX_LETTER_PER_ROW;
+		lineEnd = this.MAX_LETTER_PER_ROW<=this.lastLine?
+				this.MAX_LETTER_PER_ROW:this.lastLine;
 		StringBuilder temp = new StringBuilder("");
 		for (int i = lineStart; i < lineEnd; i++) {
 			if (strs[i].equals(this.LAST_PHRASE))
@@ -120,8 +121,11 @@ public class TextPopUp extends JPanel{
 	}
 	
 	public void getNextText() {
+		if (lineEnd == this.lastLine)
+			return;
 		lineStart += this.MAX_LETTER_PER_ROW;
-		lineEnd += this.MAX_LETTER_PER_ROW;
+		lineEnd = lineEnd + this.MAX_LETTER_PER_ROW<=this.lastLine?
+				lineEnd + this.MAX_LETTER_PER_ROW:this.lastLine;
 		StringBuilder temp = new StringBuilder("");
 		for (int i = lineStart; i < lineEnd; i++) {
 			if (strs[i].equals(this.LAST_PHRASE))
@@ -129,7 +133,7 @@ public class TextPopUp extends JPanel{
 			temp.append(strs[i]);
 		}
 		textArea.setText(temp.toString());
-	}	
+	}
 
 	public void setText (String str) {
 		this.str = str;

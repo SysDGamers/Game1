@@ -240,6 +240,9 @@ public class MainPanel extends JPanel implements Runnable{
 		}
 		if (quote) {
 			textpop.show();
+			if (keyState.ENTER) {
+				textpop.getNextText();
+			}
 		} else {
 			textpop.hide();
 		}

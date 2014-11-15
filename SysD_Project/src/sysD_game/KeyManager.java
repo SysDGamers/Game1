@@ -88,6 +88,12 @@ final class KeyManager {
 			if (action == "released F") {
 				keyState.F = false;
 			}
+			if (action == "ENTER") {
+				keyState.ENTER = true;
+			}
+			if (action == "released ENTER") {
+				keyState.ENTER = false;
+			}
 			
 			
 			
