@@ -16,7 +16,7 @@ public class TextPopUp extends JPanel{
 	private boolean isVisible = false;
 	private JTextArea textArea;
 	private String str;
-	final MouseManager mouseManager = MouseManager.getInstance();
+	private final MouseManager mouseManager = MouseManager.getInstance();
 	
 	public TextPopUp(Rectangle rect){
 		this.rect = rect;
@@ -48,7 +48,10 @@ public class TextPopUp extends JPanel{
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		textArea.setEditable(false);
-		textArea.setText(" Clash \n of \n Clans \n Rocks \n Stitch \n is \n sooooooooooooooooo \n cute! \n");
+		textArea.setText(" Clashyyyyyyyyyyyyyyyyyyyyyyyyy"
+				+ "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+				+ " \n of \n Clans \n Rocks \n Stitch \n is "
+				+ "\n sooooooooooooooooo \n cute! \n");
 		textArea.setForeground(Color.WHITE);
 		textArea.setBackground(Color.BLACK);
 		textArea.setBounds(innerRect);
