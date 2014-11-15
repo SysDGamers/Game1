@@ -10,7 +10,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
-import createMap.Createmap3;
+
+
+//import createMap.Createmap3;
 
 
 public class MainPanel extends JPanel implements Runnable{
@@ -21,7 +23,7 @@ public class MainPanel extends JPanel implements Runnable{
 
 	// アイテム最大表示数
 	public static final int ITEM_MAX = 30;
-
+	public static final int ACTION_MAX = 30;
 	// マップ
 	private Map map;
 	public static int offsetX;
@@ -40,15 +42,20 @@ public class MainPanel extends JPanel implements Runnable{
 	private Enemy enemy2;
 	// オブジェクト
 	private Item[] item;
+	private int item_no = 0;
 	public int item_count = 0;
 	public int item_draw_count = 0;
+	// アクション
+	private Action[] action;
+	private int action_no = 0;
+	public int action_count = 0;
+	public int action_draw_count = 0;
 	// キーの状態（押されているか、押されてないか）
 	final KeyState keyState = KeyState.getInstance();
 	// テキスト表示の状態
 	private boolean quote = false;
 	// マウスの状態
 	final MouseManager mouseManager = MouseManager.getInstance();
-	public boolean mousepressed;
 	public Point point;
 	// ゲームループ用スレッド
 	private Thread gameLoop;
@@ -71,6 +78,7 @@ public class MainPanel extends JPanel implements Runnable{
 		enemy = new Enemy(400, 32, map, "char_02");
 		enemy2 = new Enemy(140, 32, map, "char_03");
 		item = new Item[ITEM_MAX];
+		action = new Action[ACTION_MAX];
 		icon = new Icon();
 		text = new Text(WIND_RECT);
 		// キーイベントリスナーを登録
@@ -91,75 +99,37 @@ public class MainPanel extends JPanel implements Runnable{
 	 */
 	public void run() {
 		while (true) {
-			if(keyState.ESC){
-				inventory.show();
-			} else if (!keyState.ESC){
-				inventory.hide();
+			// 各キーアクションの設定
+			keyAction(player, inventory);
+			// ブロック掘る+アイテム生成
+			if (mouseManager.isPressed() == true){
+				genItem(map, item);
 			}
-			if (keyState.Q) {
-				if (quote)
-					quote = false;
-				else
-					quote = true;
-			}
-			if (quote) {
-				textpop.show();
-			} else {
-				textpop.hide();
-			}
-
-			if (keyState.A) {
-				// 左キーが押されていれば左向きに加速
-				player.accelerateLeft();
-			} else if (keyState.D) {
-				// 右キーが押されていれば右向きに加速
-				player.accelerateRight();
-			} else {
-				// 何も押されてないときは停止
-				player.stop();
-			}
-
-			if (keyState.W) {
-				// ジャンプする
-				player.jump();
-			}
-			if (mouseManager.mousepressed == true){
-				double buf_x, buf_y;
-				int block_no;
-				
-				buf_x = mouseManager.point.x;
-				buf_y = mouseManager.point.y;
-				int p_x = (int)player.getX();
-				int p_y = (int)player.getY();
-				if ((p_x + offsetX - buf_x)*(p_x + offsetX - buf_x) + (p_y + offsetY - buf_y)*(p_y + offsetY - buf_y) < 10000){
-					int buf_bx = map.pixelsToTiles(buf_x);
-					int buf_by = map.pixelsToTiles(buf_y);
-					block_no = player.digObject(buf_x, buf_y, map);
-					if (block_no > 0){
-						item[item_count] = new Item(buf_bx * map.TILE_SIZE - offsetX, buf_by * map.TILE_SIZE - offsetY, map, block_no);
-						item_count++;
-						if (item_draw_count < ITEM_MAX){
-							item_draw_count++;
+			// プレイヤーの状態を更新...後に書かれてるほど手前に表示される
+			enemy.update();
+			enemy2.update();
+			enemy.getCollision(player);
+			enemy2.getCollision(player);
+			if(item_draw_count != 0){	// 何個アイテムあるか
+				for(int i = 0; i < item_draw_count; i++){
+					if(item[i].item_alive == 1){	// そのアイテムは取得済みでないか
+						item[i].update();
+						if(item[i].getCollision(player)){	// プレイヤーとの当たり判定
+							player.getItem(item[i]);	// プレイヤーによるアイテム取得
 						}
 					}
-					if (item_count >= ITEM_MAX){
-						item_count = 0;
+				}
+			}
+			if(action_draw_count != 0){	// 何個アイテムあるか
+				for(int i = 0; i < action_draw_count; i++){
+					if(action[i].action_alive == 1){	// そのアイテムは取得済みでないか
+						action[i].update();
 					}
 				}
 			}
-
-			// プレイヤーの状態を更新
 			player.update();
-			enemy.update(player);
-			if(item_draw_count != 0){
-				for(int i = 0; i < item_draw_count; i++){
-					if(item[i].item_alive == 1){
-						item[i].update();
-					}
-				}
-			}
-			enemy2.update(player);
 			icon.update(player);
+			
 			// 再描画
 			repaint();
 
@@ -209,11 +179,97 @@ public class MainPanel extends JPanel implements Runnable{
 				}
 			}
 		}
+		if(action_draw_count != 0){
+			for(int i = 0; i < action_draw_count; i++){
+				if(action[i].action_alive == 1){
+					action[i].draw(g, offsetX, offsetY);
+				}
+			}
+		}
 		if (enemy.talk == 1){
 			text.draw(g);
 		}
 		inventory.draw(g);
-		icon.draw(g, offsetX, offsetY);
+		icon.draw(g, offsetX, offsetY, player);
+	}
+
+
+	public void genItem(Map map, Item[] item){
+		double buf_x, buf_y;
+		int block_no;
+		buf_x = mouseManager.point.getX();
+		buf_y = mouseManager.point.getY();
+		int p_x = (int)player.getX();
+		int p_y = (int)player.getY();
+		if ((p_x + offsetX - buf_x)*(p_x + offsetX - buf_x) + (p_y + offsetY - buf_y)*(p_y + offsetY - buf_y) < 10000){
+			int buf_bx = Map.pixelsToTiles(buf_x);
+			int buf_by = Map.pixelsToTiles(buf_y);
+			block_no = player.digObject(buf_x, buf_y, map);
+			if (block_no > 0){
+		        // ランダム
+				double d = Math.random();
+				if(d<0.5){
+					item_no = Item.NAN_J_MIN;
+				}else if(d<1.0){
+					item_no = Item.BALL;
+				}
+				item[item_count] = new Item(buf_bx * Map.TILE_SIZE - offsetX, buf_by * Map.TILE_SIZE - offsetY, map, item_no);
+				item_count++;
+				if (item_draw_count < ITEM_MAX){
+					item_draw_count++;
+				}
+			}
+			if (item_count >= ITEM_MAX){
+				item_count = 0;
+			}
+		}
+
+	}
+	
+	public void keyAction(Player player, Inventory inventory){
+		if(keyState.ESC){
+			inventory.show();
+		} else if (!keyState.ESC){
+			inventory.hide();
+		}
+		/*if (keyState.Q) {
+			if (quote)
+				quote = false;
+			else
+				quote = true;
+		}
+		if (quote) {
+			//textpop.show();
+		} else {
+			//textpop.hide();
+		}*/
+
+		if (keyState.A) {
+			// 左キーが押されていれば左向きに加速
+			player.accelerateLeft();
+		} else if (keyState.D) {
+			// 右キーが押されていれば右向きに加速
+			player.accelerateRight();
+		} else {
+			// 何も押されてないときは停止
+			player.stop();
+		}
+
+		if (keyState.W) {
+			// ジャンプする
+			player.jump();
+		}
+		
+		if(keyState.Q){
+			action[action_count] = new Action(player.x, player.y, map, action_no);
+			action_count++;
+			if (action_draw_count < ACTION_MAX){
+				action_draw_count++;
+			}
+			if (action_count >= ACTION_MAX){
+				action_count = 0;
+			}
+		}
 	}
 
 }

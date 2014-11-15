@@ -9,9 +9,10 @@ import javax.swing.JFrame;
 
 public class MouseManager implements MouseListener, MouseMotionListener{
 
-	public boolean mousepressed = false;
+	private boolean mousepressed = false;
 	public Point point;
-	public JFrame frame;
+	private JFrame frame;
+	private boolean first = true;
 	
 	private MouseManager() {}
 	private static class MouseManagerHolder {
@@ -23,7 +24,14 @@ public class MouseManager implements MouseListener, MouseMotionListener{
 	}
 	
 	public void registerFrame(JFrame frame) {
-		this.frame = frame;
+		if (first == true) {
+			this.frame = frame;
+			first = false;
+		}
+	}
+	
+	public boolean isPressed() {
+		return this.mousepressed;
 	}
 	
 	@Override
