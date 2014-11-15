@@ -56,6 +56,8 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 	public Point point;
 	// ゲームループ用スレッド
 	private Thread gameLoop;
+	// 立ち絵
+	private Stand stand;
 
 	public MainPanel() {
 		// パネルの推奨サイズを設定、pack()するときに必要
@@ -78,6 +80,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 		action = new Action[ACTION_MAX];
 		icon = new Icon();
 		text = new Text(WIND_RECT);
+		stand = new Stand();
 		// キーイベントリスナーを登録
 		addMouseListener(this);
 		inventory = new Inventory(WIND_RECT);
@@ -185,6 +188,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 			}
 		}
 		if (enemy.talk == 1){
+			stand.draw(g, offsetX, offsetY);
 			text.draw(g);
 		}
 		inventory.draw(g);

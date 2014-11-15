@@ -37,7 +37,7 @@ public class Enemy extends Character{
     }
     
     public void getCollision(Player player){
-        // ランダムな動き
+        /*// ランダムな動き
 		double d = Math.random();
 		if(d<0.8){
 		}else if(d<0.85){
@@ -46,7 +46,7 @@ public class Enemy extends Character{
 			accelerateRight();
 		}else if(d<0.93){
 			jump();
-		}
+		}*/
     	if ((player.x-this.x)*(player.x-this.x) + (player.y-this.y)*(player.y-this.y) <= 400){
     		talk = 1;
     		player.hp -= 5;
