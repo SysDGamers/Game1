@@ -46,8 +46,6 @@ public class MouseManager implements MouseListener, MouseMotionListener{
 	public void mousePressed(MouseEvent e){
 		mousepressed = true;
 		point = e.getLocationOnScreen();
-		point.x = point.x - frame.getLocationOnScreen().x;
-		point.y = point.y - frame.getLocationOnScreen().y;
 	}
 
 	@Override
@@ -62,8 +60,6 @@ public class MouseManager implements MouseListener, MouseMotionListener{
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		point = e.getLocationOnScreen();
-		point.x = point.x - frame.getLocationOnScreen().x;
-		point.y = point.y - frame.getLocationOnScreen().y;
 	}
 
 	@Override

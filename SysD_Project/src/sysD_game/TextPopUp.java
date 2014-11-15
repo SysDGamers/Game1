@@ -22,6 +22,8 @@ public class TextPopUp extends JPanel{
 	private int lineEnd;
 	private int lastLine;
 	private final MouseManager mouseManager = MouseManager.getInstance();
+	// キーの状態（押されているか、押されてないか）
+		final KeyState keyState = KeyState.getInstance();
 	
 	// 行の数
 	private int numRow;
@@ -35,7 +37,7 @@ public class TextPopUp extends JPanel{
 		this.setLayout(null);
 		this.setBackground(Color.WHITE);
 		this.setBounds(rect);
-		
+		this.setFocusable(true);
 		innerRect = new Rectangle(
 				EDGE_WIDTH,
 				EDGE_WIDTH,
@@ -64,6 +66,7 @@ public class TextPopUp extends JPanel{
 		textArea.setBackground(Color.BLACK);
 		textArea.setBounds(innerRect);
 		textArea.addMouseListener(mouseManager);
+		textArea.addMouseMotionListener(mouseManager);
 		this.add(textArea);
 		
 		// 適当な初期化
@@ -143,10 +146,12 @@ public class TextPopUp extends JPanel{
 	
 	public void show () {
 		isVisible = true;
+		this.requestFocus(true);
 	}
 	
 	public void hide () {
 		isVisible = false;
+		
 	}
 	
 	public boolean isVisible() {
