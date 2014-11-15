@@ -17,19 +17,21 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 	// パネルサイズ
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
-
 	// アイテム最大表示数
 	public static final int ITEM_MAX = 30;
+	// アクション最大表示数
 	public static final int ACTION_MAX = 30;
+	// 立ち絵最大表示数
 	public static final int STAND_MAX = 4;
 	// マップ
 	private Map map;
+	// マップのオフセット
 	public static int offsetX;
 	public static int offsetY;
 	//ウインドウ
 	private Inventory inventory;
 	private static Rectangle WIND_RECT = new Rectangle(100, 450, 600,100);
-	// テキスト
+	// テキスト表示
 	//private TextPopUp textpop;
 	private Text text1;
 	private Text text2;
@@ -55,6 +57,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 	private boolean quote = false;
 	// マウスの状態
 	public boolean mousepressed;
+	// 座標をまとめる
 	public Point point;
 	// ゲームループ用スレッド
 	private Thread gameLoop;
@@ -67,37 +70,43 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		// パネルがキー入力を受け付けるようにする
 		setFocusable(true);
-
 		setLayout(null);
 
 		//Createmap3 createmap = new Createmap3();
 		//createmap.createMap();
+		
 		// マップを作成
-		//map = new Map("map01.txt");
 		map = new Map("test.txt");
 		// プレイヤーを作成
 		player = new Player(192, 32, map);
+		// 敵を作成
 		enemy = new Enemy(400, 32, map, "char_02");
 		enemy2 = new Enemy(140, 32, map, "char_03");
+		// アイテム作成（準備）
 		item = new Item[ITEM_MAX];
+		// アクション作成（準備）
 		action = new Action[ACTION_MAX];
+		// アイコン作成
 		icon = new Icon();
+		// テキスト＆テキストウィンドウ作成
 		text1 = new Text(WIND_RECT, Stand.SABER);
 		text2 = new Text(WIND_RECT, Stand.LIN);
+		// 立ち絵作成
 		stand1 = new Stand(Stand.SABER);
 		stand2 = new Stand(Stand.LIN);
 		// キーイベントリスナーを登録
 		addMouseListener(this);
+		// インベントリ作成
 		inventory = new Inventory(WIND_RECT);
 		//textpop = new TextPopUp(WIND_RECT);
 		//this.add(textpop);
-
+		// マウス関連
 		addMouseListener((MouseListener) this);
 		addMouseMotionListener((MouseMotionListener) this);
 
 		// ゲームループ開始
 		gameLoop = new Thread(this);
-		gameLoop.start();
+		gameLoop.start();	// run()内が実行される
 	}
 
 	/**
@@ -111,10 +120,10 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 			if (mousepressed == true){
 				genItem(map, item);
 			}
-			// プレイヤーの状態を更新...後に書かれてるほど手前に表示される
+			// プレイヤーの状態を更新
 			enemy.update();
 			enemy2.update();
-			enemy.getCollision(player);
+			enemy.getCollision(player);	// プレイヤーとの当たり判定
 			enemy2.getCollision(player);
 			if(item_draw_count != 0){	// 何個アイテムあるか
 				for(int i = 0; i < item_draw_count; i++){
@@ -126,9 +135,9 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 					}
 				}
 			}
-			if(action_draw_count != 0){	// 何個アイテムあるか
+			if(action_draw_count != 0){	// 何個アクションあるか
 				for(int i = 0; i < action_draw_count; i++){
-					if(action[i].action_alive == 1){	// そのアイテムは取得済みでないか
+					if(action[i].action_alive == 1){
 						action[i].update();
 					}
 				}
@@ -137,9 +146,9 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 			icon.update(player);
 			
 			// 再描画
-			repaint();
+			repaint();	// paintComponent()内が実行される
 
-			// 休止
+			// 休止（描画スピードを一定に）
 			try {
 				Thread.sleep(20);
 			} catch (InterruptedException e) {
@@ -152,7 +161,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 	 *
 	 * @param 描画オブジェクト
 	 */
-	public void paintComponent(Graphics g) {
+	public void paintComponent(Graphics g) {	// 画面への描き込み
 		super.paintComponent(g);
 
 		// 背景を黒で塗りつぶす
