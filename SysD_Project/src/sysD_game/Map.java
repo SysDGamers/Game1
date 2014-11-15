@@ -39,9 +39,9 @@ public class Map {
     public int[][] map;
 
     // 行数
-    private int row;
+    public int row;
     // 列数
-    private int col;
+    public int col;
     // 幅
     private int width;
     // 高さ

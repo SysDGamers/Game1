@@ -7,8 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 
-import javax.swing.JTextArea;
-
 public class Text {
 
 	private static final int EDGE_WIDTH = 2;
@@ -38,7 +36,7 @@ public class Text {
 		g.setColor(Color.BLACK);
 		g.fillRect(innerRect.x, innerRect.y, innerRect.width, innerRect.height);
 		
-		Font f=new Font("TimesRoman",Font.ITALIC,20);
+		Font f=new Font(null,Font.BOLD,20);
 		g.setFont(f);
 		g.setColor(Color.white);
 		g.drawString("問おう 貴方が私のマスターか", innerRect.x + 15, innerRect.y + 25);

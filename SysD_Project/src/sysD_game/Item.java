@@ -3,18 +3,32 @@ package sysD_game;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
-
 import javax.swing.ImageIcon;
 
 public class Item {
+	// アイテム定数
+	public static final int BLANK = 0;
+	public static final int BLOCK_01 = 1;
+	public static final int BLOCK_02 = 2;
+	public static final int BLOCK_03 = 3;
+	public static final int BLOCK_04 = 4;
+	public static final int BLOCK_05 = 5;
+	public static final int BLOCK_06 = 6;
+	public static final int BLOCK_07 = 7;
+	public static final int BLOCK_08 = 8;
+	public static final int BLOCK_09 = 9;
+	public static final int BLOCK_10 = 10;
+	public static final int NAN_J_MIN = 11;
+	public static final int GEN_JU_MIN = 12;
+	public static final int BALL = 13;
 	// 幅
     public static final int WIDTH = 32;
     // 高さ
     public static final int HEIGHT = 32;
-    // スピード
-    private static final int SPEED = 6;
+    // スピードA
+    private static int SPEED = 6;
     // ジャンプ力
-    private static final int JUMP_SPEED = 12;
+    private static int JUMP_SPEED = 12;
     // 方向
     private static final int RIGHT = 0;
     private static final int LEFT = 1;
@@ -35,14 +49,16 @@ public class Item {
     private Map map;
 
     public int item_alive = 0;
+    public int item_no = 0;
 
     public Item() {
     }
 
-    public Item(double x, double y, Map map, int block_no) {
+    public Item(double x, double y, Map map, int item_no) {
         this.x = x;
         this.y = y;
         this.map = map;
+        this.item_no = item_no;
 
         init();
     }
@@ -56,10 +72,6 @@ public class Item {
         item_alive = 1;
         // イメージをロードする
         loadImage();
-
-        // アニメーション用スレッドを開始
-        AnimationThread thread = new AnimationThread();
-        thread.start();
     }
 
     /**
@@ -102,16 +114,16 @@ public class Item {
     public void update() {
         // 重力で下向きに加速度がかかる
         vy += Map.GRAVITY;
-double d = Math.random();
-if(d<0.8){
-
-}else if(d<0.85){
-	accelerateLeft();
-}else if(d<0.90){
-	accelerateRight();
-}else if(d<0.93){
-jump();
-}
+        // ランダムな動き
+		double d = Math.random();
+		if(d<0.8){
+		}else if(d<0.85){
+			accelerateLeft();
+		}else if(d<0.90){
+			accelerateRight();
+		}else if(d<0.93){
+			jump();
+		}
         // x方向の当たり判定
         // 移動先座標を求める
         double newX = x + vx;
@@ -195,29 +207,21 @@ jump();
      * イメージをロードする
      */
     private void loadImage() {
-        ImageIcon icon = new ImageIcon(getClass().getResource(
-                "image/enemy_01.gif"));
+    	String i_name = "";
+    	if(item_no == BALL){
+    		i_name = "image/item_02.gif";
+    	}else if(item_no == NAN_J_MIN){
+    		i_name = "image/char_05.gif";
+    	}
+        ImageIcon icon = new ImageIcon(getClass().getResource(i_name));
         image = icon.getImage();
     }
-
-    // アニメーション用スレッド
-    public class AnimationThread extends Thread {
-        public void run() {
-            while (true) {
-                // countを切り替える
-                if (count == 0) {
-                    count = 1;
-                } else if (count == 1) {
-                    count = 0;
-                }
-
-                // 300ミリ秒休止＝300ミリ秒おきに勇者の絵を切り替える
-                try {
-                    Thread.sleep(300);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+    
+    public boolean getCollision(Player player){
+    	if ((player.x-this.x)*(player.x-this.x) + (player.y-this.y)*(player.y-this.y) <= 400){
+    		return true;
+    	}else {
+    		return false;
+    	}
     }
 }
