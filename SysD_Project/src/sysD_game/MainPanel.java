@@ -201,7 +201,7 @@ public class MainPanel extends JPanel implements Runnable{
 		buf_y = mouseManager.point.getY();
 		int p_x = (int)player.getX();
 		int p_y = (int)player.getY();
-		if ((p_x + offsetX - buf_x)*(p_x + offsetX - buf_x) + (p_y + offsetY - buf_y)*(p_y + offsetY - buf_y) < 10000){
+		if ((p_x + offsetX - buf_x)*(p_x + offsetX - buf_x) + (p_y + offsetY - buf_y)*(p_y + offsetY - buf_y) < 1000000){
 			int buf_bx = Map.pixelsToTiles(buf_x);
 			int buf_by = Map.pixelsToTiles(buf_y);
 			block_no = player.digObject(buf_x, buf_y, map);
@@ -245,6 +245,7 @@ public class MainPanel extends JPanel implements Runnable{
 			}
 		} else {
 			textpop.hide();
+			this.requestFocus(true);
 		}
 
 		if (keyState.A) {
