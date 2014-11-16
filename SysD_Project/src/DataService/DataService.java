@@ -51,7 +51,6 @@ public class DataService {
 	}
 	
 	public void clientSocket () {
-		
 		// Client
 		try {
 			clientSocket = new Socket(HostName, PORT_NUMBER_IN);
