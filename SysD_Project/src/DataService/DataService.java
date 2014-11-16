@@ -15,13 +15,13 @@ public class DataService {
 	Socket clientSocket = null;
 	DataOutputStream outputStream_c;
 	BufferedReader inputStream_c;
-	String HostName;
+	String HostName = "local host";
 	int PORT_NUMBER_IN = 4649;
 	
 	// サーバー
 	ServerSocket myServer = null;
 	Socket senderSocket = null;
-	int PORT_NUMBER_OUT = 4648;
+	int PORT_NUMBER_OUT = 4649;
 	BufferedReader inputStream_s;
 	PrintStream outputStream_s;
 	String str;
