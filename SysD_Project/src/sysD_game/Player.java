@@ -18,16 +18,16 @@ public class Player extends Character{
     /**
      * @return Returns the x.
      */
-    public double getX() {
-        return x;
-    }
+    //public double getX() {
+    //    return x;
+    //}
     /**
      * @return Returns the y.
      */
-    public double getY() {
-        return y;
-    }
-    
+//   public double getY() {
+    //    return y;
+    //}
+
     /**
      * イメージをロードする
      */
@@ -36,14 +36,14 @@ public class Player extends Character{
                 "image/char_04.gif"));
         image = icon.getImage();
     }
-    
+
     public int digObject(double x, double y, Map map){
     	int tile_x = Map.pixelsToTiles(x - MainPanel.offsetX);
     	int tile_y = Map.pixelsToTiles(y - MainPanel.offsetY);
     	int block_no = 0;
-    	
+
     	block_no = map.map[tile_y][tile_x];
-    	
+
     	map.map[tile_y][tile_x] = 0;
 		/*確認用
 		 * System.out.println("X座標:" + x);
@@ -52,11 +52,11 @@ public class Player extends Character{
 		System.out.println("Y座標:" + tile_y);*/
     	return block_no;
     }
-    
+
     public void getItem(Item item_c){
     	item[item_c.item_no] += 1;
     	item_c.item_alive = 0;
     	//System.out.println(item[item_c.item_no]);
     }
-    
+
 }

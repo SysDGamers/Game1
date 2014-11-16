@@ -4,9 +4,9 @@ import javax.swing.ImageIcon;
 
 public class Enemy extends Character{
     public int talk = 0;
-    
+
     private String chara_data;
-    
+
     public Enemy(double x, double y, Map map, String chara_data) {
     	super(x, y, map);
         this.chara_data = chara_data;
@@ -17,16 +17,16 @@ public class Enemy extends Character{
     /**
      * @return Returns the x.
      */
-    public double getX() {
-        return x;
-    }
+    //public double getX() {
+    //    return x;
+    //}
     /**
      * @return Returns the y.
      */
-    public double getY() {
-        return y;
-    }
-    
+    //public double getY() {
+    //    return y;
+    //}
+
     /**
      * イメージをロードする
      */
@@ -35,7 +35,7 @@ public class Enemy extends Character{
                 "image/" + chara_data + ".gif"));
         image = icon.getImage();
     }
-    
+
     public void getCollision(Player player){
         // ランダムな動き
 		double d = Math.random();
