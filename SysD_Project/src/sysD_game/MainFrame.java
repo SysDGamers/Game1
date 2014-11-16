@@ -7,6 +7,8 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import InputManagers.MouseManager;
+
 public class MainFrame extends JFrame{
 	public static MainFrame mainFrame = new MainFrame();
     public MainFrame() {

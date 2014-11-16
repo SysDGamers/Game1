@@ -5,6 +5,8 @@ import java.awt.Rectangle;
 
 import javax.swing.JPanel;
 
+import InputManagers.MouseManager;
+
 public abstract class PopUp extends JPanel{
 	private static final int EDGE_WIDTH = 2;
 	protected Rectangle outerRect;

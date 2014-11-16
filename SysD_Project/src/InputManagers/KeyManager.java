@@ -1,4 +1,4 @@
-package sysD_game;
+package InputManagers;
 
 import java.awt.event.ActionEvent;
 
@@ -8,7 +8,7 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
-final class KeyManager {
+public class KeyManager {
 	private KeyManager() {};
 	private boolean isFirst = true;
 	private JFrame frame;

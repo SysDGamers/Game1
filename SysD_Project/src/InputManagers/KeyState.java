@@ -1,6 +1,6 @@
-package sysD_game;
+package InputManagers;
 
-final class KeyState {
+public class KeyState {
 	public boolean W;
 	public boolean A;
 	public boolean S;

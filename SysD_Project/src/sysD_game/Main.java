@@ -2,6 +2,8 @@ package sysD_game;
 
 import javax.swing.JFrame;
 
+import InputManagers.KeyManager;
+
 public class Main extends JFrame {
     public static void main(String[] args) {
     	

@@ -1,4 +1,4 @@
-package sysD_game;
+package InputManagers;
 
 import java.awt.event.KeyEvent;
 
