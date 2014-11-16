@@ -4,59 +4,30 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Rectangle;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class TextPopUp extends JPanel{
+public class TextPopUp extends PopUp{
 	
-	private static final int EDGE_WIDTH = 2;
 	private final String LAST_PHRASE = "THIS_IS_END_OF_TEXT\n";
-	private Rectangle rect;
-	private Rectangle innerRect;
-	private boolean isVisible = false;
 	private JTextArea textArea;
 	private String str;
-	private String[] strs = new String[10000];
+	private static String[] strs = new String[10000];
 	private int lineStart;
 	private int lineEnd;
 	private int lastLine;
-	private final MouseManager mouseManager = MouseManager.getInstance();
-	// キーの状態（押されているか、押されてないか）
-		final KeyState keyState = KeyState.getInstance();
 	
 	// 行の数
 	private int numRow;
 	
 	// 一度に表示する行数
-	private final int MAX_LETTER_PER_ROW = 5; 
-	
+	private final int MAX_LETTER_PER_ROW = 5;
 	
 	public TextPopUp(Rectangle rect){
-		this.rect = rect;
-		this.setLayout(null);
-		this.setBackground(Color.WHITE);
-		this.setBounds(rect);
-		this.setFocusable(true);
-		innerRect = new Rectangle(
-				EDGE_WIDTH,
-				EDGE_WIDTH,
-				rect.width - EDGE_WIDTH * 2,
-				rect.height - EDGE_WIDTH *2);
-		
-		this.drawText();
-	}
-
-	public void paintComponent () {
-		if (!isVisible) {
-			this.setVisible(false);
-			return;
-		}
-		this.setVisible(true);
-		textArea.setVisible(true);
+		super(rect);
 	}
 	
-	private void drawText () {
+	@Override
+	protected void drawComponent () {
 		textArea = new JTextArea();
 		textArea.setFont(new Font("Arial", Font.BOLD, 16));
 		textArea.setLineWrap(true);
@@ -142,19 +113,5 @@ public class TextPopUp extends JPanel{
 		this.str = str;
 		this.textOrganizer();
 		this.getFirstText();
-	}
-	
-	public void show () {
-		isVisible = true;
-		this.requestFocus(true);
-	}
-	
-	public void hide () {
-		isVisible = false;
-		
-	}
-	
-	public boolean isVisible() {
-		return isVisible;
 	}
 }
