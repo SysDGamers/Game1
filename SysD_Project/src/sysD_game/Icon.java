@@ -8,6 +8,8 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
+import character_package.Player;
+
 public class Icon {
 	// 幅
     public static final int WIDTH = 32;

@@ -1,6 +1,9 @@
-package sysD_game;
+package character_package;
 
 import javax.swing.ImageIcon;
+
+import sysD_game.Map;
+
 
 public class Enemy extends Character{
     public int talk = 0;

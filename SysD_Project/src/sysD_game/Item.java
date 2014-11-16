@@ -1,9 +1,11 @@
 package sysD_game;
-
+import character_package.*;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import javax.swing.ImageIcon;
+
+import character_package.Player;
 
 public class Item {
 	// アイテム定数
@@ -216,9 +218,9 @@ public class Item {
         ImageIcon icon = new ImageIcon(getClass().getResource(i_name));
         image = icon.getImage();
     }
-    
+
     public boolean getCollision(Player player){
-    	if ((player.x-this.x)*(player.x-this.x) + (player.y-this.y)*(player.y-this.y) <= 400){
+    	if ((player.getX()-this.x)*(player.getX()-this.x) + (player.getY()-this.y)*(player.getY()-this.y) <= 400){
     		return true;
     	}else {
     		return false;

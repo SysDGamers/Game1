@@ -11,6 +11,10 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
+import character_package.Action;
+import character_package.Enemy;
+import character_package.Player;
+
 
 //import createMap.Createmap3;
 
@@ -129,7 +133,7 @@ public class MainPanel extends JPanel implements Runnable{
 			}
 			player.update();
 			icon.update(player);
-			
+
 			// 再描画
 			repaint();
 
@@ -225,7 +229,7 @@ public class MainPanel extends JPanel implements Runnable{
 		}
 
 	}
-	
+
 	public void keyAction(Player player, Inventory inventory){
 		if(keyState.ESC){
 			inventory.show();
@@ -263,9 +267,9 @@ public class MainPanel extends JPanel implements Runnable{
 			// ジャンプする
 			player.jump();
 		}
-		
+
 		if(keyState.F){
-			action[action_count] = new Action(player.x, player.y, map, action_no);
+			action[action_count] = new Action(player.getX(), player.getY(), map, action_no);
 			action_count++;
 			if (action_draw_count < ACTION_MAX){
 				action_draw_count++;

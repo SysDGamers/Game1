@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 
 import javax.swing.ImageIcon;
 
+import character_package.Character;
+
 public class Map {
     // タイルサイズ
     public static final int TILE_SIZE = 16;

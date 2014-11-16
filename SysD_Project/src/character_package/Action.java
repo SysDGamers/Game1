@@ -1,16 +1,15 @@
-package sysD_game;
+package character_package;
 
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
-
 import javax.swing.ImageIcon;
 
-public abstract class Character {
-	// 幅
-    public static final int WIDTH = 32;
-    // 高さ
-    public static final int HEIGHT = 32;
+import sysD_game.MainPanel;
+import sysD_game.Map;
+
+
+public class Action extends Character{
     // スピード
     private static final int SPEED = 6;
     // ジャンプ力
@@ -19,11 +18,11 @@ public abstract class Character {
     private static final int RIGHT = 0;
     private static final int LEFT = 1;
     // 位置
-    protected double x;
-    protected double y;
+    public double x;
+    public double y;
     // 速度
-    protected double vx;
-    protected double vy;
+    private double vx;
+    private double vy;
     // 着地しているか
     private boolean onGround;
     // 向いている方向
@@ -31,28 +30,38 @@ public abstract class Character {
     // アニメーション用カウンタ
     private int count;
     // プレイヤー画像
-    protected Image image;
+    private Image image;
     // マップへの参照
-    protected Map map;
+    private Map map;
+    // HP
+    public int hp = 100;
+    // アイテム
+    public int item_no = 0;
+    public int action_alive = 0;
 
-    public Character() {
-    }
-
-    public Character(double x, double y, Map map) {
+	public Action(double x, double y, Map map, int item_no) {
         this.x = x;
         this.y = y;
         this.map = map;
-        this.vx = 0;
-        this.vy = 0;
+        this.item_no = item_no;
+
+        init();
+	}
+
+    public void init(){
+        vx = 10;
+        vy = 0;
         onGround = false;
         dir = RIGHT;
         count = 0;
+        action_alive = 1;
+        // イメージをロードする
+        loadImage();
 
         // アニメーション用スレッドを開始
         AnimationThread thread = new AnimationThread();
         thread.start();
     }
-
     /**
      * 停止する
      */
@@ -176,7 +185,11 @@ public abstract class Character {
     /**
      * イメージをロードする
      */
-    public abstract void loadImage();
+    public void loadImage() {
+        ImageIcon icon = new ImageIcon(getClass().getResource(
+                "image/item_02.gif"));
+        image = icon.getImage();
+    }
 
     // アニメーション用スレッド
     public class AnimationThread extends Thread {
@@ -198,4 +211,21 @@ public abstract class Character {
             }
         }
     }
+
+    public int breakObject(double x, double y, Map map){
+    	int tile_x = Map.pixelsToTiles(x - MainPanel.offsetX);
+    	int tile_y = Map.pixelsToTiles(y - MainPanel.offsetY);
+    	int block_no = 0;
+
+    	block_no = map.map[tile_y][tile_x];
+
+    	map.map[tile_y][tile_x] = 0;
+		/*確認用
+		 * System.out.println("X座標:" + x);
+		System.out.println("Y座標:" + y);
+		System.out.println("X座標:" + tile_x);
+		System.out.println("Y座標:" + tile_y);*/
+    	return block_no;
+    }
+
 }

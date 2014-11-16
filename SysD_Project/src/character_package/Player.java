@@ -1,6 +1,11 @@
-package sysD_game;
+package character_package;
 
 import javax.swing.ImageIcon;
+
+import sysD_game.Item;
+import sysD_game.MainPanel;
+import sysD_game.Map;
+
 
 public class Player extends Character{
     // HP
