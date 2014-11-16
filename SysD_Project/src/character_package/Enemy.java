@@ -22,7 +22,7 @@ public class Enemy extends Character{
      */
     public void loadImage() {
         ImageIcon icon = new ImageIcon(getClass().getResource(
-                "image/" + chara_data + ".gif"));
+                "../sysD_game/image/" + chara_data + ".gif"));
         image = icon.getImage();
     }
 

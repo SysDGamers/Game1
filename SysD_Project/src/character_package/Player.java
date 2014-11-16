@@ -25,7 +25,7 @@ public class Player extends Character{
      */
     public void loadImage() {
         ImageIcon icon = new ImageIcon(getClass().getResource(
-                "image/char_04.gif"));
+                "../sysD_game/image/char_04.gif"));
         image = icon.getImage();
     }
 
