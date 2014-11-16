@@ -27,9 +27,9 @@ public class Character {
     // 着地しているか
     private boolean onGround;
     // 向いている方向
-    private int dir;
+    protected int dir;
     // アニメーション用カウンタ
-    private int count;
+    protected int count;
     // プレイヤー画像
     protected Image image;
     // マップへの参照

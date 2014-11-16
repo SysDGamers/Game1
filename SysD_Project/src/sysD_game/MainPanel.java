@@ -83,7 +83,7 @@ public class MainPanel extends JPanel implements Runnable{
 		player = new Player(192, 32, map);
 		// 敵を作成
 		enemy = new Enemy(400, 32, map, "char_02");
-		enemy2 = new Enemy(140, 32, map, "char_03");
+		enemy2 = new Enemy(140, 32, map, "char_06");
 		// アイテム作成（準備）
 		item = new Item[ITEM_MAX];
 		// アクション作成（準備）
