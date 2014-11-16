@@ -40,10 +40,10 @@ public class Action extends Character{
         this.y = y;
         this.map = map;
         this.item_no = item_no;
-        
+
         init();
 	}
-	
+
     public void init(){
         vx = 10;
         vy = 0;
@@ -53,7 +53,7 @@ public class Action extends Character{
         action_alive = 1;
         // イメージをロードする
         loadImage();
-        
+
         // アニメーション用スレッドを開始
         AnimationThread thread = new AnimationThread();
         thread.start();
@@ -151,14 +151,14 @@ public class Action extends Character{
 
     /**
      * プレイヤーを描画
-     * 
+     *
      * @param g 描画オブジェクト
      * @param offsetX X方向オフセット
      * @param offsetY Y方向オフセット
      */
     public void draw(Graphics g, int offsetX, int offsetY) {
         g.drawImage(image,
-                (int) x + offsetX, (int) y + offsetY, 
+                (int) x + offsetX, (int) y + offsetY,
                 (int) x + offsetX + WIDTH, (int) y + offsetY + HEIGHT,
                 count * WIDTH, dir * HEIGHT,
                 count * WIDTH + WIDTH, dir * HEIGHT + HEIGHT,
@@ -177,16 +177,16 @@ public class Action extends Character{
     public double getY() {
         return y;
     }
-    
+
     /**
      * イメージをロードする
      */
-    private void loadImage() {
+    public void loadImage() {
         ImageIcon icon = new ImageIcon(getClass().getResource(
                 "image/item_02.gif"));
         image = icon.getImage();
     }
-    
+
     // アニメーション用スレッド
     public class AnimationThread extends Thread {
         public void run() {
@@ -207,14 +207,14 @@ public class Action extends Character{
             }
         }
     }
-    
+
     public int breakObject(double x, double y, Map map){
     	int tile_x = Map.pixelsToTiles(x - MainPanel.offsetX);
     	int tile_y = Map.pixelsToTiles(y - MainPanel.offsetY);
     	int block_no = 0;
-    	
+
     	block_no = map.map[tile_y][tile_x];
-    	
+
     	map.map[tile_y][tile_x] = 0;
 		/*確認用
 		 * System.out.println("X座標:" + x);
@@ -223,5 +223,5 @@ public class Action extends Character{
 		System.out.println("Y座標:" + tile_y);*/
     	return block_no;
     }
-    
+
 }

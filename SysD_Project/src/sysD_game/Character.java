@@ -6,7 +6,7 @@ import java.awt.Point;
 
 import javax.swing.ImageIcon;
 
-public class Character {
+public abstract class Character {
 	// 幅
     public static final int WIDTH = 32;
     // 高さ
@@ -37,7 +37,7 @@ public class Character {
 
     public Character() {
     }
-    
+
     public Character(double x, double y, Map map) {
         this.x = x;
         this.y = y;
@@ -47,7 +47,7 @@ public class Character {
         onGround = false;
         dir = RIGHT;
         count = 0;
-        
+
         // アニメーション用スレッドを開始
         AnimationThread thread = new AnimationThread();
         thread.start();
@@ -146,14 +146,14 @@ public class Character {
 
     /**
      * プレイヤーを描画
-     * 
+     *
      * @param g 描画オブジェクト
      * @param offsetX X方向オフセット
      * @param offsetY Y方向オフセット
      */
     public void draw(Graphics g, int offsetX, int offsetY) {
         g.drawImage(image,
-                (int) x + offsetX, (int) y + offsetY, 
+                (int) x + offsetX, (int) y + offsetY,
                 (int) x + offsetX + WIDTH, (int) y + offsetY + HEIGHT,
                 count * WIDTH, dir * HEIGHT,
                 count * WIDTH + WIDTH, dir * HEIGHT + HEIGHT,
@@ -172,16 +172,12 @@ public class Character {
     public double getY() {
         return y;
     }
-    
+
     /**
      * イメージをロードする
      */
-    private void loadImage() {
-        ImageIcon icon = new ImageIcon(getClass().getResource(
-                "image/char_01.gif"));
-        image = icon.getImage();
-    }
-    
+    public abstract void loadImage();
+
     // アニメーション用スレッド
     public class AnimationThread extends Thread {
         public void run() {

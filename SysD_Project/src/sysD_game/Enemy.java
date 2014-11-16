@@ -15,22 +15,9 @@ public class Enemy extends Character{
     }
 
     /**
-     * @return Returns the x.
-     */
-    //public double getX() {
-    //    return x;
-    //}
-    /**
-     * @return Returns the y.
-     */
-    //public double getY() {
-    //    return y;
-    //}
-
-    /**
      * イメージをロードする
      */
-    private void loadImage() {
+    public void loadImage() {
         ImageIcon icon = new ImageIcon(getClass().getResource(
                 "image/" + chara_data + ".gif"));
         image = icon.getImage();
