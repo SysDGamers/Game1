@@ -15,7 +15,7 @@ public class DataService {
 	Socket clientSocket = null;
 	DataOutputStream outputStream_c;
 	BufferedReader inputStream_c;
-	String HostName = "local host";
+	String HostName = "localhost";
 	int PORT_NUMBER_IN = 4649;
 	
 	// サーバー
