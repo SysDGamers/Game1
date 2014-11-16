@@ -27,6 +27,10 @@ public enum KeyList {
     Frelease("released F", KeyStroke.getKeyStroke(KeyEvent.VK_F, 0, true)),
     ENTER("ENTER", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0)),
     ENTERrelease("released ENTER", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true)),
+    O("ENTER", KeyStroke.getKeyStroke(KeyEvent.VK_O, 0)),
+    Orelease("released ENTER", KeyStroke.getKeyStroke(KeyEvent.VK_O, 0, true)),
+    L("ENTER", KeyStroke.getKeyStroke(KeyEvent.VK_L, 0)),
+    Lrelease("released ENTER", KeyStroke.getKeyStroke(KeyEvent.VK_L, 0, true)),
     ;
 	
 	private String text;

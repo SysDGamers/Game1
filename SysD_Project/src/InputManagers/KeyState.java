@@ -9,6 +9,8 @@ public class KeyState {
 	public boolean Q;
 	public boolean F;
 	public boolean ENTER;
+	public boolean L;
+	public boolean O;
 	
 	private KeyState() {}
 	private static class KeyStateHolder {

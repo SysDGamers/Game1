@@ -5,12 +5,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
-import InputManagers.KeyList;
-import InputManagers.KeyState;
-import InputManagers.KeyManager;
 
 import javax.swing.JPanel;
 
+import DataService.DataService;
+import InputManagers.KeyState;
 import InputManagers.MouseManager;
 
 
@@ -61,6 +60,8 @@ public class MainPanel extends JPanel implements Runnable{
 	public Point point;
 	// ゲームループ用スレッド
 	private Thread gameLoop;
+	// DataService
+	private DataService DS = new DataService();
 
 	public MainPanel() {
 		// パネルの推奨サイズを設定、pack()するときに必要
@@ -275,6 +276,13 @@ public class MainPanel extends JPanel implements Runnable{
 			if (action_count >= ACTION_MAX){
 				action_count = 0;
 			}
+		}
+		
+		if (keyState.L) {
+			DS.clientSocket();
+		}
+		if (keyState.O) {
+			DS.serverSocket();
 		}
 	}
 

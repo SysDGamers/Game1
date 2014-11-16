@@ -94,6 +94,18 @@ public class KeyManager {
 			if (action == "released ENTER") {
 				keyState.ENTER = false;
 			}
+			if (action == "O") {
+				keyState.O = true;
+			}
+			if (action == "released O") {
+				keyState.O = false;
+			}
+			if (action == "L") {
+				keyState.L = true;
+			}
+			if (action == "released L") {
+				keyState.L = false;
+			}
 			
 			
 			
