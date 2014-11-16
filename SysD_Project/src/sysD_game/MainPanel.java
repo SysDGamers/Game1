@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 //import createMap.Createmap3;
 
-public class MainPanel extends JPanel implements Runnable, MouseListener, MouseMotionListener{
+public class MainPanel extends JPanel implements Runnable{
 	// パネルサイズ
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
@@ -31,8 +31,9 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 	//ウインドウ
 	private Inventory inventory;
 	private static Rectangle WIND_RECT = new Rectangle(100, 450, 600,100);
-	// テキスト表示
-	//private TextPopUp textpop;
+	// テキスト
+	private TextPopUp textpop;
+	private Text text;
 	private Text text1;
 	private Text text2;
 	// アイコン
@@ -57,6 +58,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 	private boolean quote = false;
 	// マウスの状態
 	public boolean mousepressed;
+	final MouseManager mouseManager = MouseManager.getInstance();
 	// 座標をまとめる
 	public Point point;
 	// ゲームループ用スレッド
@@ -95,14 +97,12 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 		stand1 = new Stand(Stand.SABER);
 		stand2 = new Stand(Stand.LIN);
 		// キーイベントリスナーを登録
-		addMouseListener(this);
+		addMouseListener(mouseManager);
+		addMouseMotionListener(mouseManager);
 		// インベントリ作成
 		inventory = new Inventory(WIND_RECT);
-		//textpop = new TextPopUp(WIND_RECT);
-		//this.add(textpop);
-		// マウス関連
-		addMouseListener((MouseListener) this);
-		addMouseMotionListener((MouseMotionListener) this);
+		textpop = new TextPopUp(WIND_RECT);
+		this.add(textpop);
 
 		// ゲームループ開始
 		gameLoop = new Thread(this);
@@ -117,7 +117,7 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 			// 各キーアクションの設定
 			keyAction(player, inventory);
 			// ブロック掘る+アイテム生成
-			if (mousepressed == true){
+			if (mouseManager.isPressed() == true){
 				genItem(map, item);
 			}
 			// プレイヤーの状態を更新
@@ -216,8 +216,8 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 	public void genItem(Map map, Item[] item){
 		double buf_x, buf_y;
 		int block_no;
-		buf_x = point.x;
-		buf_y = point.y;
+		buf_x = mouseManager.point.getX();
+		buf_y = mouseManager.point.getY();
 		int p_x = (int)player.getX();
 		int p_y = (int)player.getY();
 		if ((p_x + offsetX - buf_x)*(p_x + offsetX - buf_x) + (p_y + offsetY - buf_y)*(p_y + offsetY - buf_y) < 10000){
@@ -251,17 +251,22 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 		} else if (!keyState.ESC){
 			inventory.hide();
 		}
-		/*if (keyState.Q) {
+		if (keyState.Q) {
 			if (quote)
 				quote = false;
 			else
 				quote = true;
 		}
 		if (quote) {
-			//textpop.show();
+			textpop.show();
+			if (keyState.ENTER) {
+				textpop.getNextText();
+			}
 		} else {
-			//textpop.hide();
-		}*/
+			textpop.hide();
+			this.setFocusable(true);
+			this.requestFocus(true);
+		}
 
 		if (keyState.A) {
 			// 左キーが押されていれば左向きに加速
@@ -289,30 +294,5 @@ public class MainPanel extends JPanel implements Runnable, MouseListener, MouseM
 				action_count = 0;
 			}
 		}
-	}
-
-	public void mouseEntered(MouseEvent e){
-	}
-
-	public void mouseExited(MouseEvent e){
-	}
-
-	public void mousePressed(MouseEvent e){
-		mousepressed = true;
-		point = e.getPoint();
-	}
-
-	public void mouseReleased(MouseEvent e){
-		mousepressed = false;
-	}
-
-	public void mouseClicked(MouseEvent e){
-	}
-
-	public void mouseDragged(MouseEvent e){
-		point = e.getPoint();
-	}
-
-	public void mouseMoved(MouseEvent e){
 	}
 }
