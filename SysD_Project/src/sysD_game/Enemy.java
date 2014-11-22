@@ -27,9 +27,19 @@ public class Enemy extends Character{
 	private Rectangle innerRect;
 	private boolean isVisible = true;
     
-    public Enemy(double x, double y, Map map, String chara_data, int char_no) {
+    public Enemy(double x, double y, Map map, int char_no) {
     	super(x, y, map);
-        this.chara_data = chara_data;
+    	switch(char_no){
+    		case Enemy.SABER:
+    			this.chara_data = "char_02";
+    			break;
+    		case Enemy.LIN:
+    			this.chara_data = "char_06";
+    			break;
+    		case Enemy.ANGELA:
+    			this.chara_data = "angela";
+    			break;
+    	}
         img_no = char_no;
 		this.rect = MainPanel.WIND_RECT;
 		innerRect = new Rectangle(
@@ -111,7 +121,7 @@ public class Enemy extends Character{
 	
     public void draw_stand(Graphics g, int offsetX, int offsetY) {
     	switch(img_no){
-	    	case 0:
+	    	case Enemy.SABER:
 		        g.drawImage(image_s,
 		                (int) 0 , (int) 100, 
 		                (int) 0 + 400, (int) 100 + 400,
@@ -119,7 +129,7 @@ public class Enemy extends Character{
 		                400, 400,
 		                null);    	
 	    		break;
-	    	case 1:
+	    	case Enemy.LIN:
 		    	g.drawImage(image_s,
 		    	(int) 400 , (int) 100, 
 		    	(int) 400 + 400, (int) 100 + 400,
@@ -127,7 +137,7 @@ public class Enemy extends Character{
 		    	400, 400,
 		    	null);    	
 		        break;
-	    	case 2:
+	    	case Enemy.ANGELA:
 		    	g.drawImage(image_s,
 		    	(int) 400 , (int) 100, 
 		    	(int) 400 + 400, (int) 100 + 400,
@@ -141,13 +151,13 @@ public class Enemy extends Character{
     private void loadImage_stand() {
     	String a = "";
     	switch(img_no){
-	    	case 0:
+	    	case Enemy.SABER:
 	    		a = "big_01.gif";
 	    		break;
-	    	case 1:
+	    	case Enemy.LIN:
 	    		a = "big_02.gif";
 	    		break;
-	    	case 2:
+	    	case Enemy.ANGELA:
 	    		a = "angela_big.gif";
 	    		break;
 	    	}
@@ -173,17 +183,17 @@ public class Enemy extends Character{
 		g.setFont(f);
 		g.setColor(Color.white);
     	switch(img_no){
-    	case 0:
+    	case Enemy.SABER:
     		g.drawString("問おう 貴方が私のマスターか", innerRect.x + 15, innerRect.y + 25);
     		g.drawString("やっと気づいた。シロウは、私の鞘だったのですね", innerRect.x + 15, innerRect.y + 55);
     		g.drawString("判らぬか、下郎。そのような物より、私はシロウが欲しいと言ったのだ", innerRect.x + 15, innerRect.y + 85);
     		break;
-    	case 1:
+    	case Enemy.LIN:
     		g.drawString("私はこれから何が起きるかわかってるし、覚悟もできてる。十年前からね", innerRect.x + 15, innerRect.y + 25);
     		g.drawString("世界なんてとっくに私の物じゃない。", innerRect.x + 15, innerRect.y + 55);
     		g.drawString("心の贅肉ね", innerRect.x + 15, innerRect.y + 85);
 	        break;
-    	case 2:
+    	case Enemy.ANGELA:
     		g.drawString("これもあなたの言ってた『仁義』ってやつ？", innerRect.x + 15, innerRect.y + 25);
     		g.drawString("楽園を追放されたアダムとイヴの気持ちがわかるわ", innerRect.x + 15, innerRect.y + 55);
     		g.drawString("まだこの世界をろくに知らない", innerRect.x + 15, innerRect.y + 85);
