@@ -30,18 +30,16 @@ public class MainPanel extends JPanel implements Runnable{
 	public static int offsetY;
 	//ウインドウ
 	private Inventory inventory;
-	private static Rectangle WIND_RECT = new Rectangle(100, 450, 600,100);
+	static Rectangle WIND_RECT = new Rectangle(100, 450, 600,100);
 	// テキスト
 	private TextPopUp textpop;
-	private Text text;
-	private Text text1;
-	private Text text2;
 	// アイコン
 	private Icon icon;
 	// プレイヤー
 	private Player player;
 	private Enemy enemy;
 	private Enemy enemy2;
+	private Enemy enemy3;
 	// オブジェクト
 	private Item[] item;
 	private int item_no = 0;
@@ -63,9 +61,6 @@ public class MainPanel extends JPanel implements Runnable{
 	public Point point;
 	// ゲームループ用スレッド
 	private Thread gameLoop;
-	// 立ち絵
-	private Stand stand1;
-	private Stand stand2;
 
 	public MainPanel() {
 		// パネルの推奨サイズを設定、pack()するときに必要
@@ -82,20 +77,16 @@ public class MainPanel extends JPanel implements Runnable{
 		// プレイヤーを作成
 		player = new Player(192, 32, map);
 		// 敵を作成
-		enemy = new Enemy(400, 32, map, "char_02");
-		enemy2 = new Enemy(140, 32, map, "char_06");
+		enemy = new Enemy(400, 32, map, "char_02", Enemy.SABER);
+		enemy2 = new Enemy(140, 32, map, "char_06", Enemy.LIN);
+		enemy3 = new Enemy(500, 32, map, "angela", Enemy.ANGELA);
 		// アイテム作成（準備）
 		item = new Item[ITEM_MAX];
 		// アクション作成（準備）
 		action = new Action[ACTION_MAX];
 		// アイコン作成
 		icon = new Icon();
-		// テキスト＆テキストウィンドウ作成
-		text1 = new Text(WIND_RECT, Stand.SABER);
-		text2 = new Text(WIND_RECT, Stand.LIN);
-		// 立ち絵作成
-		stand1 = new Stand(Stand.SABER);
-		stand2 = new Stand(Stand.LIN);
+
 		// キーイベントリスナーを登録
 		addMouseListener(mouseManager);
 		addMouseMotionListener(mouseManager);
@@ -125,6 +116,8 @@ public class MainPanel extends JPanel implements Runnable{
 			enemy2.update();
 			enemy.getCollision(player);	// プレイヤーとの当たり判定
 			enemy2.getCollision(player);
+			enemy3.update();
+			enemy3.getCollision(player);
 			if(item_draw_count != 0){	// 何個アイテムあるか
 				for(int i = 0; i < item_draw_count; i++){
 					if(item[i].item_alive == 1){	// そのアイテムは取得済みでないか
@@ -187,6 +180,7 @@ public class MainPanel extends JPanel implements Runnable{
 		player.draw(g, offsetX, offsetY);
 		enemy.draw(g, offsetX, offsetY);
 		enemy2.draw(g, offsetX, offsetY);
+		enemy3.draw(g, offsetX, offsetY);
 		if(item_draw_count != 0){
 			for(int i = 0; i < item_draw_count; i++){
 				if(item[i].item_alive == 1){
@@ -202,12 +196,16 @@ public class MainPanel extends JPanel implements Runnable{
 			}
 		}
 		if (enemy.talk == 1){
-			stand1.draw(g, offsetX, offsetY);
-			text1.draw(g);
+			enemy.draw_stand(g, offsetX, offsetY);
+			enemy.draw_text(g);
 		}
 		if (enemy2.talk == 1){
-			stand2.draw(g, offsetX, offsetY);
-			text2.draw(g);
+			enemy2.draw_stand(g, offsetX, offsetY);
+			enemy2.draw_text(g);
+		}
+		if (enemy3.talk == 1){
+			enemy3.draw_stand(g, offsetX, offsetY);
+			enemy3.draw_text(g);
 		}
 		inventory.draw(g);
 		icon.draw(g, offsetX, offsetY, player);
